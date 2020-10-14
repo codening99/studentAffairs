@@ -15,6 +15,10 @@ import java.util.List;
  * @create : 2020-10-02 23:22
  */
 public class BaseDao<T>{
+    private Class<T> aClass;
+    public BaseDao(Class<T> aClass){
+        this.aClass = aClass;
+    }
     private int update(int type, T obj) {
         StringBuilder sb = null;
         switch (type) {
@@ -34,11 +38,12 @@ public class BaseDao<T>{
         // 获取表名
         Class<?> c = obj.getClass();
         // 添加到sql语句中
+        assert false;
         sb.append(getTableNameFromClass(c));
         // 获取所有的Field和Method
         Method[] methods = c.getDeclaredMethods();
         // 存放表名和值的容器
-        List<String> tableNames = new ArrayList<String>();
+        List<String> tableNames = new ArrayList<>();
         final List<Object> tableValues = new ArrayList<>();
         String condition = null;
         // 填充容器
@@ -129,10 +134,10 @@ public class BaseDao<T>{
      * @param paras 必须为偶数,格式为 列名,值,列名,值,可以为空
      * @return 查询数组
      */
-    public List<T> queryList(Class<T> c, Object... paras) {
+    public List<T> queryList(Object... paras) {
         if (paras.length % 2 != 0) return null;
         StringBuilder sb = new StringBuilder("SELECT * FROM ");
-        sb.append(getTableNameFromClass(c));
+        sb.append(getTableNameFromClass(aClass));
         final List<Object> tableValues = new ArrayList<>();
         if (paras.length != 0) {
             sb.append(" WHERE ");
@@ -140,7 +145,7 @@ public class BaseDao<T>{
         }
         try {
             Connection conn = DBUtils.getConnection();
-            return DBUtils.queryList(c, conn, sb.toString(), tableValues);
+            return DBUtils.queryList(aClass, conn, sb.toString(), tableValues);
         } catch (SQLException throwable) {
             throwable.printStackTrace();
             return null;
@@ -158,21 +163,20 @@ public class BaseDao<T>{
     /**
      * 查询表并返回对象
      *
-     * @param c     表数据类型对应的类
      * @param paras 必须为偶数,格式为 列名,值,列名,值
      * @return 实例对象
      */
-    public T query(Class<T> c, Object... paras) {
+    public T query(Object... paras) {
         if (paras.length % 2 != 0 || paras.length == 0) return null;
         StringBuilder sb = new StringBuilder("SELECT * FROM ");
-        sb.append(getTableNameFromClass(c));
+        sb.append(getTableNameFromClass(aClass));
 
         sb.append(" WHERE ");
         final List<Object> tableValues = new ArrayList<>();
         selectToSql(sb, tableValues, paras);
         try {
             Connection conn = DBUtils.getConnection();
-            return DBUtils.query(c,conn, sb.toString(), tableValues);
+            return DBUtils.query(aClass,conn, sb.toString(), tableValues);
         } catch (SQLException throwable) {
             throwable.printStackTrace();
             return null;
