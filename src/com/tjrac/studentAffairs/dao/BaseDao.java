@@ -15,7 +15,7 @@ import java.util.List;
  * @create : 2020-10-02 23:22
  */
 public class BaseDao<T>{
-    private Class<T> aClass;
+    private final Class<T> aClass;
     public BaseDao(Class<T> aClass){
         this.aClass = aClass;
     }
