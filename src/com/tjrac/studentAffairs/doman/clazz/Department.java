@@ -6,7 +6,7 @@ package com.tjrac.studentAffairs.doman.clazz;
  * @author : xziying
  * @create : 2020-10-14 22:32
  */
-public class department {
+public class Department {
     Integer department_id;      // 主键 自增 索引
 
     String name;                // 系名

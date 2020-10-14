@@ -6,7 +6,7 @@ package com.tjrac.studentAffairs.doman.clazz;
  * @author : xziying
  * @create : 2020-10-14 22:32
  */
-public class clazz {
+public class Clazz {
     Integer clazz_id;           // 主键 自增 索引
     Integer specialty_id;       // 专业id
     Integer grade;              // 年级，一般为年份，方便管理
