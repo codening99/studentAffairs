@@ -57,7 +57,7 @@ public class BaseDao<T>{
                     e.printStackTrace();
                     return -1;
                 }
-                if (value == null) continue;
+                if (value == null) {continue;}
                 if (type!=1 && getSqlIdFromClass(c).toLowerCase().equals(getFieldFromMethod(mName))) {
                     condition = getSqlIdFromClass(c).toLowerCase() + "=" + value;
                     continue;
@@ -70,7 +70,7 @@ public class BaseDao<T>{
 
         // 填充sql语句的字段部分
         if (type == 1) {
-            for (int i = 0; i < tableNames.size(); i++)
+            for (int i = 0; i < tableNames.size(); i++) {
                 if (i == 0) {
                     sb.append("(`");
                     sb.append(tableNames.get(i));
@@ -82,25 +82,30 @@ public class BaseDao<T>{
                     sb.append("`,`");
                     sb.append(tableNames.get(i));
                 }
-            sb.append(" values(");
+                sb.append(" values(");
+            }
             // 填充sql语句的值部分
             for (int i = 0; i < tableNames.size(); i++) {
                 sb.append('?');
                 if (i != tableNames.size() - 1)
-                    sb.append(',');
+                {sb.append(',');}
             }
             sb.append(")");
         } else if (type == 2) {
-            for (int i = 0; i < tableNames.size(); i++)
-                if (i == 0) sb.append(" set ").append("`").append(tableNames.get(i)).append("`=?");
-                else {
+            for (int i = 0; i < tableNames.size(); i++) {
+                if (i == 0) {
+                    sb.append(" set ").append("`").append(tableNames.get(i)).append("`=?");
+                } else {
                     sb.append(",`");
                     sb.append(tableNames.get(i)).append("`=?");
                 }
-            if (condition == null) return -1;
-            sb.append(" where ").append(condition);
+                if (condition == null) {
+                    return -1;
+                }
+                sb.append(" where ").append(condition);
+            }
         } else {
-            if (condition == null) return -1;
+            if (condition == null) {return -1;}
             sb.append(" where ").append(condition);
             tableValues.clear();
         }
@@ -135,7 +140,7 @@ public class BaseDao<T>{
      * @return 查询数组
      */
     public List<T> queryList(Object... paras) {
-        if (paras.length % 2 != 0) return null;
+        if (paras.length % 2 != 0) {return null;}
         StringBuilder sb = new StringBuilder("SELECT * FROM ");
         sb.append(getTableNameFromClass(aClass));
         final List<Object> tableValues = new ArrayList<>();
@@ -153,7 +158,7 @@ public class BaseDao<T>{
     }
     private void selectToSql(StringBuilder sb, List<Object> tableValues, Object[] paras) {
         for (int i = 0; i < paras.length / 2; i++) {
-            if (i != 0) sb.append(" AND ");
+            if (i != 0) {sb.append(" AND ");}
             sb.append("`").append(paras[i * 2]).append("`=?");
             tableValues.add(paras[i * 2 + 1]);
 
@@ -167,7 +172,7 @@ public class BaseDao<T>{
      * @return 实例对象
      */
     public T query(Object... paras) {
-        if (paras.length % 2 != 0 || paras.length == 0) return null;
+        if (paras.length % 2 != 0 || paras.length == 0) {return null;}
         StringBuilder sb = new StringBuilder("SELECT * FROM ");
         sb.append(getTableNameFromClass(aClass));
 

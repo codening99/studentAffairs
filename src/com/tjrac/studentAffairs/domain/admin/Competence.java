@@ -12,6 +12,7 @@ public class Competence {
     String explanation;     // 权限说明
 
     public Competence() {
+
     }
 
     public Competence(Integer competence_id, String name, String explanation) {
