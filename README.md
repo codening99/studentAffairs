@@ -1,4 +1,4 @@
-# studentAffairs
+e# studentAffairs
 
 ## 建表约定
 

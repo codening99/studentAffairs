@@ -1,15 +1,11 @@
 package com.tjrac.studentAffairs.domain.user;
 
-/**
- * student 学生表
- *
- * @author : xziying
- * @create : 2020-10-14 21:28
- */
+
 public class Student {
     private Integer student_id;     // 学生id 自增 索引
     private String sno;             // 学号 唯一 不能为空
     private String name;            // 学生姓名
+    private String sex;
     private String password;        // 密码
     private Integer competence;     // 权限 参考权限表
     private String grade_name;          // 年级，一般为年份，方便管理
@@ -21,9 +17,10 @@ public class Student {
     public Student() {
     }
 
-    public Student(String sno, String name, String password, Integer competence, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
+    public Student(String sno, String name,String sex, String password, Integer competence, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
         this.sno = sno;
         this.name = name;
+        this.sex=sex;
         this.password = password;
         this.competence = competence;
         this.grade_name = grade_name;
@@ -33,10 +30,11 @@ public class Student {
         this.direction_name = direction_name;
     }
 
-    public Student(Integer student_id, String sno, String name, String password, Integer competence, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
+    public Student(Integer student_id, String sno, String name,String sex, String password, Integer competence, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
         this.student_id = student_id;
         this.sno = sno;
         this.name = name;
+        this.sex=sex;
         this.password = password;
         this.competence = competence;
         this.grade_name = grade_name;
@@ -68,6 +66,14 @@ public class Student {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public String getPassword() {
@@ -132,6 +138,7 @@ public class Student {
                 "student_id=" + student_id +
                 ", sno='" + sno + '\'' +
                 ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
                 ", password='" + password + '\'' +
                 ", competence=" + competence +
                 ", grade_name=" + grade_name +
