@@ -9,6 +9,7 @@ package com.tjrac.studentAffairs.doman.user;
 public class Student {
     private Integer student_id;     // 学生id 自增 索引
     private String sno;             // 学号 唯一 不能为空
+    private String name;            // 学生姓名
     private String password;        // 密码
     private Integer competence;     // 权限 参考权限表
     private Integer grade;          // 年级，一般为年份，方便管理
@@ -20,8 +21,9 @@ public class Student {
     public Student() {
     }
 
-    public Student(String sno, String password, Integer competence, Integer grade, String clazz, String department, String specialty, String direction) {
+    public Student(String sno, String name, String password, Integer competence, Integer grade, String clazz, String department, String specialty, String direction) {
         this.sno = sno;
+        this.name = name;
         this.password = password;
         this.competence = competence;
         this.grade = grade;
@@ -31,9 +33,10 @@ public class Student {
         this.direction = direction;
     }
 
-    public Student(Integer student_id, String sno, String password, Integer competence, Integer grade, String clazz, String department, String specialty, String direction) {
+    public Student(Integer student_id, String sno, String name, String password, Integer competence, Integer grade, String clazz, String department, String specialty, String direction) {
         this.student_id = student_id;
         this.sno = sno;
+        this.name = name;
         this.password = password;
         this.competence = competence;
         this.grade = grade;
@@ -57,6 +60,14 @@ public class Student {
 
     public void setSno(String sno) {
         this.sno = sno;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -120,6 +131,7 @@ public class Student {
         return "Student{" +
                 "student_id=" + student_id +
                 ", sno='" + sno + '\'' +
+                ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", competence=" + competence +
                 ", grade=" + grade +
