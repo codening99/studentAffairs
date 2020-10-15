@@ -1,7 +1,6 @@
 package com.tjrac.studentAffairs.service;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  * UserService User类业务层接口
@@ -14,7 +13,6 @@ public interface UserService {
         约定session对象：
         登录成功后，把登录对象信息存放到session的user字段里，用于其他方法判断在线状态
      */
-
     /**
      * 学生端和教师端的登录接口
      * @param session 浏览器回话对象
@@ -48,6 +46,5 @@ public interface UserService {
     String modifyObject(HttpSession session, Object object);
     String delObject(HttpSession session, Object object);
     String selectObject(HttpSession session, Class<?> c);
-
 
 }

@@ -49,6 +49,15 @@ public class Student {
         this.direction_name = direction_name;
     }
 
+
+    public Integer getStudent_id() {
+        return student_id;
+    }
+
+    public void setStudent_id(Integer student_id) {
+        this.student_id = student_id;
+    }
+
     public String getSno() {
         return sno;
     }
@@ -129,5 +138,20 @@ public class Student {
         this.direction_name = direction_name;
     }
 
-
+    @Override
+    public String toString() {
+        return "Student{" +
+                "student_id=" + student_id +
+                ", sno='" + sno + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", student_sex='" + student_sex + '\'' +
+                ", competence=" + competence +
+                ", grade_name='" + grade_name + '\'' +
+                ", clazz_name='" + clazz_name + '\'' +
+                ", department_name='" + department_name + '\'' +
+                ", specialty_name='" + specialty_name + '\'' +
+                ", direction_name='" + direction_name + '\'' +
+                '}';
+    }
 }
