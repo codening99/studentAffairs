@@ -8,18 +8,18 @@ package com.tjrac.studentAffairs.doman.student;
  */
 public class Grade {
     private Integer grade_id;  //主键 年级id
-    private String name;      //年级名 唯一
+    private String grade_name;      //年级名 唯一
 
     public Grade() {
     }
 
-    public Grade(String name) {
-        this.name = name;
+    public Grade(String grade_name) {
+        this.grade_name = grade_name;
     }
 
-    public Grade(Integer grade_id, String name) {
+    public Grade(Integer grade_id, String grade_name) {
         this.grade_id = grade_id;
-        this.name = name;
+        this.grade_name = grade_name;
     }
 
     public Integer getGrade_id() {
@@ -30,19 +30,19 @@ public class Grade {
         this.grade_id = grade_id;
     }
 
-    public String getName() {
-        return name;
+    public String getGrade_name() {
+        return grade_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGrade_name(String grade_name) {
+        this.grade_name = grade_name;
     }
 
     @Override
     public String toString() {
         return "Grade{" +
                 "grade_id=" + grade_id +
-                ", name='" + name + '\'' +
+                ", grade_name='" + grade_name + '\'' +
                 '}';
     }
 }

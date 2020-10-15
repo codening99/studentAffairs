@@ -8,18 +8,18 @@ package com.tjrac.studentAffairs.doman.student;
  */
 public class Department {
     private Integer department_id;      // 主键 自增 索引
-    private String name;                // 系名 唯一
+    private String department_name;                // 系名 唯一
 
     public Department() {
     }
 
-    public Department(String name) {
-        this.name = name;
+    public Department(String department_name) {
+        this.department_name = department_name;
     }
 
-    public Department(Integer department_id, String name) {
+    public Department(Integer department_id, String department_name) {
         this.department_id = department_id;
-        this.name = name;
+        this.department_name = department_name;
     }
 
     public Integer getDepartment_id() {
@@ -30,19 +30,19 @@ public class Department {
         this.department_id = department_id;
     }
 
-    public String getName() {
-        return name;
+    public String getDepartment_name() {
+        return department_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDepartment_name(String department_name) {
+        this.department_name = department_name;
     }
 
     @Override
     public String toString() {
         return "Department{" +
                 "department_id=" + department_id +
-                ", name='" + name + '\'' +
+                ", department_name='" + department_name + '\'' +
                 '}';
     }
 }

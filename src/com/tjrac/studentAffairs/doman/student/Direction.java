@@ -8,22 +8,22 @@ package com.tjrac.studentAffairs.doman.student;
  */
 public class Direction {
     private Integer direction_id;  //方向id 主键
-    private String name; //方向名 唯一
+    private String direction_name; //方向名 唯一
     private Integer department_id; //系id
     private Integer specialty_id; //专业id
 
     public Direction() {
     }
 
-    public Direction(String name, Integer department_id, Integer specialty_id) {
-        this.name = name;
+    public Direction(String direction_name, Integer department_id, Integer specialty_id) {
+        this.direction_name = direction_name;
         this.department_id = department_id;
         this.specialty_id = specialty_id;
     }
 
-    public Direction(Integer direction_id, String name, Integer department_id, Integer specialty_id) {
+    public Direction(Integer direction_id, String direction_name, Integer department_id, Integer specialty_id) {
         this.direction_id = direction_id;
-        this.name = name;
+        this.direction_name = direction_name;
         this.department_id = department_id;
         this.specialty_id = specialty_id;
     }
@@ -36,12 +36,12 @@ public class Direction {
         this.direction_id = direction_id;
     }
 
-    public String getName() {
-        return name;
+    public String getDirection_name() {
+        return direction_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDirection_name(String direction_name) {
+        this.direction_name = direction_name;
     }
 
     public Integer getDepartment_id() {
@@ -64,7 +64,7 @@ public class Direction {
     public String toString() {
         return "Direction{" +
                 "direction_id=" + direction_id +
-                ", name='" + name + '\'' +
+                ", direction_name='" + direction_name + '\'' +
                 ", department_id=" + department_id +
                 ", specialty_id=" + specialty_id +
                 '}';
