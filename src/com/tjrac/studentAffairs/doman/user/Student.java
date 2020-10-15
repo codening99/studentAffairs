@@ -22,10 +22,11 @@ public class Student {
     public Student() {
     }
 
-    public Student(String sno, String name, String password, Integer competence, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
+    public Student(String sno, String name, String password, String student_sex, Integer competence, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
         this.sno = sno;
         this.name = name;
         this.password = password;
+        this.student_sex = student_sex;
         this.competence = competence;
         this.grade_name = grade_name;
         this.clazz_name = clazz_name;
@@ -34,25 +35,18 @@ public class Student {
         this.direction_name = direction_name;
     }
 
-    public Student(Integer student_id, String sno, String name, String password, Integer competence, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
+    public Student(Integer student_id, String sno, String name, String password, String student_sex, Integer competence, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
         this.student_id = student_id;
         this.sno = sno;
         this.name = name;
         this.password = password;
+        this.student_sex = student_sex;
         this.competence = competence;
         this.grade_name = grade_name;
         this.clazz_name = clazz_name;
         this.department_name = department_name;
         this.specialty_name = specialty_name;
         this.direction_name = direction_name;
-    }
-
-    public Integer getStudent_id() {
-        return student_id;
-    }
-
-    public void setStudent_id(Integer student_id) {
-        this.student_id = student_id;
     }
 
     public String getSno() {
@@ -77,6 +71,14 @@ public class Student {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getStudent_sex() {
+        return student_sex;
+    }
+
+    public void setStudent_sex(String student_sex) {
+        this.student_sex = student_sex;
     }
 
     public Integer getCompetence() {
@@ -127,19 +129,5 @@ public class Student {
         this.direction_name = direction_name;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "student_id=" + student_id +
-                ", sno='" + sno + '\'' +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", competence=" + competence +
-                ", grade_name=" + grade_name +
-                ", clazz_name='" + clazz_name + '\'' +
-                ", department_name='" + department_name + '\'' +
-                ", specialty_name='" + specialty_name + '\'' +
-                ", direction_name='" + direction_name + '\'' +
-                '}';
-    }
+
 }
