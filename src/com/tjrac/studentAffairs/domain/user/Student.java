@@ -12,7 +12,7 @@ public class Student {
     private String name;               // 学生姓名
     private String password;           // 密码
     private String student_sex;        // 学生性别
-    private Integer competence;        // 权限 参考权限表
+    private Integer competence_id;        // 权限 参考权限表
     private String grade_name;         // 年级，一般为年份，方便管理
     private String clazz_name;         // 班级
     private String department_name;    // 系
@@ -59,12 +59,12 @@ public class Student {
         this.student_sex = student_sex;
     }
 
-    public Integer getCompetence() {
-        return competence;
+    public Integer getCompetence_id() {
+        return competence_id;
     }
 
-    public void setCompetence(Integer competence) {
-        this.competence = competence;
+    public void setCompetence_id(Integer competence_id) {
+        this.competence_id = competence_id;
     }
 
     public String getGrade_name() {
@@ -110,12 +110,12 @@ public class Student {
     public Student() {
     }
 
-    public Student(String sno, String name, String password, String student_sex, Integer competence, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
+    public Student(String sno, String name, String password, String student_sex, Integer competence_id, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
         this.sno = sno;
         this.name = name;
         this.password = password;
         this.student_sex = student_sex;
-        this.competence = competence;
+        this.competence_id = competence_id;
         this.grade_name = grade_name;
         this.clazz_name = clazz_name;
         this.department_name = department_name;
@@ -123,13 +123,13 @@ public class Student {
         this.direction_name = direction_name;
     }
 
-    public Student(Integer student_id, String sno, String name, String password, String student_sex, Integer competence, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
+    public Student(Integer student_id, String sno, String name, String password, String student_sex, Integer competence_id, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
         this.student_id = student_id;
         this.sno = sno;
         this.name = name;
         this.password = password;
         this.student_sex = student_sex;
-        this.competence = competence;
+        this.competence_id = competence_id;
         this.grade_name = grade_name;
         this.clazz_name = clazz_name;
         this.department_name = department_name;
@@ -145,7 +145,7 @@ public class Student {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", student_sex='" + student_sex + '\'' +
-                ", competence=" + competence +
+                ", competence_id=" + competence_id +
                 ", grade_name='" + grade_name + '\'' +
                 ", clazz_name='" + clazz_name + '\'' +
                 ", department_name='" + department_name + '\'' +
