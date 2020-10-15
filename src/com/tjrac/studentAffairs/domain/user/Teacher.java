@@ -11,23 +11,26 @@ public class Teacher {
     String account;         // 账号
     String password;        // 密码
     String name;            // 姓名
+    String teacher_sex;     // 老师性别
     Integer competence;     // 权限 参考权限表
 
     public Teacher() {
     }
 
-    public Teacher(Integer teacher_id, String account, String password, String name, Integer competence) {
+    public Teacher(String account, String password, String name, String teacher_sex, Integer competence) {
+        this.account = account;
+        this.password = password;
+        this.name = name;
+        this.teacher_sex = teacher_sex;
+        this.competence = competence;
+    }
+
+    public Teacher(Integer teacher_id, String account, String password, String name, String teacher_sex, Integer competence) {
         this.teacher_id = teacher_id;
         this.account = account;
         this.password = password;
         this.name = name;
-        this.competence = competence;
-    }
-
-    public Teacher(String account, String password, String name, Integer competence) {
-        this.account = account;
-        this.password = password;
-        this.name = name;
+        this.teacher_sex = teacher_sex;
         this.competence = competence;
     }
 
@@ -63,6 +66,14 @@ public class Teacher {
         this.name = name;
     }
 
+    public String getTeacher_sex() {
+        return teacher_sex;
+    }
+
+    public void setTeacher_sex(String teacher_sex) {
+        this.teacher_sex = teacher_sex;
+    }
+
     public Integer getCompetence() {
         return competence;
     }
@@ -78,6 +89,7 @@ public class Teacher {
                 ", account='" + account + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
+                ", teacher_sex='" + teacher_sex + '\'' +
                 ", competence=" + competence +
                 '}';
     }
