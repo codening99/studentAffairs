@@ -9,7 +9,7 @@ package com.tjrac.studentAffairs.domain.student;
 public class Specialty {
     private Integer specialty_id;       // 主键 自增 索引
     private Integer department_id;      // 对应系id
-    private String specialty_name;                // 专业名
+    private String specialty_name;      // 专业名
 
     public Specialty() {
     }

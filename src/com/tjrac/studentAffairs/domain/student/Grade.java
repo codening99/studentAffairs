@@ -8,7 +8,7 @@ package com.tjrac.studentAffairs.domain.student;
  */
 public class Grade {
     private Integer grade_id;  //主键 年级id
-    private String grade_name;      //年级名 唯一
+    private String grade_name; //年级名 唯一
 
     public Grade() {
     }

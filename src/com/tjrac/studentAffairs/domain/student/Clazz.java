@@ -8,9 +8,9 @@ package com.tjrac.studentAffairs.domain.student;
  */
 public class Clazz {
     private Integer clazz_id;           // 主键 自增 索引
-    private String clazz_name;                // 班级名 唯一
+    private String clazz_name;          // 班级名 唯一
     private Integer specialty_id;       // 专业id
-    private Integer grade_id;              // 年级id
+    private Integer grade_id;           // 年级id
 
     public Clazz() {
     }
