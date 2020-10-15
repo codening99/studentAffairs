@@ -1,4 +1,4 @@
-package com.tjrac.studentAffairs.doman.user;
+package com.tjrac.studentAffairs.domain.user;
 
 /**
  * teacher 教师表

@@ -1,7 +1,7 @@
 package com.tjrac.studentAffairs.service;
 
-import com.tjrac.studentAffairs.doman.user.Student;
-import com.tjrac.studentAffairs.doman.user.Teacher;
+import com.tjrac.studentAffairs.domain.user.Student;
+import com.tjrac.studentAffairs.domain.user.Teacher;
 
 import javax.servlet.http.HttpSession;
 

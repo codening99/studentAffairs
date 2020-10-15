@@ -1,4 +1,4 @@
-package com.tjrac.studentAffairs.doman.user;
+package com.tjrac.studentAffairs.domain.user;
 
 /**
  * student 学生表

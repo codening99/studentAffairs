@@ -1,4 +1,4 @@
-package com.tjrac.studentAffairs.doman.student;
+package com.tjrac.studentAffairs.domain.student;
 
 /**
  * clazz 班级表

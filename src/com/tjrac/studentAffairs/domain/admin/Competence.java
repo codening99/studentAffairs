@@ -1,4 +1,4 @@
-package com.tjrac.studentAffairs.doman.admin;
+package com.tjrac.studentAffairs.domain.admin;
 
 /**
  * competence 权限表
