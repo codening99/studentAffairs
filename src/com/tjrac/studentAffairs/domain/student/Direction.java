@@ -10,7 +10,7 @@ public class Direction {
     private Integer direction_id;  //方向id 主键
     private String direction_name; //方向名 唯一
     private Integer department_id; //系id
-    private Integer specialty_id; //专业id
+    private Integer specialty_id;  //专业id
 
     public Direction() {
     }

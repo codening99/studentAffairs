@@ -8,7 +8,7 @@ package com.tjrac.studentAffairs.domain.student;
  */
 public class Department {
     private Integer department_id;      // 主键 自增 索引
-    private String department_name;                // 系名 唯一
+    private String department_name;     // 系名 唯一
 
     public Department() {
     }
