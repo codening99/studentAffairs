@@ -7,16 +7,17 @@ package com.tjrac.studentAffairs.doman.user;
  * @create : 2020-10-14 21:28
  */
 public class Student {
-    private Integer student_id;     // 学生id 自增 索引
-    private String sno;             // 学号 唯一 不能为空
-    private String name;            // 学生姓名
-    private String password;        // 密码
-    private Integer competence;     // 权限 参考权限表
-    private String grade_name;          // 年级，一般为年份，方便管理
-    private String clazz_name;           // 班级
-    private String department_name;      // 系
-    private String specialty_name;       // 专业
-    private String direction_name;       // 方向
+    private Integer student_id;        // 学生id 自增 索引
+    private String sno;                // 学号 唯一 不能为空
+    private String name;               // 学生姓名
+    private String password;           // 密码
+    private String student_sex;        // 学生性别
+    private Integer competence;        // 权限 参考权限表
+    private String grade_name;         // 年级，一般为年份，方便管理
+    private String clazz_name;         // 班级
+    private String department_name;    // 系
+    private String specialty_name;     // 专业
+    private String direction_name;     // 方向
 
     public Student() {
     }
