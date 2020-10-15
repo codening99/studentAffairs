@@ -8,24 +8,24 @@ package com.tjrac.studentAffairs.doman.student;
  */
 public class Clazz {
     private Integer clazz_id;           // 主键 自增 索引
-    private String name;                // 班级名 唯一
+    private String clazz_name;                // 班级名 唯一
     private Integer specialty_id;       // 专业id
-    private Integer grade;              // 年级，一般为年份，方便管理
+    private Integer grade_id;              // 年级id
 
     public Clazz() {
     }
 
-    public Clazz(Integer clazz_id, String name, Integer specialty_id, Integer grade) {
-        this.clazz_id = clazz_id;
-        this.name = name;
+    public Clazz(String clazz_name, Integer specialty_id, Integer grade_id) {
+        this.clazz_name = clazz_name;
         this.specialty_id = specialty_id;
-        this.grade = grade;
+        this.grade_id = grade_id;
     }
 
-    public Clazz(String name, Integer specialty_id, Integer grade) {
-        this.name = name;
+    public Clazz(Integer clazz_id, String clazz_name, Integer specialty_id, Integer grade_id) {
+        this.clazz_id = clazz_id;
+        this.clazz_name = clazz_name;
         this.specialty_id = specialty_id;
-        this.grade = grade;
+        this.grade_id = grade_id;
     }
 
     public Integer getClazz_id() {
@@ -36,12 +36,12 @@ public class Clazz {
         this.clazz_id = clazz_id;
     }
 
-    public String getName() {
-        return name;
+    public String getClazz_name() {
+        return clazz_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setClazz_name(String clazz_name) {
+        this.clazz_name = clazz_name;
     }
 
     public Integer getSpecialty_id() {
@@ -52,21 +52,21 @@ public class Clazz {
         this.specialty_id = specialty_id;
     }
 
-    public Integer getGrade() {
-        return grade;
+    public Integer getGrade_id() {
+        return grade_id;
     }
 
-    public void setGrade(Integer grade) {
-        this.grade = grade;
+    public void setGrade_id(Integer grade_id) {
+        this.grade_id = grade_id;
     }
 
     @Override
     public String toString() {
         return "Clazz{" +
                 "clazz_id=" + clazz_id +
-                ", name='" + name + '\'' +
+                ", clazz_name='" + clazz_name + '\'' +
                 ", specialty_id=" + specialty_id +
-                ", grade=" + grade +
+                ", grade_id=" + grade_id +
                 '}';
     }
 }

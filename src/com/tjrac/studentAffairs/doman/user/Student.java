@@ -12,38 +12,38 @@ public class Student {
     private String name;            // 学生姓名
     private String password;        // 密码
     private Integer competence;     // 权限 参考权限表
-    private Integer grade;          // 年级，一般为年份，方便管理
-    private String clazz;           // 班级
-    private String department;      // 系
-    private String specialty;       // 专业
-    private String direction;       // 方向
+    private Integer grade_name;          // 年级，一般为年份，方便管理
+    private String clazz_name;           // 班级
+    private String department_name;      // 系
+    private String specialty_name;       // 专业
+    private String direction_name;       // 方向
 
     public Student() {
     }
 
-    public Student(String sno, String name, String password, Integer competence, Integer grade, String clazz, String department, String specialty, String direction) {
+    public Student(String sno, String name, String password, Integer competence, Integer grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
         this.sno = sno;
         this.name = name;
         this.password = password;
         this.competence = competence;
-        this.grade = grade;
-        this.clazz = clazz;
-        this.department = department;
-        this.specialty = specialty;
-        this.direction = direction;
+        this.grade_name = grade_name;
+        this.clazz_name = clazz_name;
+        this.department_name = department_name;
+        this.specialty_name = specialty_name;
+        this.direction_name = direction_name;
     }
 
-    public Student(Integer student_id, String sno, String name, String password, Integer competence, Integer grade, String clazz, String department, String specialty, String direction) {
+    public Student(Integer student_id, String sno, String name, String password, Integer competence, Integer grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
         this.student_id = student_id;
         this.sno = sno;
         this.name = name;
         this.password = password;
         this.competence = competence;
-        this.grade = grade;
-        this.clazz = clazz;
-        this.department = department;
-        this.specialty = specialty;
-        this.direction = direction;
+        this.grade_name = grade_name;
+        this.clazz_name = clazz_name;
+        this.department_name = department_name;
+        this.specialty_name = specialty_name;
+        this.direction_name = direction_name;
     }
 
     public Integer getStudent_id() {
@@ -86,44 +86,44 @@ public class Student {
         this.competence = competence;
     }
 
-    public Integer getGrade() {
-        return grade;
+    public Integer getGrade_name() {
+        return grade_name;
     }
 
-    public void setGrade(Integer grade) {
-        this.grade = grade;
+    public void setGrade_name(Integer grade_name) {
+        this.grade_name = grade_name;
     }
 
-    public String getClazz() {
-        return clazz;
+    public String getClazz_name() {
+        return clazz_name;
     }
 
-    public void setClazz(String clazz) {
-        this.clazz = clazz;
+    public void setClazz_name(String clazz_name) {
+        this.clazz_name = clazz_name;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getDepartment_name() {
+        return department_name;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setDepartment_name(String department_name) {
+        this.department_name = department_name;
     }
 
-    public String getSpecialty() {
-        return specialty;
+    public String getSpecialty_name() {
+        return specialty_name;
     }
 
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
+    public void setSpecialty_name(String specialty_name) {
+        this.specialty_name = specialty_name;
     }
 
-    public String getDirection() {
-        return direction;
+    public String getDirection_name() {
+        return direction_name;
     }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
+    public void setDirection_name(String direction_name) {
+        this.direction_name = direction_name;
     }
 
     @Override
@@ -134,11 +134,11 @@ public class Student {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", competence=" + competence +
-                ", grade=" + grade +
-                ", clazz='" + clazz + '\'' +
-                ", department='" + department + '\'' +
-                ", specialty='" + specialty + '\'' +
-                ", direction='" + direction + '\'' +
+                ", grade_name=" + grade_name +
+                ", clazz_name='" + clazz_name + '\'' +
+                ", department_name='" + department_name + '\'' +
+                ", specialty_name='" + specialty_name + '\'' +
+                ", direction_name='" + direction_name + '\'' +
                 '}';
     }
 }
