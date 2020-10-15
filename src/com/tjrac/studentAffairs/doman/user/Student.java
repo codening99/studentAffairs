@@ -12,7 +12,7 @@ public class Student {
     private String name;            // 学生姓名
     private String password;        // 密码
     private Integer competence;     // 权限 参考权限表
-    private Integer grade_name;          // 年级，一般为年份，方便管理
+    private String grade_name;          // 年级，一般为年份，方便管理
     private String clazz_name;           // 班级
     private String department_name;      // 系
     private String specialty_name;       // 专业
@@ -21,7 +21,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(String sno, String name, String password, Integer competence, Integer grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
+    public Student(String sno, String name, String password, Integer competence, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
         this.sno = sno;
         this.name = name;
         this.password = password;
@@ -33,7 +33,7 @@ public class Student {
         this.direction_name = direction_name;
     }
 
-    public Student(Integer student_id, String sno, String name, String password, Integer competence, Integer grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
+    public Student(Integer student_id, String sno, String name, String password, Integer competence, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
         this.student_id = student_id;
         this.sno = sno;
         this.name = name;
@@ -86,11 +86,11 @@ public class Student {
         this.competence = competence;
     }
 
-    public Integer getGrade_name() {
+    public String getGrade_name() {
         return grade_name;
     }
 
-    public void setGrade_name(Integer grade_name) {
+    public void setGrade_name(String grade_name) {
         this.grade_name = grade_name;
     }
 
