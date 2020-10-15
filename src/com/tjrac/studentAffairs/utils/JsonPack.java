@@ -19,8 +19,17 @@ public class JsonPack {
     public void put(String name, Object obj){
         map.put(name, obj);
     }
-    public void pack(){
 
+    public Map<String, Object> getMap() {
+        return map;
+    }
+
+    public void setMap(Map<String, Object> map) {
+        this.map = map;
+    }
+
+    public String pack(){
+        return JsonPack.pack(map);
     }
     public static String pack(Map<String, Object> map){
         JSONObject json = new JSONObject();
