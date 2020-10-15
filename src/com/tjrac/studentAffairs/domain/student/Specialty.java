@@ -1,4 +1,4 @@
-package com.tjrac.studentAffairs.doman.student;
+package com.tjrac.studentAffairs.domain.student;
 
 /**
  * specialty 专业表
