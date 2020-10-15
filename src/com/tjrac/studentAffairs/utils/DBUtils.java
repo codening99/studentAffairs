@@ -20,9 +20,9 @@ public class DBUtils {
             //读取数据
             //创建四个属性
             String driver = "com.mysql.jdbc.Driver";
-            url = "jdbc:mysql://localhost:3306/studentinfo?rewriteBatchedStatements=true&characterEncoding=utf8";
-            username = "studentinfo";
-            password = "EX67L4K4mPYTTJNa";
+            url = "jdbc:mysql://47.94.150.53:3306/studentAffairs?rewriteBatchedStatements=true&characterEncoding=utf8";
+            username = "root";
+            password = "root";
             //进行类加载加载驱动
             Class.forName(driver).getDeclaredConstructor().newInstance();
         } catch (Exception e) {
@@ -40,7 +40,7 @@ public class DBUtils {
     //参数一：数据库连接对象  参数二：参数sql语句	参数三：给？赋予的实际参数值  可变参数以数组形式存在
     private static PreparedStatement getPstmt(Connection conn, String sql, Object... params) {
         //创建一个对象
-        PreparedStatement pstmt = null;
+        PreparedStatement pstmt;
         try {
             pstmt = conn.prepareStatement(sql);
             //给？进行赋值  遍历params这个数组
@@ -160,7 +160,7 @@ public class DBUtils {
             //获取rs结果集中所有的列名（字段名称）
             String[] cols = getCols(rs);
             //创建一个List对象
-            List<T> list = new ArrayList<T>();
+            List<T> list = new ArrayList<>();
             //测试遍历
 			/*for (String s:cols) {
 				System.out.println(s);

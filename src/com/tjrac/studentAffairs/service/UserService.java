@@ -1,8 +1,5 @@
 package com.tjrac.studentAffairs.service;
 
-import com.tjrac.studentAffairs.domain.user.Student;
-import com.tjrac.studentAffairs.domain.user.Teacher;
-
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -42,24 +39,15 @@ public interface UserService {
      */
     String logout(HttpSession session);
     /**
-     * 增加删除修改教师信息 先检测是否拥有1(管理员权限)权限的账号进行
+     * 增删查改 先检测是否拥有1(管理员权限)权限的账号进行
      * @param session 浏览器回话对象
-     * @param teacher   教师信息对象
+     * @param object   对象信息
      * @return  返回Json字符串，参考README.md的文件的ajax请求接口
      */
-    String addTeacher(HttpSession session, Teacher teacher);
-    Student modifyTeacher(HttpSession session, Teacher teacher);
-    Student delTeacher(HttpSession session, Teacher teacher);
-
-    /**
-     * 增加删除修改学生信息 先检测是否拥有1和2(管理员权限和教师权限)权限的账号进行
-     * @param session 浏览器回话对象
-     * @param student   学生对象
-     * @return  返回Json字符串，参考README.md的文件的ajax请求接口
-     */
-    String addStudent(HttpSession session, Student student);
-    String modifyStudent(HttpSession session, Student student);
-    String delStudent(HttpSession session, Student student);
+    String addObject(HttpSession session, Object object);
+    String modifyObject(HttpSession session, Object object);
+    String delObject(HttpSession session, Object object);
+    String selectObject(HttpSession session, Class<?> c);
 
 
 }

@@ -28,7 +28,7 @@ public class JsonPack {
         this.map = map;
     }
 
-    public String pack(){
+    public String toJson(){
         return JsonPack.pack(map);
     }
     public static String pack(Map<String, Object> map){
