@@ -8,9 +8,20 @@ package com.tjrac.studentAffairs.utils;
  */
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class JsonPack {
+    Map<String, Object> map;
+    public JsonPack(){
+        map = new LinkedHashMap<>();
+    }
+    public void put(String name, Object obj){
+        map.put(name, obj);
+    }
+    public void pack(){
+
+    }
     public static String pack(Map<String, Object> map){
         JSONObject json = new JSONObject();
         for (String s : map.keySet()) {
