@@ -1,0 +1,133 @@
+html, body{
+    background: #393737 url("../img/background.jpg");
+    min-width: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow:hidden;
+}
+body{
+    padding-top: 100px;
+}
+
+/*登录注册框*/
+.content{
+    background-color: #FFFFFF;
+    width: 300px;
+    /*height: 300px;*/
+    border: 1px solid #000000;
+    border-radius: 6px;
+    padding: 10px 10px 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+/*选择框*/
+.login-input-box .input-options {
+    margin-left: 5px;
+    margin-top: 10px;
+}
+/*LOGO标签*/
+.login-header{
+    width: 100%;
+    height: 42px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dcdcdc;
+}
+.login-header img{
+    width: 90%;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+/*输入框样式*/
+.login-input-box{
+    margin-top: 12px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
+/*登录错误样式*/
+.login-error {
+    border: 1px solid #ff934c;
+    background: #fefcee;
+    width: 253px;
+    height: auto;
+    margin-left: 18px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 12px;
+    content: "\E607";
+}
+/*输入框前的标题*/
+.login-input-box .title{
+    width: 50px;
+    height: 24px;
+    margin: 6px 4px 6px 24px;
+    display: inline-block;
+    position: absolute;
+    border-right: 1px solid #dcdcdc;
+    text-align: center;
+}
+/*输入框*/
+.login-input-box .input,.login-input-box .options {
+    width: 192px;
+    height: 32px;
+    margin-left: 18px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding-left: 72px;
+}
+/*输入框停留和划过样式*/
+.login-input-box input:hover{
+    border: 1px solid #ff7d0a;
+}
+.login-input-box input:active{
+    border: 1px solid #1a97ff;
+}
+
+/*按钮的样式*/
+.login-button-box{
+    margin-top: 12px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
+.login-button-box button{
+    background-color: #0aa9ff;
+    color: #ffffff;
+    font-size: 16px;
+    width: 266px;
+    height: 40px;
+    margin-left: 18px;
+    border: 1px solid #0aa9ff;
+    border-radius: 4px;
+}
+.login-button-box button:hover{
+    background-color: #0aa9ff;
+}
+.login-button-box button:active{
+    background-color: #0aa9ff;
+}
+/*超链接的样式*/
+.logon-box{
+    margin-top: 20px;
+    text-align: center;
+}
+.logon-box a{
+    margin: 30px;
+    color: #4a4744;
+    font-size: 13px;
+    text-decoration: none;
+}
+.logon-box a:hover{
+    color: #ff7d0a;
+}
+.logon-box a:active{
+    color: #ee7204;
+}

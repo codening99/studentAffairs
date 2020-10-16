@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" >
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/style-login.css">
+    <script src="js/lib/jquery-3.5.1.min.js"></script>
+    <script src="js/script-login.js"></script>
+    <title>学生事务系统</title>
+</head>
+<body>
+<div class="content">
+    <div class="login-header">
+        <img src="img/logo.png" alt="logo">
+    </div>
+    <!--快速登录-->
+    <div class="login" id="login-fast" style="display: none">
+        <div class="login-input-box">
+            <span class="title">账户</span>
+            <input class="input" type="text" id="login-fast-account" disabled="disabled">
+        </div>
+        <div class="login-input-box">
+            <span class="title">类型</span>
+            <input class="input" type="text" id="login-fast-type" disabled="disabled">
+        </div>
+        <div class="login-button-box">
+            <button id="button-login-fast">快 速 登 录</button>
+        </div>
+        <div class="logon-box">
+            <a id="a-logout" href="#">我不需要？手动登录</a>
+        </div>
+    </div>
+    <!--登录-->
+    <div class="login" id="login">
+        <div class="login-input-box">
+            <span class="title">账户</span>
+            <input class="input" type="text" id="input_account" placeholder="输入你的账户">
+        </div>
+        <div class="login-input-box">
+            <span class="title">密码</span>
+            <input class="input" type="password" id="input_password" placeholder="输入你的密码">
+        </div>
+        <div class="login-input-box">
+            <span class="title">类别</span>
+            <div class="options">
+                <label><input class="input-options" type="radio" name="type" value="教师" checked="checked">教师</label>
+                <label><input class="input-options" type="radio" name="type" value="学生">学生</label>
+            </div>
+        </div>
+        <div class="login-input-box" id="login-error" style="display: none">
+            <div class="login-error">
+                <div style="float: left;color: #ff7d0a"> ⚠ </div>
+                <div style="padding-left: 24px" id="login-error-msg"></div>
+            </div>
+        </div>
+
+        <div class="login-button-box">
+            <button id="button-login">登 录</button>
+        </div>
+        <div class="logon-box">
+            <a id="a-enrol" href="#">忘记密码？找回密码</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
