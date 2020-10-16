@@ -72,7 +72,7 @@ e# studentAffairs
 
 | 提交地址                 | 参数        | 参数说明 |
 | ------------------------ | ----------- | -------- |
-| /login?action=addTeacher | account     | 账号     |
+| /manag?action=addTeacher | account     | 账号     |
 |                          | password    | 密码     |
 |                          | name        | 姓名     |
 |                          | teacher_sex | 老师性别 |
@@ -94,7 +94,7 @@ e# studentAffairs
 
 | 提交地址                   | 参数        | 参数说明 |
 | -------------------------- | ----------- | -------- |
-| /login?action=checkTeacher | account     | 账号     |
+| /manag?action=checkTeacher | account     | 账号     |
 |                            | password    | 密码     |
 |                            | name        | 姓名     |
 |                            | teacher_sex | 老师性别 |
@@ -112,7 +112,7 @@ e# studentAffairs
 
 | 提交地址                    | 参数        | 参数说明 |
 | --------------------------- | ----------- | -------- |
-| /login?action=deleteTeacher | account     | 账号     |
+| /manag?action=deleteTeacher | account     | 账号     |
 |                             | password    | 密码     |
 |                             | name        | 姓名     |
 |                             | teacher_sex | 老师性别 |
@@ -130,7 +130,7 @@ e# studentAffairs
 
 | 提交地址                    | 参数        | 参数说明 |
 | --------------------------- | ----------- | -------- |
-| /login?action=updateTeacher | account     | 账号     |
+| /manag?action=updateTeacher | account     | 账号     |
 |                             | password    | 密码     |
 |                             | name        | 姓名     |
 |                             | teacher_sex | 老师性别 |
@@ -150,7 +150,7 @@ e# studentAffairs
 
 | 提交地址                 | 参数            | 参数说明 |
 | ------------------------ | --------------- | -------- |
-| /login?action=addStudent | sno             | 学号     |
+| /manag?action=addStudent | sno             | 学号     |
 |                          | name            | 姓名     |
 |                          | sex             | 性别     |
 |                          | password        | 密码     |
@@ -175,7 +175,7 @@ e# studentAffairs
 
 | 提交地址                   | 参数            | 参数说明 |
 | -------------------------- | --------------- | -------- |
-| /login?action=checkStudent | sno             | 学号     |
+| /manag?action=checkStudent | sno             | 学号     |
 |                            | name            | 姓名     |
 |                            | sex             | 性别     |
 |                            | password        | 密码     |
@@ -198,7 +198,7 @@ e# studentAffairs
 
 | 提交地址                    | 参数            | 参数说明 |
 | --------------------------- | --------------- | -------- |
-| /login?action=deleteStudent | sno             | 学号     |
+| /manag?action=deleteStudent | sno             | 学号     |
 |                             | name            | 姓名     |
 |                             | sex             | 性别     |
 |                             | password        | 密码     |
@@ -223,7 +223,7 @@ e# studentAffairs
 
 | 提交地址                    | 参数            | 参数说明 |
 | --------------------------- | --------------- | -------- |
-| /login?action=updateStudent | sno             | 学号     |
+| /manag?action=updateStudent | sno             | 学号     |
 |                             | name            | 姓名     |
 |                             | sex             | 性别     |
 |                             | password        | 密码     |

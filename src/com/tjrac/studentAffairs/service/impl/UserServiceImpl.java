@@ -7,17 +7,18 @@ import com.tjrac.studentAffairs.service.UserService;
 import com.tjrac.studentAffairs.utils.JsonPack;
 import com.tjrac.studentAffairs.utils.MD5;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ZeNing
  * @create 2020-10-15 20:48
  */
 public class UserServiceImpl implements UserService {
+
+    //存放user的服务器
+    final static List<HttpSession> listSession = new ArrayList<>();
 
     /**
      * 学生端和教师端的登录接口
@@ -36,18 +37,6 @@ public class UserServiceImpl implements UserService {
         //获取json
         JsonPack json = new JsonPack();
 
-        //创建存放user的服务器
-        ServletContext servletContext = session.getServletContext();
-        Object objOnlineContainer = servletContext.getAttribute("onlineContainer");
-        Map<String, HttpSession> onlineContainer;
-
-        if (objOnlineContainer == null) {
-            onlineContainer = new HashMap<>();
-            servletContext.setAttribute("onlineContainer", onlineContainer);
-        } else {
-            onlineContainer = (Map<String, HttpSession>) objOnlineContainer;
-        }
-
         //教师登录
         if (type == 1) {
 
@@ -64,9 +53,19 @@ public class UserServiceImpl implements UserService {
                     json.put("event", 0);
                     json.put("msg", "登陆成功!");
 
+                    for (HttpSession s : listSession) {
+                        //服务器中有session
+                        if (s.getId().equals(session.getId())) {
+                            //避免重复登陆
+                            listSession.remove(s);
+                            //注销
+                            s.invalidate();
+                        }
+                    }
+
                     //保存
                     session.setAttribute("user", teacher);
-                    onlineContainer.put(session.getId(), session);
+                    listSession.add(session);
 
                 } else { //密码错误
                     json.put("event", 2);
@@ -93,9 +92,20 @@ public class UserServiceImpl implements UserService {
                     json.put("event", 0);
                     json.put("msg", "登陆成功!");
 
+                    for (HttpSession s : listSession) {
+                        //服务器中有session
+                        if (s.getId().equals(session.getId())) {
+                            //避免重复登陆
+                            listSession.remove(s);
+                            //注销
+                            s.invalidate();
+                        }
+                    }
+
                     //保存
                     session.setAttribute("user", student);
-                    onlineContainer.put(session.getId(), session);
+                    listSession.add(session);
+
                 } else { //密码错误
                     json.put("event", 2);
                     json.put("msg", "密码错误!");
@@ -121,40 +131,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getOnlineStatus(HttpSession session) {
         JsonPack json = new JsonPack();
-        Object user = session.getAttribute("user");
 
-        Map<String, HttpSession> onlineContainer = (Map<String, HttpSession>) session.getAttribute("onlineContainer");
-        Iterator<Map.Entry<String, HttpSession>> iterator = onlineContainer.entrySet().iterator();
-        while (iterator.hasNext()) {
-
-            Map.Entry<String, HttpSession> next = iterator.next();
-            HttpSession sessionChild = next.getValue();
-            Object onlineUser = sessionChild.getAttribute("user");
-
-            if (session == sessionChild)
-                break;
-
-            if (user instanceof Student) {
-                if (onlineUser instanceof Student) {
-                    if (((Student) onlineUser).getSno().equals(((Student) user).getSno())) {
-                        json.put("event", 1);
-                        json.put("msg", "在线中");
-                    }
-                }
-            } else if (user instanceof Teacher) {
-                if (onlineUser instanceof Teacher) {
-                    if (((Teacher) user).getAccount().equals(((Teacher) onlineUser).getAccount())) {
-                        json.put("event", 1);
-                        json.put("msg", "在线中");
-                    }
-                }
-            }
-
-
+        if (session.getAttribute("user") != null) {
+            json.put("event", 1);
+            json.put("msg", "在线中!");
+        } else {
+            json.put("event", 0);
+            json.put("msg", "未登录!");
         }
-        json.put("event", 0);
-        json.put("msg", "未登录");
+
         return json.toJson();
+
     }
 
     /**
@@ -165,9 +152,29 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public String logout(HttpSession session) {
-        return null;
+
+        JsonPack json = new JsonPack();
+
+        for (HttpSession s : listSession) {
+            if (s.getId().equals(session.getId())) {
+                s.invalidate();
+                listSession.remove(s);
+                json.put("event", 0);
+                json.put("msg", "注销成功");
+            }
+        }
+
+        json.put("event", 1);
+        json.put("msg", "注销失败");
+        return json.toJson();
     }
 
+    /**
+     * 增删查改 先检测是否拥有1(管理员权限)权限的账号进行
+     * @param session 浏览器回话对象
+     * @param object   对象信息
+     * @return  返回Json字符串，参考README.md的文件的ajax请求接口
+     */
     @Override
     public String addObject(HttpSession session, Object object) {
         return null;
