@@ -177,6 +177,9 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public String addObject(HttpSession session, Object object) {
+
+        
+
         return null;
     }
 

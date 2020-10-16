@@ -70,13 +70,13 @@ e# studentAffairs
 
 ### 添加教师信息
 
-| 提交地址                 | 参数        | 参数说明 |
-| ------------------------ | ----------- | -------- |
-| /manag?action=addTeacher | account     | 账号     |
-|                          | password    | 密码     |
-|                          | name        | 姓名     |
-|                          | teacher_sex | 老师性别 |
-|                          | competence  | 权限     |
+| 提交地址                 | 参数          | 参数说明 |
+| ------------------------ | ------------- | -------- |
+| /manag?action=addTeacher | account       | 账号     |
+|                          | password      | 密码     |
+|                          | name          | 姓名     |
+|                          | teacher_sex   | 老师性别 |
+|                          | competence_id | 权限     |
 
 **返回json数据格式**
 
@@ -92,13 +92,13 @@ e# studentAffairs
 
 ### 查看教师信息
 
-| 提交地址                   | 参数        | 参数说明 |
-| -------------------------- | ----------- | -------- |
-| /manag?action=checkTeacher | account     | 账号     |
-|                            | password    | 密码     |
-|                            | name        | 姓名     |
-|                            | teacher_sex | 老师性别 |
-|                            | competence  | 权限     |
+| 提交地址                   | 参数          | 参数说明 |
+| -------------------------- | ------------- | -------- |
+| /manag?action=checkTeacher | account       | 账号     |
+|                            | password      | 密码     |
+|                            | name          | 姓名     |
+|                            | teacher_sex   | 老师性别 |
+|                            | competence_id | 权限     |
 
 **返回json数据格式**
 
@@ -110,13 +110,13 @@ e# studentAffairs
 
 ### 删除教师信息
 
-| 提交地址                    | 参数        | 参数说明 |
-| --------------------------- | ----------- | -------- |
-| /manag?action=deleteTeacher | account     | 账号     |
-|                             | password    | 密码     |
-|                             | name        | 姓名     |
-|                             | teacher_sex | 老师性别 |
-|                             | competence  | 权限     |
+| 提交地址                    | 参数          | 参数说明 |
+| --------------------------- | ------------- | -------- |
+| /manag?action=deleteTeacher | account       | 账号     |
+|                             | password      | 密码     |
+|                             | name          | 姓名     |
+|                             | teacher_sex   | 老师性别 |
+|                             | competence_id | 权限     |
 
 | 数据段名 | 数据类型 | 数据内容         | 数据说明                 |
 | -------- | -------- | ---------------- | ------------------------ |
@@ -128,13 +128,13 @@ e# studentAffairs
 
 ### 更新教师信息
 
-| 提交地址                    | 参数        | 参数说明 |
-| --------------------------- | ----------- | -------- |
-| /manag?action=updateTeacher | account     | 账号     |
-|                             | password    | 密码     |
-|                             | name        | 姓名     |
-|                             | teacher_sex | 老师性别 |
-|                             | competence  | 权限     |
+| 提交地址                    | 参数          | 参数说明 |
+| --------------------------- | ------------- | -------- |
+| /manag?action=updateTeacher | account       | 账号     |
+|                             | password      | 密码     |
+|                             | name          | 姓名     |
+|                             | teacher_sex   | 老师性别 |
+|                             | competence_id | 权限     |
 
 | 数据段名 | 数据类型 | 数据内容         | 数据说明                 |
 | -------- | -------- | ---------------- | ------------------------ |
@@ -154,7 +154,7 @@ e# studentAffairs
 |                          | name            | 姓名     |
 |                          | sex             | 性别     |
 |                          | password        | 密码     |
-|                          | competence      | 权限     |
+|                          | competence_id   | 权限     |
 |                          | grade_name      | 年级     |
 |                          | clazz_name      | 班级     |
 |                          | department_name | 系       |
@@ -179,7 +179,7 @@ e# studentAffairs
 |                            | name            | 姓名     |
 |                            | sex             | 性别     |
 |                            | password        | 密码     |
-|                            | competence      | 权限     |
+|                            | competence_id   | 权限     |
 |                            | grade_name      | 年级     |
 |                            | clazz_name      | 班级     |
 |                            | department_name | 系       |
@@ -202,7 +202,7 @@ e# studentAffairs
 |                             | name            | 姓名     |
 |                             | sex             | 性别     |
 |                             | password        | 密码     |
-|                             | competence      | 权限     |
+|                             | competence_id   | 权限     |
 |                             | grade_name      | 年级     |
 |                             | clazz_name      | 班级     |
 |                             | department_name | 系       |
@@ -227,7 +227,7 @@ e# studentAffairs
 |                             | name            | 姓名     |
 |                             | sex             | 性别     |
 |                             | password        | 密码     |
-|                             | competence      | 权限     |
+|                             | competence_id   | 权限     |
 |                             | grade_name      | 年级     |
 |                             | clazz_name      | 班级     |
 |                             | department_name | 系       |
