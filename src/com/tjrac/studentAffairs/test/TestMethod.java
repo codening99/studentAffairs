@@ -26,4 +26,9 @@ public class TestMethod {
 
     }
 
+    @Test
+    public void test1() {
+
+    }
+
 }
