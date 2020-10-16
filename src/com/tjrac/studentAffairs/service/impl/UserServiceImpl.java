@@ -22,6 +22,9 @@ public class UserServiceImpl implements UserService {
     //存放user的服务器
     final static List<HttpSession> listSession = new ArrayList<>();
 
+    BaseDao<Student> studentDao = new BaseDao<>(Student.class);
+    BaseDao<Teacher> teacherDao = new BaseDao<>(Teacher.class);
+
     /**
      * 学生端和教师端的登录接口
      *
@@ -42,18 +45,12 @@ public class UserServiceImpl implements UserService {
         //教师登录
         if (type == 1) {
 
-            //获取dao层
-            BaseDao<Teacher> teacherBaseDao = new BaseDao<>(Teacher.class);
-
             //查询
-            Teacher teacher = teacherBaseDao.query("account", account);
+            Teacher teacher = teacherDao.query("account", account);
 
             if (teacher != null) { //查询到该账户
 
                 if (teacher.getPassword().equals(newPassword)) { //判断密码是否一样
-                    json.put("teacher", teacher);
-                    json.put("event", 0);
-                    json.put("msg", "登陆成功!");
 
                     for (HttpSession s : listSession) {
                         //服务器中有session
@@ -64,6 +61,9 @@ public class UserServiceImpl implements UserService {
                             s.invalidate();
                         }
                     }
+
+                    json.put("event", 0);
+                    json.put("msg", "登陆成功!");
 
                     //保存
                     session.setAttribute("user", teacher);
@@ -81,18 +81,12 @@ public class UserServiceImpl implements UserService {
 
         } else if (type == 2) { //学生登录
 
-            //获取dao层
-            BaseDao<Student> studentDao = new BaseDao<>(Student.class);
-
             //查询
             Student student = studentDao.query("sno", account);
 
             if (student != null) { //查询到该账户
 
                 if (student.getPassword().equals(newPassword)) { //判断密码是否一样
-                    json.put("student", student);
-                    json.put("event", 0);
-                    json.put("msg", "登陆成功!");
 
                     for (HttpSession s : listSession) {
                         //服务器中有session
@@ -103,6 +97,9 @@ public class UserServiceImpl implements UserService {
                             s.invalidate();
                         }
                     }
+
+                    json.put("event", 0);
+                    json.put("msg", "登陆成功!");
 
                     //保存
                     session.setAttribute("user", student);
@@ -191,96 +188,88 @@ public class UserServiceImpl implements UserService {
         if (competence == 1) { //如果存在1权限
 
             if (object instanceof Teacher) {  //要添加的为老师
-                BaseDao baseDao = new BaseDao(Teacher.class);
 
                 //判断数据库是否已经有同账户名的老师
-                Object teacherDB = baseDao.query("account", ((Teacher) adminObj).getAccount());
+                Object teacherDB = teacherDao.query("account", ((Teacher) adminObj).getAccount());
 
                 if (teacherDB != null) { //数据库中已存在该账户
                     json.put("event", 2);
                     json.put("msg", "账户已存在");
                 } else {
-                    baseDao.insert(adminObj); //存入数据库
+                    teacherDao.insert((Teacher) adminObj); //存入数据库
                     json.put("event", 0);
                     json.put("msg", "添加成功");
                 }
             } else {
-                BaseDao baseDao = new BaseDao(Student.class);
 
                 //判断数据库是否已经有同学号的学生
-                Object teacherDB = baseDao.query("sno", ((Student) adminObj).getSno());
+                Object teacherDB = studentDao.query("sno", ((Student) adminObj).getSno());
 
                 if (teacherDB != null) { //数据库中已存在该账户
                     json.put("event", 2);
-                    json.put("msg", "账户已存在");
+                    json.put("msg", "学号已存在");
                 } else {
-                    baseDao.insert(adminObj); //存入数据库
+                    studentDao.insert((Student) adminObj); //存入数据库
                     json.put("event", 0);
                     json.put("msg", "添加成功");
                 }
             }
 
-        } else { //没有添加的权限
+        } else if (competence == 2) { //没有添加的权限
             json.put("event", 1);
             json.put("msg", "权限不足");
+        } else {
+            json.put("event", 1);
+            json.put("msg", "获取权限失败");
         }
-
 
         return json.toJson();
     }
 
     @Override
     public String modifyObject(HttpSession session, Object object) {
-        Object obj = session.getAttribute("user");
+
+        Object adminObj = session.getAttribute("user"); //获取user
         JsonPack json = new JsonPack();
 
-        int competence = -1;
-        //无论是学生还是老师，都获取他的权限
-        try {
-            Method getCompetence_id = obj.getClass().getDeclaredMethod("getCompetence_id");
-            competence = (int) getCompetence_id.invoke(obj); //获取到的权限大小
-        } catch (Exception e) {
-            System.out.println("获取权限失败");
-        }
+        int competence = getCompetence(adminObj); //获取权限
 
-        if (competence == -1) {
-            json.put("event", 1);
-            json.put("msg", "获取权限失败");
-        } else {
-            //判断权限
-            CompPara compPara = new CompPara(competence);
-            if (compPara.test(1)) { //如果存在1权限
+        if (competence == 1) { //有修改的权限
 
-                if (object instanceof Teacher) {  //要修改的为老师
-                    BaseDao baseDao = new BaseDao(Teacher.class);
+            if (object instanceof Teacher) { //要修改的是teacher
 
-                    //判断数据库是否有该对象信息
-                    Object teacherDB = baseDao.query("account", ((Teacher) obj).getAccount());
+                Teacher teacherDB = teacherDao.query("account", ((Teacher) object).getAccount()); //数据库中寻找该对象
 
-                    if (teacherDB != null) {
-                        baseDao.modify(obj);
-                    }
-
-                } else {
-                    BaseDao baseDao = new BaseDao(Student.class);
-
-                    //判断数据库是否已经有同学号的学生
-                    Object teacherDB = baseDao.query("sno", ((Student) obj).getSno());
-
-                    if (teacherDB != null) { //数据库中已存在该账户
-                        json.put("event", 2);
-                        json.put("msg", "账户已存在");
-                    } else {
-                        baseDao.insert(obj); //存入数据库
-                        json.put("event", 0);
-                        json.put("msg", "添加成功");
-                    }
+                if (teacherDB == null) { //没有该账户 无法更新
+                    json.put("event", 2);
+                    json.put("msg", "没有该账户,无法修改");
+                } else { //找到该账户
+                    teacherDao.modify((Teacher) object); //修改
+                    json.put("event", 0);
+                    json.put("msg", "修改成功");
                 }
 
-            } else { //没有添加的权限
-                json.put("event", 1);
-                json.put("msg", "权限不足");
+            } else if (object instanceof Student) { //要修改的是student
+
+                Student studentDB = studentDao.query("sno", ((Student) object).getSno());
+
+                if (studentDB == null) { //没有该账户 无法更新
+                    json.put("event", 2);
+                    json.put("msg", "没有该学生,无法修改");
+                } else { //找到该账户
+                    studentDao.modify((Student) object); //修改
+                    json.put("event", 0);
+                    json.put("msg", "修改成功");
+                }
+
             }
+
+        } else if (competence == 2) {
+            json.put("event", 1);
+            json.put("msg", "权限不足");
+        } else {
+            json.put("event", 1);
+            json.put("msg", "获取权限失败");
         }
 
         return json.toJson();
@@ -303,7 +292,7 @@ public class UserServiceImpl implements UserService {
      */
     private int getCompetence(Object obj) {
 
-        int competence = -1;
+        int competence;
         //无论是学生还是老师，都获取他的权限
         try {
             Method getCompetence_id = obj.getClass().getDeclaredMethod("getCompetence_id");
