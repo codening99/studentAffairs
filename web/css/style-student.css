@@ -1,6 +1,71 @@
-.pc .title{
-    padding: 10px;
+html, body{
+    height: 100%;
+    margin: 0;
+    overflow:hidden;
+}
+/*标题*/
+.title{
     background-color: #000000;
-    text-align: center;
+    padding-left: 20px;
+    line-height: 80px;
     color: #ffffff;
+    font-size: 28px;
+    height: 80px;
+}
+.title img{
+    height: 85%;
+    padding-top: 5px;
+    display: block;
+}
+/*导航栏*/
+.navigationBar{
+    height: calc(100% - 20px - 80px);
+    background-color: #dedbdb;
+    width: 200px;
+    float: left;
+}
+/*导航栏列表*/
+.sub-navigation{
+    padding-top: 20px;
+    padding-left: 0;
+    cursor:default;
+}
+.sub-navigation div{
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin: 5px;
+
+}
+.sub-navigation .hotkey{
+    border-radius: 4px;
+    background-color: #828282;
+    color: #FFFFFF;
+}
+.sub-navigation .common{
+    border-radius: 4px;
+    background-color: #dedbdb;
+    color: #000000;
+}
+/*显示主体*/
+.content-box{
+    height: calc(100% - 20px - 80px);
+    float: right;
+    width: calc(100% - 200px);
+    overflow:auto;
+
+}
+/*底部导航栏*/
+.copyright{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    font-size: 12px;
+    padding: 2px;
+    height: 16px;
+    width: 100%;
+    float: left;
+    background-color: #000000;
+    color: #FFFFFF;
 }
