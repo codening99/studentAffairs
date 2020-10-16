@@ -152,9 +152,29 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public String logout(HttpSession session) {
-        return null;
+
+        JsonPack json = new JsonPack();
+
+        for (HttpSession s : listSession) {
+            if (s.getId().equals(session.getId())) {
+                s.invalidate();
+                listSession.remove(s);
+                json.put("event", 0);
+                json.put("msg", "注销成功");
+            }
+        }
+
+        json.put("event", 1);
+        json.put("msg", "注销失败");
+        return json.toJson();
     }
 
+    /**
+     * 增删查改 先检测是否拥有1(管理员权限)权限的账号进行
+     * @param session 浏览器回话对象
+     * @param object   对象信息
+     * @return  返回Json字符串，参考README.md的文件的ajax请求接口
+     */
     @Override
     public String addObject(HttpSession session, Object object) {
         return null;
