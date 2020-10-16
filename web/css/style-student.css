@@ -5,7 +5,7 @@ html, body{
 }
 /*标题*/
 .title{
-    background-color: #000000;
+    background-color: #0066b6;
     padding-left: 20px;
     line-height: 80px;
     color: #ffffff;
@@ -20,7 +20,8 @@ html, body{
 /*导航栏*/
 .navigationBar{
     height: calc(100% - 20px - 80px);
-    background-color: #dedbdb;
+    /*background-color: #dedbdb;*/
+    background-color: #e6ecff;
     width: 200px;
     float: left;
 }
@@ -39,12 +40,13 @@ html, body{
 }
 .sub-navigation .hotkey{
     border-radius: 4px;
-    background-color: #828282;
+    /*background-color: #828282;*/
+    background-color: #677cd9;
     color: #FFFFFF;
 }
 .sub-navigation .common{
     border-radius: 4px;
-    background-color: #dedbdb;
+    background-color: #e6ecff;
     color: #000000;
 }
 /*显示主体*/
@@ -66,6 +68,91 @@ html, body{
     height: 16px;
     width: 100%;
     float: left;
-    background-color: #000000;
+    background-color: #0066b6;
     color: #FFFFFF;
+}
+/*个人信息*/
+.content-info{
+    border-radius: 8px;
+    width: 320px;
+    margin-top: 40px;
+    margin-left: 40px;
+    border: 1px solid #aaaaaa;
+    overflow:hidden;
+}
+.content-info-title{
+    /*background-color: #393737;*/
+    background-color: #0066b6;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    width: 100%;
+    height: 40px;
+}
+.content-info-table{
+    width: 100%;
+}
+.content-info-table .row{
+    height: 30px;
+}
+.content-info-table .row .row-title{
+    width: 30%;
+    background-color: #c4e0ff;
+    border-radius: 2px;
+}
+.content-info-table .row .row-content{
+    text-align: left;
+    background-color: #ffffff;
+    padding-left: 10px;
+    border-bottom: 1px solid #a6d1ff;
+}
+/*输入框样式*/
+.input-box{
+    margin-top: 12px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
+.input-box .input-title{
+    width: 50px;
+    height: 24px;
+    padding-right: 4px;
+    margin: 6px 4px 6px 24px;
+    display: inline-block;
+    position: absolute;
+    border-right: 1px solid #dcdcdc;
+    text-align: center;
+}
+
+.input-box .input-input{
+    height: 32px;
+    margin-left: 18px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding-left: 72px;
+}
+.input-box select{
+    width: 268px;
+}
+.input-box input{
+    width: 192px;
+}
+/*按钮的样式*/
+.button-box{
+    margin-top: 12px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
+.button-box button{
+    background-color: #0066b6;
+    color: #ffffff;
+    font-size: 16px;
+    width: 266px;
+    height: 40px;
+    margin-left: 18px;
+    border: 1px solid #0066b6;
+    border-radius: 4px;
 }
