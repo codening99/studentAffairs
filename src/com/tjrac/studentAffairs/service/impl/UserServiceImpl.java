@@ -277,11 +277,68 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String delObject(HttpSession session, Object object) {
-        return null;
+
+        Object adminObj = session.getAttribute("user"); //获取user
+        JsonPack json = new JsonPack();
+
+        int competence = getCompetence(adminObj); //获取权限
+
+        if (competence == 1) { //有删除权限
+
+            if (object instanceof Teacher) { //要删除的是老师
+
+                Teacher teacherDB = teacherDao.query("account", ((Teacher) object).getAccount());
+
+                if (teacherDB == null) { //数据库中没有该老师账户
+
+                    json.put("event", 2);
+                    json.put("msg", "没有找到账户信息，删除失败");
+
+                } else { //找到该账户信息
+
+                    teacherDao.delete((Teacher) object); //删除该账户信息
+
+                    json.put("event", 0);
+                    json.put("msg", "删除成功");
+
+                }
+
+            } else if (object instanceof Student) {
+
+                Student studentDB = studentDao.query("sno", ((Student) object).getSno());
+
+                if (studentDB == null) { //没有找到该学生信息
+
+                    json.put("event", 2);
+                    json.put("msg", "没有找到学生信息，删除失败");
+
+                } else {
+
+                    studentDao.delete((Student) object); //删除该学生
+
+                    json.put("event", 0);
+                    json.put("msg", "删除成功");
+
+                }
+
+            } else {
+                json.put("event", 1);
+                json.put("msg", "获取权限失败");
+            }
+
+        } else if (competence == 2) {
+            json.put("event", 1);
+            json.put("msg", "权限不足");
+        }
+
+        return json.toJson();
     }
 
     @Override
     public String selectObject(HttpSession session, Class<?> c) {
+
+
+
         return null;
     }
 
