@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.rmi.ServerException;
 
 /**
  * login 登录相关请求
@@ -37,5 +38,21 @@ public class Login extends BaseServlet {
         String account = req.getParameter("account");
         String password = req.getParameter("password");
         resp.getWriter().write(userService.login(req.getSession(), type, account, password));
+    }
+    /**
+     * 获取在线状态
+     * 地址：login?action=getOnlineStatus
+     */
+    public void getOnlineStatus(HttpServletRequest req,HttpServletResponse resp)throws ServerException,IOException {
+
+        UserService userService=new UserServiceImpl();
+        resp.getWriter().write(userService.getOnlineStatus(req.getSession()));
+    }
+    /**
+     * 注销
+     * 地址：login?action=logout
+     */
+    public void logout(HttpServletRequest req,HttpServletResponse resp)throws ServerException,IOException{
+
     }
 }
