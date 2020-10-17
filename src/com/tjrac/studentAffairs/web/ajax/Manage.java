@@ -71,6 +71,7 @@ public class Manage extends BaseServlet {
      * 修改用户信息（老师和学生）
      * 地址：/manag?action=modifyObject
      * 参数：参考READEME.md
+     *
      * @param req
      * @param resp
      * @throws ServletException
@@ -122,6 +123,7 @@ public class Manage extends BaseServlet {
     /**
      * 删除用户的信息（老师和学生）
      * 地址：/manag?action=delObject
+     *
      * @param req
      * @param resp
      * @throws ServletException
@@ -137,12 +139,20 @@ public class Manage extends BaseServlet {
     /**
      * 查看用户的信息（老师和学生）
      * 地址：/manag?action=selectObject
+     *
      * @param req
-     * @param rep
+     * @param resp
      * @throws ServletException
      * @throws IOException
      */
-    public void selectObject(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
-
+    public void selectObject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        UserService userService = new UserServiceImpl();
+        Object object = req.getAttribute("user");//得到调用该方法的用户对象
+        if (object instanceof Teacher) { //调用对象类型为Teacher类
+            resp.getWriter().write(userService.selectObject(req.getSession(), Teacher.class));
+        }
+        else if(object instanceof Student){ //调用对象为Student类
+            resp.getWriter().write(userService.selectObject(req.getSession(),Student.class));
+        }
     }
 }
