@@ -6,6 +6,7 @@ import com.tjrac.studentAffairs.utils.JsonPack;
 import com.tjrac.studentAffairs.web.BaseServlet;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.rmi.ServerException;
  * @author : xziying
  * @create : 2020-10-16 12:23
  */
+@WebServlet("/login")
 public class Login extends BaseServlet {
     /**
      * 登录
