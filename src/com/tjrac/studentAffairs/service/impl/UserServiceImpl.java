@@ -358,6 +358,27 @@ public class UserServiceImpl implements UserService {
 
             try {
                 Object o = c.getConstructor().newInstance();
+
+                if (o instanceof Teacher) { //为teacher
+
+                    List<Teacher> teachers = teacherDao.queryList();
+
+                    json.put("event", 0);
+                    json.put("msg", "查看成功");
+                    json.put("count", teachers.size());
+                    json.put("teachers", teachers);
+
+                } else { //为student
+
+                    List<Student> students = studentDao.queryList();
+
+                    json.put("event", 0);
+                    json.put("msg", "查看成功");
+                    json.put("count", students.size());
+                    json.put("students", students);
+
+                }
+
             } catch (Exception e) {
                 json.put("event", 2);
                 json.put("msg", "查找失败");
