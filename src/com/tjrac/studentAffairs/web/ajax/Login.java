@@ -55,6 +55,7 @@ public class Login extends BaseServlet {
      * 地址：login?action=logout
      */
     public void logout(HttpServletRequest req,HttpServletResponse resp)throws ServerException,IOException{
-
+        UserService userService=new UserServiceImpl();
+        resp.getWriter().write(userService.logout(req.getSession()));
     }
 }

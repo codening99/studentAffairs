@@ -1,6 +1,7 @@
 package com.tjrac.studentAffairs.test;
 
 import com.tjrac.studentAffairs.dao.BaseDao;
+import com.tjrac.studentAffairs.domain.user.Student;
 
 /**
  * Mytest 测试类
@@ -10,6 +11,8 @@ import com.tjrac.studentAffairs.dao.BaseDao;
  */
 public class MyTest {
     public static void main(String[] args) {
+        Student s=new Student();
+//        Class<?> c=Student.Class();
 
     }
 }
