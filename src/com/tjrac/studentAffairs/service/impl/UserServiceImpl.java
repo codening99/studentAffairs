@@ -141,9 +141,21 @@ public class UserServiceImpl implements UserService {
     public String getOnlineStatus(HttpSession session) {
         JsonPack json = new JsonPack();
 
-        if (session.getAttribute("user") != null) {
-            json.put("event", 1);
-            json.put("msg", "在线中!");
+        Object user = session.getAttribute("user");
+
+        if (user != null) {
+
+            if (user instanceof Teacher) {
+
+                json.put("event", 1);
+                json.put("msg", "在线中!");
+                json.put("type", "1");
+            } else {
+                json.put("event", 1);
+                json.put("msg", "在线中!");
+                json.put("type", "2");
+            }
+
         } else {
             json.put("event", 0);
             json.put("msg", "未登录!");
