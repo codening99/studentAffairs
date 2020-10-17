@@ -10,8 +10,8 @@ import com.tjrac.studentAffairs.utils.MD5;
 
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author ZeNing
@@ -20,7 +20,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     //存放user的服务器
-    final static List<HttpSession> listSession = new ArrayList<>();
+    final static List<HttpSession> listSession = new CopyOnWriteArrayList<>();
 
     BaseDao<Student> studentDao = new BaseDao<>(Student.class);
     BaseDao<Teacher> teacherDao = new BaseDao<>(Teacher.class);
@@ -60,7 +60,8 @@ public class UserServiceImpl implements UserService {
                                 //避免重复登陆
                                 listSession.remove(s);
                                 //注销
-                                s.invalidate();
+                                if (session != s)
+                                    s.invalidate();
                             }
                         }
                     }
@@ -99,7 +100,8 @@ public class UserServiceImpl implements UserService {
                                 //避免重复登陆
                                 listSession.remove(s);
                                 //注销
-                                s.invalidate();
+                                if (session != s)
+                                    s.invalidate();
                             }
                         }
                     }
@@ -342,7 +344,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String selectObject(HttpSession session, Class<?> c) {
-
 
 
         return null;
