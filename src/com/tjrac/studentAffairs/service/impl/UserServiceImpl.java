@@ -68,6 +68,7 @@ public class UserServiceImpl implements UserService {
 
                     json.put("event", 0);
                     json.put("msg", "登陆成功!");
+                    json.put("teacher", teacher);
 
                     //保存
                     session.setAttribute("user", teacher);
@@ -108,6 +109,7 @@ public class UserServiceImpl implements UserService {
 
                     json.put("event", 0);
                     json.put("msg", "登陆成功!");
+                    json.put("student", student);
 
                     //保存
                     session.setAttribute("user", student);
@@ -329,14 +331,14 @@ public class UserServiceImpl implements UserService {
 
                 }
 
-            } else {
-                json.put("event", 1);
-                json.put("msg", "获取权限失败");
             }
 
         } else if (competence == 2) {
             json.put("event", 1);
             json.put("msg", "权限不足");
+        } else {
+            json.put("event", 1);
+            json.put("msg", "获取权限失败");
         }
 
         return json.toJson();
@@ -345,8 +347,35 @@ public class UserServiceImpl implements UserService {
     @Override
     public String selectObject(HttpSession session, Class<?> c) {
 
+        Object adminObj = session.getAttribute("user");
 
-        return null;
+        int competence = getCompetence(adminObj);
+
+        JsonPack json = new JsonPack();
+
+        //判断权限
+        if (competence == 1) { //如果存在1权限
+
+            try {
+                Object o = c.getConstructor().newInstance();
+            } catch (Exception e) {
+                json.put("event", 2);
+                json.put("msg", "查找失败");
+                e.printStackTrace();
+            }
+
+        } else if (competence == 2) {
+
+            json.put("event", 1);
+            json.put("msg", "没有该权限");
+
+        } else {
+            json.put("event", 1);
+            json.put("msg", "获取权限失败");
+        }
+
+
+        return json.toJson();
     }
 
     /**
