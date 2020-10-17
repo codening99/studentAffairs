@@ -3,6 +3,7 @@ const Boot = {
     register: function () {
         $("#button-login").click(Boot.login)
         $("#button-login-fast").click(Boot.login_fast)
+        $("#a-logout").click(Boot.manual_login)
     },
     /*显示错误内容，*/
     errorShow: function(msg){
@@ -31,12 +32,26 @@ const Boot = {
 
 
     },
+    /*检测登录状态*/
+    onlineStatus: function () {
+        $.post("./login", {action: "getOnlineStatus"}, function (data) {
+            const json = $.parseJSON(data)
+            if (json.event === 1){
+                $("#login-fast").css("display", "block")
+                $("#login").css("display", "none")
+
+            }
+        })
+    },
     /*快速登录事件*/
     login_fast: function () {
-
+        window.location.href = "./affair.html"
+    },
+    /*切回手动登录*/
+    manual_login: function () {
+        $("#login-fast").css("display", "none")
+        $("#login").css("display", "block")
     }
-}
-const enrolErrorShow = function (msg) {
 
 }
 const Login = {
@@ -60,4 +75,5 @@ const Login = {
 }
 $(function () {
     Boot.register()
+    Boot.onlineStatus()
 })
