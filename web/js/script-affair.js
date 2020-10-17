@@ -1,5 +1,5 @@
 /*导航栏对象*/
-const NavigationBar = {
+const Boot = {
     /*注册*/
     register: function () {
         /*注册点击事件*/
@@ -14,10 +14,19 @@ const NavigationBar = {
                 case "direction": $("#direction").css("display", "block"); break;
             }
         })
+    },
+    /*检测登录装填*/
+    onlineStatus: function () {
+        $.post("./login", {action: "getOnlineStatus"}, function (data) {
+            alert(data)
+        })
     }
+}
+const NavigationBar = {
+
 }
 
 $(function () {
-
-    NavigationBar.register()
+    Boot.onlineStatus()
+    Boot.register()
 })

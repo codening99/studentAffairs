@@ -14,7 +14,7 @@ public class TestMD5 {
     @Test
     public void testOne() {
         //成功加密为32为字符
-        System.out.println(MD5.MD5Encrypt("123456"));
+        System.out.println(MD5.MD5Encrypt("admin123456"));
     }
 
 }
