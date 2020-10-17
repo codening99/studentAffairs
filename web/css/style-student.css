@@ -41,8 +41,9 @@ html, body{
 .sub-navigation .hotkey{
     border-radius: 4px;
     /*background-color: #828282;*/
-    background-color: #677cd9;
+    background-color: #1572e8;
     color: #FFFFFF;
+    box-shadow: 4px 4px 10px 0 rgba(255, 255, 255, 0.1),4px 4px 15px -5px rgba(21,114,232,.4);
 }
 .sub-navigation .common{
     border-radius: 4px;
@@ -51,6 +52,7 @@ html, body{
 }
 /*显示主体*/
 .content-box{
+    background-color: #F7F7FC;
     height: calc(100% - 20px - 80px);
     float: right;
     width: calc(100% - 200px);
@@ -71,6 +73,159 @@ html, body{
     background-color: #0066b6;
     color: #FFFFFF;
 }
+/*分页样式*/
+.content-list-page li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+.content-list-page .page-link{
+    color: #6c757d;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #fff;
+    border-radius: 100px;
+    margin: 10px 2px;
+    border: 1px solid #dee2e6;
+    font-size: 12px;
+    padding: .5rem .75rem;
+
+}
+.content-list-page .page-link-in{
+    border: 1px solid rgb(0,123,255);
+    background-color: rgb(0,123,255);
+    color: #ffffff;
+}
+.content-list-page .pagination{
+    margin: 8px 0 2px;
+    white-space: nowrap;
+    justify-content: flex-end;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem;
+}
+/*信息列表*/
+.content-list{
+    margin: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 2px 6px 15px 0 rgba(69,65,78,.1);
+    height: calc(100% - 40px);
+}
+.content-list-title{
+    /*background-color: #393737;*/
+    background-color: #ffffff;
+    color: #000000;
+    text-align: left;
+    font-size: 20px;
+    width: 100%;
+    height: 30px;
+    border-bottom: 1px solid #d5d5d5;
+    margin-bottom: 10px;
+}
+.content-list-box{
+    height: calc(100% - 40px - 32px - 46px);
+    overflow:auto;
+}
+.content-list-page{
+    height: 46px
+}
+.content-list-operating{
+    padding-top: 10px;
+    height: 32px;
+}
+table{
+    width: 100%;
+}
+table.manage-table{
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #bbc4c4;
+    border-collapse: collapse;
+}
+table.manage-table th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #ffffff;
+}
+table.manage-table td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+.manage-table .head{
+    background-color: #ffd99c;
+}
+.manage-table .singular{
+    background-color: #ffffff;
+}
+.manage-table .dual{
+    background-color: #F2F2F2;
+}
+.manage-table .button-modify{
+    background-color: #0aa9ff;
+    color: #ffffff;
+    border: 1px solid #0aa9ff;
+    border-radius: 4px;
+    font-size: 12px;
+    padding: 2px;
+}
+.manage-table .button-del{
+    background-color: #e53582;
+    color: #ffffff;
+    border: 1px solid #e53582;
+    border-radius: 4px;
+    font-size: 12px;
+    padding: 2px;
+}
+/*列表操作栏样式*/
+.content-list-row{
+    font-size: 12px;
+    float: left;
+}
+.content-list-row select{
+    border-color: #c1c1c1;
+    width: 60px;
+}
+.content-list-row select:focus{
+    border-color: #41a7ff;
+}
+.content-list-search{
+    font-size: 12px;
+    float: right;
+}
+.content-list-search button{
+    margin-left: 5px;
+    font-size: 12px;
+    width: 40px;
+    background-color: #f68121;
+    color: #ffffff;
+    border: 1px solid #f68121;
+    border-radius: 4px;
+    padding: 2px;
+    margin-bottom: 10px;
+}
+#button-emptyTemplate{
+    width: 50px;
+    background-color: #1d5fb3;
+    color: #ffffff;
+    border: 1px solid #1d5fb3;
+}
+#button-export{
+    background-color: #631aac;
+    color: #ffffff;
+    border: 1px solid #631aac;
+}
+#button-import{
+    background-color: #14bd1d;
+    color: #ffffff;
+    border: 1px solid #14bd1d;
+    margin-right: 20px;
+}
 /*个人信息*/
 .content-info{
     border-radius: 8px;
@@ -79,6 +234,7 @@ html, body{
     margin-left: 40px;
     border: 1px solid #aaaaaa;
     overflow:hidden;
+    box-shadow: 2px 6px 15px 0 rgba(69,65,78,.1);
 }
 .content-info-title{
     /*background-color: #393737;*/
@@ -89,6 +245,7 @@ html, body{
     width: 100%;
     height: 40px;
 }
+/*列表样式*/
 .content-info-table{
     width: 100%;
 }

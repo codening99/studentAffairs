@@ -27,24 +27,20 @@ public class Manage extends BaseServlet {
      */
     public void addObject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService userService = new UserServiceImpl();
-        Object object = req.getAttribute("user"); //得到调用该方法的用户对象
-        if (object instanceof Teacher) {
+
+        if ( req.getAttribute("type")=="2") {
             String account = req.getParameter("account");
             String password = req.getParameter("password");
             String name = req.getParameter("name");
             String teacher_sex = req.getParameter("teacher_sex");
             Integer competence_id = Integer.parseInt(req.getParameter("competence_id"));
-            ((Teacher) object).setAccount(account);
-            ((Teacher) object).setPassword(password);
-            ((Teacher) object).setName(name);
-            ((Teacher) object).setCompetence_id(competence_id);
-            ((Teacher) object).setTeacher_sex(teacher_sex);
-            resp.getWriter().write(userService.addObject(req.getSession(), object));
+            Teacher teacher=new Teacher(account,password,name,teacher_sex,competence_id);
+            resp.getWriter().write(userService.addObject(req.getSession(), teacher));
 
-        } else if ((object instanceof Student)) {
+        } else if (req.getAttribute("type")=="1") {
             String sno = req.getParameter("sno");
             String name = req.getParameter("name");
-            String sex = req.getParameter("sex");
+            String student_sex = req.getParameter("student_sex");
             String password = req.getParameter("password");
             Integer competence_id = Integer.parseInt(req.getParameter("competence_id"));
             String grade_name = req.getParameter("grade_name");
@@ -52,17 +48,8 @@ public class Manage extends BaseServlet {
             String department_name = req.getParameter("department_name");
             String specialty_name = req.getParameter("specialty_name");
             String direction_name = req.getParameter("direction_name");
-            ((Student) object).setSno(sno);
-            ((Student) object).setPassword(password);
-            ((Student) object).setName(name);
-            ((Student) object).setStudent_sex(sex);
-            ((Student) object).setCompetence_id(competence_id);
-            ((Student) object).setGrade_name(grade_name);
-            ((Student) object).setClazz_name(clazz_name);
-            ((Student) object).setDepartment_name(department_name);
-            ((Student) object).setDirection_name(direction_name);
-            ((Student) object).setSpecialty_name(specialty_name);
-            resp.getWriter().write(userService.addObject(req.getSession(), object));
+            Student student=new Student(sno,name,password,student_sex,competence_id,grade_name,clazz_name,department_name,specialty_name,direction_name);
+            resp.getWriter().write(userService.addObject(req.getSession(), student));
 
         }
     }
@@ -79,22 +66,17 @@ public class Manage extends BaseServlet {
      */
     public void modifyObject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService userService = new UserServiceImpl();
-        Object object = req.getAttribute("user");//得到调用该方法的用户对象
-        if (object instanceof Teacher) {
+        if (req.getAttribute("type")=="2") {
             String account = req.getParameter("account");
             String password = req.getParameter("password");
             String name = req.getParameter("name");
             String teacher_sex = req.getParameter("teacher_sex");
             Integer competence_id = Integer.parseInt(req.getParameter("competence_id"));
-            ((Teacher) object).setAccount(account);
-            ((Teacher) object).setPassword(password);
-            ((Teacher) object).setName(name);
-            ((Teacher) object).setCompetence_id(competence_id);
-            ((Teacher) object).setTeacher_sex(teacher_sex);
-            resp.getWriter().write(userService.addObject(req.getSession(), object));
+            Teacher teacher=new Teacher(account,password,name,teacher_sex,competence_id);
+            resp.getWriter().write(userService.addObject(req.getSession(), teacher));
             return;
 
-        } else if ((object instanceof Student)) {
+        } else if (req.getAttribute("type")=="1") {
             String sno = req.getParameter("sno");
             String name = req.getParameter("name");
             String sex = req.getParameter("sex");
@@ -105,17 +87,8 @@ public class Manage extends BaseServlet {
             String department_name = req.getParameter("department_name");
             String specialty_name = req.getParameter("specialty_name");
             String direction_name = req.getParameter("direction_name");
-            ((Student) object).setSno(sno);
-            ((Student) object).setPassword(password);
-            ((Student) object).setName(name);
-            ((Student) object).setStudent_sex(sex);
-            ((Student) object).setCompetence_id(competence_id);
-            ((Student) object).setGrade_name(grade_name);
-            ((Student) object).setClazz_name(clazz_name);
-            ((Student) object).setDepartment_name(department_name);
-            ((Student) object).setDirection_name(direction_name);
-            ((Student) object).setSpecialty_name(specialty_name);
-            resp.getWriter().write(userService.modifyObject(req.getSession(), object));
+            Student student=new Student(sno,name,sex,password,competence_id,grade_name,clazz_name,department_name,specialty_name,direction_name);
+            resp.getWriter().write(userService.modifyObject(req.getSession(), student));
 
         }
     }

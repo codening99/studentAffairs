@@ -7,35 +7,35 @@
     <link rel="stylesheet" type="text/css" href="css/style-student.css">
     <script src="./js/lib/jquery-3.5.1.min.js"></script>
     <script src="./js/script-affair.js"></script>
-    <title>学生事务中心</title>
+    <title>教师事务中心</title>
 </head>
 <body>
     <!--标题-->
     <div class="title">
-        <img src="img/logo2.png" alt="logo">
+        <img src="img/logo3.png" alt="logo">
     </div>
     <!--导航栏-->
     <div class="navigationBar">
-        <div class="sub-navigation" id="sub-navigation-student" style="display: block">
+        <div class="sub-navigation" id="sub-navigation-student" style="display: none">
             <div data-name="info" class="hotkey">个人信息</div>
             <div data-name="modify" class="common">修改密码</div>
             <div data-name="list" class="common">活动列表</div>
-            <div data-name="elective" class="common">选  课</div>
-            <div data-name="direction" class="common">选 方 向</div>
+            <div data-name="set-elective" class="common">选  课</div>
+            <div data-name="set-direction" class="common">选 方 向</div>
             <div data-name="exit" class="common">注销退出</div>
         </div>
-        <div class="sub-navigation" id="sub-navigation-teacher" style="display: none">
+        <div class="sub-navigation" id="sub-navigation-teacher" style="display: block">
             <div data-name="list" class="hotkey">学生列表</div>
             <div data-name="activity" class="common">发布活动</div>
-            <div data-name="elective" class="common">选课设置</div>
-            <div data-name="direction" class="common">选方向设置</div>
+            <div data-name="set-elective" class="common">选课设置</div>
+            <div data-name="set-direction" class="common">选方向设置</div>
             <div data-name="exit" class="common">注销退出</div>
         </div>
     </div>
     <!--主体内容-->
     <div class="content-box">
         <!--个人信息-->
-        <div class="content-body content-info" id="info">
+        <div class="content-body content-info" id="info" style="display: none" >
             <div class="content-info-title">个人信息</div>
             <div>
                 <table class="content-info-table" >
@@ -125,6 +125,118 @@
             <div class="button-box" style="margin-bottom: 10px">
                 <button>确认提交</button>
             </div>
+        </div>
+
+        <div class="content-body content-list" id="list">
+            <!--学生信息表-->
+            <div class="content-list-title">学生信息</div>
+            <div class="content-list-operating">
+                <div class="content-list-row">
+                    <label>
+                        每页显示数量:
+                        <select name="pagination">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="content-list-search">
+                    <button id="button-emptyTemplate">空模板</button>
+                    <button id="button-export">导出</button>
+                    <button id="button-import">导入</button>
+                    <label>
+                        搜索
+                        <input type="text">
+                    </label>
+                    <button>搜索</button>
+                </div>
+            </div>
+            <div class="content-list-box">
+                <table class="manage-table">
+                    <thead>
+                    <tr class="head">
+                        <th>学号</th>
+                        <th>姓名</th>
+                        <th>性别</th>
+                        <th>年级</th>
+                        <th>系</th>
+                        <th>专业</th>
+                        <th>方向</th>
+                        <th>班级</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="manage-body">
+                    <tr class="singular">
+                        <th>6018203029</th>
+                        <th>王延周</th>
+                        <th>男</th>
+                        <th>2018级</th>
+                        <th>计算机科学与技术系</th>
+                        <th>计算机科学与技术</th>
+                        <th>云计算平台</th>
+                        <th>云计算平台1班</th>
+                        <th>
+                            <button class="button-modify">修改</button>
+                            <button class="button-del">删除</button>
+                        </th>
+                    </tr>
+                    <tr class="dual">
+                        <th>6018203020</th>
+                        <th>马泽宁</th>
+                        <th>男</th>
+                        <th>2018级</th>
+                        <th>计算机科学与技术系</th>
+                        <th>计算机科学与技术</th>
+                        <th>计算机技术</th>
+                        <th>计算机技术1班</th>
+                        <th>
+                            <button class="button-modify">修改</button>
+                            <button class="button-del">删除</button>
+                        </th>
+                    </tr>
+                    <tr class="singular">
+                        <th>6018203023</th>
+                        <th>时漫漫</th>
+                        <th>女</th>
+                        <th>2018级</th>
+                        <th>计算机科学与技术系</th>
+                        <th>计算机科学与技术</th>
+                        <th>计算机技术</th>
+                        <th>计算机技术2班</th>
+                        <th>
+                            <button class="button-modify">修改</button>
+                            <button class="button-del">删除</button>
+                        </th>
+                    </tr>
+                    <tr class="dual">
+                        <th>6018203022</th>
+                        <th>王佳欣</th>
+                        <th>女</th>
+                        <th>2018级</th>
+                        <th>计算机科学与技术系</th>
+                        <th>计算机科学与技术</th>
+                        <th>计算机技术</th>
+                        <th>计算机技术2班</th>
+                        <th>
+                            <button class="button-modify">修改</button>
+                            <button class="button-del">删除</button>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="content-list-page">
+                <ul class="pagination">
+                    <li><a class="page-link">首页</a></li>
+                    <li><a class="page-link page-link-in">1</a></li>
+                    <li><a class="page-link">末页</a></li>
+                </ul>
+            </div>
+
         </div>
     </div>
     <!--底部信息栏-->
