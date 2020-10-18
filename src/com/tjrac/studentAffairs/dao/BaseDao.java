@@ -81,8 +81,8 @@ public class BaseDao<T>{
                     sb.append("`,`");
                     sb.append(tableNames.get(i));
                 }
-                sb.append(" values(");
             }
+            sb.append(" values(");
             // 填充sql语句的值部分
             for (int i = 0; i < tableNames.size(); i++) {
                 sb.append('?');
@@ -101,8 +101,8 @@ public class BaseDao<T>{
                 if (condition == null) {
                     return -1;
                 }
-                sb.append(" where ").append(condition);
             }
+            sb.append(" where ").append(condition);
         } else {
             if (condition == null) {return -1;}
             sb.append(" where ").append(condition);

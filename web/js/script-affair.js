@@ -1,8 +1,8 @@
 /*导航栏对象*/
 const Boot = {
-    /*注册*/
+    /*注册点击事件*/
     register: function () {
-        /*注册点击事件*/
+        /*导航栏点击*/
         $(".sub-navigation .hotkey,.sub-navigation .common").click(function () {
             const name = $(this).data("name");
             if (name === "exit"){
@@ -18,9 +18,23 @@ const Boot = {
             switch (name) {
                 case "info": $("#info").css("display", "block"); break;
                 case "modify": $("#modify").css("display", "block"); break;
+                case "activity": $("#activity").css("display", "block"); break;
+                case "elective": $("#elective").css("display", "block"); break;
                 case "direction": $("#direction").css("display", "block"); break;
                 case "info-list": $("#list").css("display", "block"); break;
                 case "set-direction": $("#set-direction").css("display", "block"); break;
+                case "set-elective": $("#set-elective").css("display", "block"); break;
+                case "set-activity": $("#set-activity").css("display", "block"); break;
+            }
+        })
+        /*方向设置导航*/
+        $(".content-direction .hotkey,.content-direction .common").click(function () {
+            $(".content-direction-body").css("display", "none")
+            $(".content-direction .hotkey, .content-direction .common").attr("class", "common")
+            $(this).attr("class", "hotkey")
+            const name = $(this).data("name");
+            switch (name) {
+                case "direction-set": $("#direction-set").css("display", "block"); break;
             }
         })
     },

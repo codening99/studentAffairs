@@ -5,9 +5,8 @@ html, body{
 }
 /*标题*/
 .title{
-    background-color: #0066b6;
+    background-color: #1269DB;
     padding-left: 20px;
-    line-height: 80px;
     color: #ffffff;
     font-size: 28px;
     height: 80px;
@@ -16,6 +15,16 @@ html, body{
     height: 85%;
     padding-top: 5px;
     display: block;
+    float: left;
+}
+.title span{
+    float: right;
+    font-size: 12px;
+    margin-top: 60px;
+    margin-right: 10px;
+}
+.title a{
+    color: #ffb639;
 }
 /*导航栏*/
 .navigationBar{
@@ -75,7 +84,7 @@ html, body{
     height: 16px;
     width: 100%;
     float: left;
-    background-color: #0066b6;
+    background-color: #1269DB;
     color: #FFFFFF;
 }
 /*分页样式*/
@@ -117,15 +126,16 @@ html, body{
     background-color: #FFFFFF;
     box-shadow: 2px 6px 15px 0 rgba(69,65,78,.1);
     height: calc(100% - 40px);
+    overflow:hidden;
 }
 .content-list-title{
     /*background-color: #393737;*/
     background-color: #ffffff;
     color: #000000;
     text-align: left;
-    font-size: 20px;
+    font-size: 24px;
     width: 100%;
-    height: 30px;
+    height: 40px;
     border-bottom: 1px solid #d5d5d5;
     margin-bottom: 10px;
 }
@@ -139,6 +149,7 @@ html, body{
 .content-list-operating{
     padding-top: 10px;
     height: 32px;
+    overflow: hidden;
 }
 table{
     width: 100%;
@@ -244,7 +255,7 @@ table.manage-table td {
 }
 .content-info-title{
     /*background-color: #393737;*/
-    background-color: #0066b6;
+    background-color: #1269DB;
     color: #FFFFFF;
     text-align: center;
     font-size: 22px;
@@ -353,4 +364,58 @@ table.manage-table td {
     border-radius: 4px;
     background-color: #ffffff;
     color: #000000;
+}
+/*开关样式*/
+.input-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 26px;
+}
+.input-switch input {display:none;}
+.input-switch .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.input-switch .slider:before {
+    /*圆*/
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 8px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.input-switch input:checked + .slider {
+    background-color: #2196F3;
+}
+.input-switch input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+.input-switch input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+.input-switch .slider.round {
+    border-radius: 34px;
+}
+.input-switch .slider.round:before {
+    border-radius: 50%;
+}
+#direction-set li{
+    list-style:none; /* 将默认的列表符号去掉 */
+    padding:0; /* 将默认的内边距去掉 */
+    margin:0; /* 将默认的外边距去掉 */
+    float:left; /* 往左浮动 */
 }

@@ -13,6 +13,9 @@
     <!--标题-->
     <div class="title">
         <img src="img/logo3.png" alt="logo">
+        <span><a href="#">[切换对象]</a></span>
+        <span>当前数据对象：2018级 计算机系</span>
+
     </div>
     <!--导航栏-->
     <div class="navigationBar">
@@ -96,6 +99,16 @@
             <div class="button-box" style="margin-bottom: 10px">
                 <button>确认修改</button>
             </div>
+        </div>
+        <!--活动列表-->
+        <div class="content-body content-info" id="activity" style="display: none">
+            <div class="content-info-title">活动列表</div>
+            <p style="text-align: center">暂未开放此模块</p>
+        </div>
+        <!--选课-->
+        <div class="content-body content-info" id="elective" style="display: none">
+            <div class="content-info-title">选课设置</div>
+            <p style="text-align: center">暂未开放此模块</p>
         </div>
         <!--选方向-->
         <div class="content-body content-info" id="direction" style="display: none">
@@ -239,6 +252,16 @@
             </div>
 
         </div>
+        <!--活动设置-->
+        <div class="content-body content-info" id="set-activity" style="display: none">
+            <div class="content-info-title">活动设置</div>
+            <p style="text-align: center">暂未开放此模块</p>
+        </div>
+        <!--选课设置-->
+        <div class="content-body content-info" id="set-elective" style="display: none">
+            <div class="content-info-title">选课设置</div>
+            <p style="text-align: center">暂未开放此模块</p>
+        </div>
         <!--选方向设置-->
         <div class="content-body content-air" id="set-direction" style="display: none">
             <div class="content-list content-direction">
@@ -246,10 +269,68 @@
                 <div data-name="direction-statistics" class="common">图形统计</div>
                 <div data-name="direction-already" class="common">已选列表</div>
                 <div data-name="direction-haveNot" class="common">未选列表</div>
-
             </div>
-            <div class="content-list content-direction-box">
 
+            <div class="content-list content-direction-box">
+                <div class="content-direction-body" id="direction-set">
+                    <div class="content-list-title">方向设置</div>
+                    <div style="float: left">
+                        <span style="font-size: 18px;">开启选方向：</span>
+                    </div>
+                    <div >
+                        <label class="input-switch" >
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div>
+                        <div class="content-list-box">
+                            <table class="manage-table">
+                                <thead>
+                                <tr class="head">
+                                    <th>id</th>
+                                    <th>所属系</th>
+                                    <th>所属专业</th>
+                                    <th>方向名</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="manage-body-s">
+                                <tr class="singular">
+                                    <th>1</th>
+                                    <th>计算机科学与技术</th>
+                                    <th>计算机科学与技术</th>
+                                    <th>计算机技术</th>
+                                    <th>
+                                        <button class="button-modify">修改</button>
+                                        <button class="button-del">删除</button>
+                                    </th>
+                                </tr>
+                                <tr class="dual">
+                                    <th>2</th>
+                                    <th>计算机科学与技术</th>
+                                    <th>计算机科学与技术</th>
+                                    <th>云计算平台</th>
+                                    <th>
+                                        <button class="button-modify">修改</button>
+                                        <button class="button-del">删除</button>
+                                    </th>
+                                </tr>
+                                <tr class="singular">
+                                    <th>3</th>
+                                    <th>计算机科学与技术</th>
+                                    <th>计算机科学与技术</th>
+                                    <th>物联网</th>
+                                    <th>
+                                        <button class="button-modify">修改</button>
+                                        <button class="button-del">删除</button>
+                                    </th>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

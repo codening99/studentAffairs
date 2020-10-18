@@ -54,15 +54,20 @@ public class UserServiceImpl implements UserService {
 
                     for (HttpSession s : listSession) {
                         //服务器中有session
-                        Object user = s.getAttribute("user");
-                        if (user instanceof Teacher) {
-                            if (((Teacher) user).getAccount().equals(account)) {
-                                //避免重复登陆
-                                listSession.remove(s);
-                                //注销
-                                if (session != s)
-                                    s.invalidate();
+                        try {
+                            Object user = s.getAttribute("user");
+                            if (user instanceof Teacher) {
+                                if (((Teacher) user).getAccount().equals(account)) {
+                                    //避免重复登陆
+                                    listSession.remove(s);
+                                    //注销
+                                    if (session != s)
+                                        s.invalidate();
+                                }
                             }
+                        } catch (Exception e){
+                            e.printStackTrace();
+                            listSession.remove(s);
                         }
                     }
 
