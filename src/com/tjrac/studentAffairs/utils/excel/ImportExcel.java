@@ -7,6 +7,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.Test;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -22,12 +23,12 @@ import java.util.List;
  * @author ZeNing
  * @create 2020-10-17 21:28
  */
-public class importExcel {
+public class ImportExcel {
 
-    public static void main(String[] args) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static void importExcel(String fileName) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         //获取Excel工作簿
-        XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream("temp/excel.xlsx"));
+        XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(fileName));
         //获取sheet
         XSSFSheet sheet = workbook.getSheet("sheet0");
 
@@ -69,7 +70,13 @@ public class importExcel {
 
                 }
 
-                studentBaseDao.insert(student);
+                int insert = studentBaseDao.insert(student);
+
+                List<Student> failureInfo = new ArrayList<>(); //存放失败信息
+
+                if (insert == -1) { //导出失败
+                    failureInfo.add(student); //将其存放起来
+                }
 
             }
 
@@ -77,5 +84,12 @@ public class importExcel {
 
     }
 
+
+    @Test
+    public void test() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
+
+        importExcel("temp\\excel.xlsx");
+
+    }
 
 }

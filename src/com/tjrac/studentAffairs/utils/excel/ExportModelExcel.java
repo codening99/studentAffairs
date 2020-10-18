@@ -25,7 +25,7 @@ import java.util.List;
  * @author ZeNing
  * @create 2020-10-17 15:42
  */
-public class exportModelExcel {
+public class ExportModelExcel {
 
     public static void export() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
@@ -84,12 +84,13 @@ public class exportModelExcel {
             //插入第i行数据
             for (int j = 0; j < title.length; j++) {
                 cell = row.createCell(j); //创建单元格
+                cell.setCellStyle(css);
                 cell.setCellValue(title[j]); //给单元格填入值
             }
         }
 
         //创建一个文件 存放
-        File file = new File("temp/excel.xlsx");
+        File file = new File("temp/modelExcel.xlsx");
 
         try {
 
