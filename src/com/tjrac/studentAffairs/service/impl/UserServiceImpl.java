@@ -151,7 +151,6 @@ public class UserServiceImpl implements UserService {
         if (user != null) {
 
             if (user instanceof Teacher) {
-
                 json.put("event", 1);
                 json.put("msg", "在线中!");
                 json.put("type", 1);

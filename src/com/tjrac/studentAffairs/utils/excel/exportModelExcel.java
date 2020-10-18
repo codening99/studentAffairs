@@ -3,9 +3,12 @@ package com.tjrac.studentAffairs.utils.excel;
 import com.tjrac.studentAffairs.dao.BaseDao;
 import com.tjrac.studentAffairs.domain.user.Export;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,6 +35,10 @@ public class exportModelExcel {
         //创建一个工作表sheet
         Sheet sheet = workbook.createSheet();
 
+        XSSFCellStyle css = workbook.createCellStyle(); //设置单元格格式
+        DataFormat format = workbook.createDataFormat();
+        css.setDataFormat(format.getFormat("@"));
+
         //获取表内信息
         BaseDao<Export> exportBaseDao = new BaseDao<>(Export.class);
         List<Export> exports = exportBaseDao.queryList();
@@ -48,6 +55,7 @@ public class exportModelExcel {
         }
 
         for (int i = 0; i < fields.size(); i++) {
+            sheet.setDefaultColumnStyle(i,css);
             //获取所有属性的属性名
             String fieldName = fields.get(i).getName();
 
@@ -94,6 +102,11 @@ public class exportModelExcel {
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    public void test() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        export();
     }
 
 

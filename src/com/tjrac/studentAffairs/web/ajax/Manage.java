@@ -48,7 +48,7 @@ public class Manage extends BaseServlet {
             String department_name = req.getParameter("department_name");
             String specialty_name = req.getParameter("specialty_name");
             String direction_name = req.getParameter("direction_name");
-            Student student=new Student(sno,name,password,student_sex,competence_id,grade_name,clazz_name,department_name,specialty_name,direction_name);
+            Student student=new Student(sno,name,password,student_sex,competence_id,grade_name,department_name,specialty_name,direction_name,clazz_name);
             resp.getWriter().write(userService.addObject(req.getSession(), student));
 
         }
@@ -87,7 +87,7 @@ public class Manage extends BaseServlet {
             String department_name = req.getParameter("department_name");
             String specialty_name = req.getParameter("specialty_name");
             String direction_name = req.getParameter("direction_name");
-            Student student=new Student(sno,name,sex,password,competence_id,grade_name,clazz_name,department_name,specialty_name,direction_name);
+            Student student=new Student(sno,name,sex,password,competence_id,grade_name,department_name,specialty_name,direction_name,clazz_name);
             resp.getWriter().write(userService.modifyObject(req.getSession(), student));
 
         }

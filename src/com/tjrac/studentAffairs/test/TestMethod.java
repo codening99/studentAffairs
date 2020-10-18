@@ -68,4 +68,30 @@ public class TestMethod {
     }
 
 
+    @Test
+    public void test4() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+
+        Student student = new Student();
+
+        Method setSno = Student.class.getMethod("setSno", String.class);
+
+        setSno.invoke(student, "6018203020");
+
+        System.out.println(student);
+
+
+    }
+
+    @Test
+    public void test5() {
+
+        Student student = new Student("6018203020","张飞", "123456" , "男",4,"计算机","计算机","计算机","计算机","计算机");
+
+        System.out.println(student);
+        BaseDao<Student> studentBaseDao = new BaseDao<>(Student.class);
+
+        System.out.println(studentBaseDao.insert(student));
+
+    }
+
 }

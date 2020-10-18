@@ -14,16 +14,29 @@ public class Student {
     private String student_sex;        // 学生性别
     private Integer competence_id;        // 权限 参考权限表
     private String grade_name;         // 年级，一般为年份，方便管理
-    private String clazz_name;         // 班级
     private String department_name;    // 系
     private String specialty_name;     // 专业
     private String direction_name;     // 方向
+    private String clazz_name;         // 班级
 
     public Student() {
 
     }
 
-    public Student(Integer student_id, String sno, String name, String password, String student_sex, Integer competence_id, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
+    public Student(String sno, String name, String password, String student_sex, Integer competence_id, String grade_name, String department_name, String specialty_name, String direction_name, String clazz_name) {
+        this.sno = sno;
+        this.name = name;
+        this.password = password;
+        this.student_sex = student_sex;
+        this.competence_id = competence_id;
+        this.grade_name = grade_name;
+        this.department_name = department_name;
+        this.specialty_name = specialty_name;
+        this.direction_name = direction_name;
+        this.clazz_name = clazz_name;
+    }
+
+    public Student(Integer student_id, String sno, String name, String password, String student_sex, Integer competence_id, String grade_name, String department_name, String specialty_name, String direction_name, String clazz_name) {
         this.student_id = student_id;
         this.sno = sno;
         this.name = name;
@@ -31,26 +44,11 @@ public class Student {
         this.student_sex = student_sex;
         this.competence_id = competence_id;
         this.grade_name = grade_name;
-        this.clazz_name = clazz_name;
         this.department_name = department_name;
         this.specialty_name = specialty_name;
         this.direction_name = direction_name;
-    }
-
-    public Student(String sno, String name, String password, String student_sex, Integer competence_id, String grade_name, String clazz_name, String department_name, String specialty_name, String direction_name) {
-        this.sno = sno;
-        this.name = name;
-        this.password = password;
-        this.student_sex = student_sex;
-        this.competence_id = competence_id;
-        this.grade_name = grade_name;
         this.clazz_name = clazz_name;
-        this.department_name = department_name;
-        this.specialty_name = specialty_name;
-        this.direction_name = direction_name;
     }
-
-
 
     public Integer getStudent_id() {
         return student_id;
@@ -108,14 +106,6 @@ public class Student {
         this.grade_name = grade_name;
     }
 
-    public String getClazz_name() {
-        return clazz_name;
-    }
-
-    public void setClazz_name(String clazz_name) {
-        this.clazz_name = clazz_name;
-    }
-
     public String getDepartment_name() {
         return department_name;
     }
@@ -140,6 +130,14 @@ public class Student {
         this.direction_name = direction_name;
     }
 
+    public String getClazz_name() {
+        return clazz_name;
+    }
+
+    public void setClazz_name(String clazz_name) {
+        this.clazz_name = clazz_name;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -150,10 +148,10 @@ public class Student {
                 ", student_sex='" + student_sex + '\'' +
                 ", competence_id=" + competence_id +
                 ", grade_name='" + grade_name + '\'' +
-                ", clazz_name='" + clazz_name + '\'' +
                 ", department_name='" + department_name + '\'' +
                 ", specialty_name='" + specialty_name + '\'' +
                 ", direction_name='" + direction_name + '\'' +
+                ", clazz_name='" + clazz_name + '\'' +
                 '}';
     }
 }
