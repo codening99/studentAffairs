@@ -23,13 +23,13 @@ public class BaseDao<T>{
         StringBuilder sb = null;
         switch (type) {
             case 1:
-                new StringBuilder("insert into ");
+                sb = new StringBuilder("insert into ");
                 break;
             case 2:
-                new StringBuilder("update ");
+                sb = new StringBuilder("update ");
                 break;
             case 3:
-                new StringBuilder("delete from ");
+                sb = new StringBuilder("delete from ");
                 break;
             default:
                 return -1;
@@ -38,7 +38,6 @@ public class BaseDao<T>{
         // 获取表名
         Class<?> c = obj.getClass();
         // 添加到sql语句中
-        assert false;
         sb.append(getTableNameFromClass(c));
         // 获取所有的Field和Method
         Method[] methods = c.getDeclaredMethods();

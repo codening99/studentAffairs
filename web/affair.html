@@ -19,14 +19,14 @@
         <div class="sub-navigation" id="sub-navigation-student" style="display: none">
             <div data-name="info" class="hotkey">个人信息</div>
             <div data-name="modify" class="common">修改密码</div>
-            <div data-name="list" class="common">活动列表</div>
-            <div data-name="set-elective" class="common">选  课</div>
-            <div data-name="set-direction" class="common">选 方 向</div>
+            <div data-name="activity" class="common">活动列表</div>
+            <div data-name="elective" class="common">选  课</div>
+            <div data-name="direction" class="common">选 方 向</div>
             <div data-name="exit" class="common">注销退出</div>
         </div>
         <div class="sub-navigation" id="sub-navigation-teacher" style="display: block">
-            <div data-name="list" class="hotkey">学生列表</div>
-            <div data-name="activity" class="common">发布活动</div>
+            <div data-name="info-list" class="hotkey">学生列表</div>
+            <div data-name="set-activity" class="common">发布活动</div>
             <div data-name="set-elective" class="common">选课设置</div>
             <div data-name="set-direction" class="common">选方向设置</div>
             <div data-name="exit" class="common">注销退出</div>
@@ -127,8 +127,9 @@
             </div>
         </div>
 
-        <div class="content-body content-list" id="list">
-            <!--学生信息表-->
+        <!--学生信息表-->
+        <div class="content-body content-list" id="list" style="display: none">
+
             <div class="content-list-title">学生信息</div>
             <div class="content-list-operating">
                 <div class="content-list-row">
@@ -237,6 +238,19 @@
                 </ul>
             </div>
 
+        </div>
+        <!--选方向设置-->
+        <div class="content-body content-air" id="set-direction" style="display: none">
+            <div class="content-list content-direction">
+                <div data-name="direction-set" class="hotkey">方向设置</div>
+                <div data-name="direction-statistics" class="common">图形统计</div>
+                <div data-name="direction-already" class="common">已选列表</div>
+                <div data-name="direction-haveNot" class="common">未选列表</div>
+
+            </div>
+            <div class="content-list content-direction-box">
+
+            </div>
         </div>
     </div>
     <!--底部信息栏-->

@@ -3,7 +3,7 @@ const Boot = {
     /*注册*/
     register: function () {
         /*注册点击事件*/
-        $(".hotkey, .common").click(function () {
+        $(".sub-navigation .hotkey,.sub-navigation .common").click(function () {
             const name = $(this).data("name");
             if (name === "exit"){
                 if (confirm("是否退出当前用户？")){
@@ -13,13 +13,14 @@ const Boot = {
                 }
             }
             $(".content-body").css("display", "none")
-            $(".hotkey, .common").attr("class", "common")
+            $(".sub-navigation .hotkey, .sub-navigation .common").attr("class", "common")
             $(this).attr("class", "hotkey")
             switch (name) {
                 case "info": $("#info").css("display", "block"); break;
                 case "modify": $("#modify").css("display", "block"); break;
                 case "direction": $("#direction").css("display", "block"); break;
-                case "list": $("#list").css("display", "block"); break;
+                case "info-list": $("#list").css("display", "block"); break;
+                case "set-direction": $("#set-direction").css("display", "block"); break;
             }
         })
     },
@@ -29,8 +30,30 @@ const Boot = {
             const json = $.parseJSON(data)
             if (json.event !== 1){
                 window.location.href = "./index.html"
+            } else {
+                if (json.type === 1){
+                    Boot.teacher_init()
+                } else {
+                    Boot.student_init()
+                }
             }
         })
+    },
+    /*学生事务中心初始化*/
+    student_init: function () {
+        $("title").html("学生事务中心")
+        $(".title img").attr("src", "img/logo2.png")
+        $("#sub-navigation-student").css("display", "block")
+        $("#sub-navigation-teacher").css("display", "none")
+        $("#info").css("display", "block")
+    },
+    teacher_init:function () {
+        $("title").html("教师事务中心")
+        $(".title img").attr("src", "img/logo3.png")
+        $("#sub-navigation-student").css("display", "none")
+        $("#sub-navigation-teacher").css("display", "block")
+        $("#list").css("display", "block")
+
     }
 }
 const NavigationBar = {

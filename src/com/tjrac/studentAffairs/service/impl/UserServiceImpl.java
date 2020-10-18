@@ -149,11 +149,11 @@ public class UserServiceImpl implements UserService {
 
                 json.put("event", 1);
                 json.put("msg", "在线中!");
-                json.put("type", "1");
+                json.put("type", 1);
             } else {
                 json.put("event", 1);
                 json.put("msg", "在线中!");
-                json.put("type", "2");
+                json.put("type", 2);
             }
 
         } else {

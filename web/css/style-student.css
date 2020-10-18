@@ -50,6 +50,11 @@ html, body{
     background-color: #e6ecff;
     color: #000000;
 }
+.sub-navigation .common:hover{
+    border-radius: 4px;
+    background-color: #bfd0ff;
+    color: #000000;
+}
 /*显示主体*/
 .content-box{
     background-color: #F7F7FC;
@@ -229,10 +234,11 @@ table.manage-table td {
 /*个人信息*/
 .content-info{
     border-radius: 8px;
-    width: 320px;
+    background-color: #ffffff;
+    width: 305px;
     margin-top: 40px;
     margin-left: 40px;
-    border: 1px solid #aaaaaa;
+    /*border: 1px solid #aaaaaa;*/
     overflow:hidden;
     box-shadow: 2px 6px 15px 0 rgba(69,65,78,.1);
 }
@@ -241,7 +247,8 @@ table.manage-table td {
     background-color: #0066b6;
     color: #FFFFFF;
     text-align: center;
-    font-size: 28px;
+    font-size: 22px;
+    padding-top: 8px;
     width: 100%;
     height: 40px;
 }
@@ -312,4 +319,38 @@ table.manage-table td {
     margin-left: 18px;
     border: 1px solid #0066b6;
     border-radius: 4px;
+}
+/*空模板*/
+.content-air{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+/*选方向*/
+.content-direction{
+    width: 150px;
+    float: left;
+    cursor:default;
+}
+.content-direction-box{
+    width: calc(100% - 150px - 80px);
+    float: right;
+}
+.content-direction div{
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin: 5px;
+}
+.content-direction .hotkey{
+    border-radius: 4px;
+    /*background-color: #828282;*/
+    background-color: #1572e8;
+    color: #FFFFFF;
+    box-shadow: 4px 4px 10px 0 rgba(255, 255, 255, 0.1),4px 4px 15px -5px rgba(21,114,232,.4);
+}
+.content-direction .common{
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #000000;
 }
