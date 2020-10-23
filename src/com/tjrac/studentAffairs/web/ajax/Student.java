@@ -2,6 +2,7 @@ package com.tjrac.studentAffairs.web.ajax;
 
 import com.tjrac.studentAffairs.service.user.StudentService;
 import com.tjrac.studentAffairs.service.user.impl.StudentServiceImpl;
+import com.tjrac.studentAffairs.service.user.proxy.StudentServiceProxy;
 import com.tjrac.studentAffairs.web.BaseServlet;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.InvocationHandler;
 import java.rmi.ServerException;
 
 /**
@@ -25,8 +27,9 @@ public class Student extends BaseServlet {
      * 地址：student?action=getStudentInfo
      */
     public void getStudentInfo(HttpServletRequest req,HttpServletResponse resp)throws ServerException,IOException{
-        StudentService userService = new StudentServiceImpl();
-        resp.getWriter().write(userService.getStudentInfo(req.getSession()));
+        StudentService studentService = (StudentService) new StudentServiceProxy(req.getSession(),
+                new StudentServiceImpl()).getProxy();
+        resp.getWriter().write(studentService.getStudentInfo(req.getSession()));
     }
 
     /**
@@ -35,8 +38,10 @@ public class Student extends BaseServlet {
      * 参数：old password
      */
     public void changePassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        StudentService studentService = (StudentService) new StudentServiceProxy(req.getSession(),
+                new StudentServiceImpl()).getProxy();
         String old = req.getParameter("old");
         String password = req.getParameter("password");
-
+        resp.getWriter().write(studentService.changePassword(req.getSession(), old, password));
     }
 }

@@ -81,10 +81,14 @@ public class DBUtils {
         //执行pstmt就可以了
         try {
             assert pstmt != null;
-            pstmt.executeUpdate();
+            int i = pstmt.executeUpdate();
+            if (i == 0) {
+                throw new SQLException("未选定行!", "", 404);
+            }
             return 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.print("SQL错误：");
+            System.out.println(e.getMessage());
             return e.getErrorCode();
         } finally {
             close(conn, pstmt, null);

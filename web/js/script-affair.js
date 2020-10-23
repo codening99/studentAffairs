@@ -188,17 +188,31 @@ const Student = {
                 System.error.show("modify", "请再次输入新密码！")
                 return
             }
+            if ($confirmPassword.val() === $oldPassword.val()){
+                System.error.show("modify", "旧密码不能和新密码一致！")
+                return
+            }
             if ($newPassword.val() !== $confirmPassword.val()) {
                 System.error.show("modify", "两次密码不一致！")
                 return
             }
             System.error.show("modify")
-            $.post("./")
+            $.post("./student", {
+                action: "changePassword",
+                old: $oldPassword.val(),
+                password: $newPassword.val()
+            }, function (data) {
+                const json = $.parseJSON(data)
+                if (json.event !== 0) {
+                    System.error.show("modify", json.msg)
+                    return
+                }
+                alert(json.msg)
+                $newPassword.val("")
+                $confirmPassword.val("")
+                $oldPassword.val("")
+            })
         },
-        // 提交事件 json函数
-        modifyPassword : function (data) {
-
-        }
     }
 }
 

@@ -18,4 +18,12 @@ public interface StudentService extends UserService {
      */
     String getStudentInfo(HttpSession session);
 
+    /**
+     * 修改学生密码
+     * @param session   浏览器会话对象
+     * @param old       旧密码
+     * @param password  新密码
+     * @return  返回Json字符串，参考README.md的文件的ajax请求接口
+     */
+    String changePassword(HttpSession session, String old, String password);
 }

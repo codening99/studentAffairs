@@ -6,7 +6,7 @@ package com.tjrac.studentAffairs.domain.user;
  * @author : xziying
  * @create : 2020-10-14 21:28
  */
-public class Student {
+public class Student implements User{
     private Integer student_id;        // 学生id 自增 索引
     private String sno;                // 学号 唯一 不能为空
     private String name;               // 学生姓名

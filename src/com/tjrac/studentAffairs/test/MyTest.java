@@ -11,8 +11,6 @@ import com.tjrac.studentAffairs.domain.user.Student;
  */
 public class MyTest {
     public static void main(String[] args) {
-        Student s=new Student();
-//        Class<?> c=Student.Class();
 
     }
 }

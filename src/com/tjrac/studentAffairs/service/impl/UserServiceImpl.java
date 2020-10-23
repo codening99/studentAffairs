@@ -4,7 +4,7 @@ import com.tjrac.studentAffairs.dao.BaseDao;
 import com.tjrac.studentAffairs.domain.user.Student;
 import com.tjrac.studentAffairs.domain.user.Teacher;
 import com.tjrac.studentAffairs.service.UserService;
-import com.tjrac.studentAffairs.utils.CompPara;
+import com.tjrac.studentAffairs.utils.Competence;
 import com.tjrac.studentAffairs.utils.JsonPack;
 import com.tjrac.studentAffairs.utils.MD5;
 
@@ -206,7 +206,7 @@ public class UserServiceImpl implements UserService {
      *
      * @return 1有该权限 2没有该权限 3获取权限失败
      */
-    protected int getCompetence(Object obj) {
+    protected Competence getCompetence(Object obj) {
 
         int competence;
         //无论是学生还是老师，都获取他的权限
@@ -215,16 +215,9 @@ public class UserServiceImpl implements UserService {
             competence = (int) getCompetence_id.invoke(obj); //获取到的权限大小
         } catch (Exception e) {
             System.out.println("获取权限失败");
-            return 3;
+            return null;
         }
-
         //获取权限
-        CompPara compPara = new CompPara(competence);
-        if (compPara.test(1)) {
-            return 1;
-        } else {
-            return 0;
-        }
-
+        return new Competence(competence);
     }
 }

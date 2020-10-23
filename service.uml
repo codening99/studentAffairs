@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.tjrac.studentAffairs.service</OriginalElement>
+  <nodes>
+    <node x="119.140625" y="526.0">com.tjrac.studentAffairs.service.user.impl.ManagerServiceImpl</node>
+    <node x="0.0" y="610.0">com.tjrac.studentAffairs.service.ExcelService</node>
+    <node x="652.0" y="377.5">com.tjrac.studentAffairs.service.user.impl.StudentServiceImpl</node>
+    <node x="236.0" y="343.0">com.tjrac.studentAffairs.service.user.impl.TeacherServiceImpl</node>
+    <node x="725.5" y="194.5">com.tjrac.studentAffairs.service.user.StudentService</node>
+    <node x="0.0" y="390.0">com.tjrac.studentAffairs.service.user.ManagerService</node>
+    <node x="32.25" y="160.0">com.tjrac.studentAffairs.service.user.TeacherService</node>
+    <node x="0.0" y="747.0">com.tjrac.studentAffairs.service.impl.ExcelServiceImpl</node>
+    <node x="382.5" y="0.0">com.tjrac.studentAffairs.service.UserService</node>
+    <node x="382.5" y="160.0">com.tjrac.studentAffairs.service.impl.UserServiceImpl</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.tjrac.studentAffairs.service.user.StudentService" target="com.tjrac.studentAffairs.service.UserService">
+      <point x="0.0" y="-32.0" />
+      <point x="850.0" y="135.0" />
+      <point x="651.6666666666667" y="135.0" />
+      <point x="107.66666666666674" y="55.0" />
+    </edge>
+    <edge source="com.tjrac.studentAffairs.service.impl.ExcelServiceImpl" target="com.tjrac.studentAffairs.service.ExcelService">
+      <point x="0.0" y="-43.5" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="com.tjrac.studentAffairs.service.impl.UserServiceImpl" target="com.tjrac.studentAffairs.service.UserService">
+      <point x="0.0" y="-66.5" />
+      <point x="0.0" y="55.0" />
+    </edge>
+    <edge source="com.tjrac.studentAffairs.service.user.ManagerService" target="com.tjrac.studentAffairs.service.user.TeacherService">
+      <point x="0.0" y="-19.5" />
+      <point x="-75.75" y="66.5" />
+    </edge>
+    <edge source="com.tjrac.studentAffairs.service.user.impl.StudentServiceImpl" target="com.tjrac.studentAffairs.service.user.StudentService">
+      <point x="66.0" y="-32.0" />
+      <point x="0.0" y="32.0" />
+    </edge>
+    <edge source="com.tjrac.studentAffairs.service.user.impl.ManagerServiceImpl" target="com.tjrac.studentAffairs.service.user.impl.TeacherServiceImpl">
+      <point x="66.0" y="-19.5" />
+      <point x="317.140625" y="501.0" />
+      <point x="387.5" y="501.0" />
+      <point x="0.0" y="66.5" />
+    </edge>
+    <edge source="com.tjrac.studentAffairs.service.user.impl.StudentServiceImpl" target="com.tjrac.studentAffairs.service.impl.UserServiceImpl">
+      <point x="-66.0" y="-32.0" />
+      <point x="718.0" y="318.0" />
+      <point x="624.75" y="318.0" />
+      <point x="80.75" y="66.5" />
+    </edge>
+    <edge source="com.tjrac.studentAffairs.service.user.impl.TeacherServiceImpl" target="com.tjrac.studentAffairs.service.impl.UserServiceImpl">
+      <point x="75.75" y="-66.5" />
+      <point x="-80.75" y="66.5" />
+    </edge>
+    <edge source="com.tjrac.studentAffairs.service.user.impl.TeacherServiceImpl" target="com.tjrac.studentAffairs.service.user.TeacherService">
+      <point x="-75.75" y="-66.5" />
+      <point x="311.75" y="318.0" />
+      <point x="259.5" y="318.0" />
+      <point x="75.75" y="66.5" />
+    </edge>
+    <edge source="com.tjrac.studentAffairs.service.user.impl.ManagerServiceImpl" target="com.tjrac.studentAffairs.service.user.ManagerService">
+      <point x="-66.0" y="-19.5" />
+      <point x="185.140625" y="501.0" />
+      <point x="108.0" y="501.0" />
+      <point x="0.0" y="19.5" />
+    </edge>
+    <edge source="com.tjrac.studentAffairs.service.user.TeacherService" target="com.tjrac.studentAffairs.service.UserService">
+      <point x="0.0" y="-66.5" />
+      <point x="183.75" y="135.0" />
+      <point x="436.3333333333333" y="135.0" />
+      <point x="-107.66666666666669" y="55.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="420.5" y="239.5" />
+  <SelectedNodes>
+    <node>com.tjrac.studentAffairs.service.user.impl.ManagerServiceImpl</node>
+    <node>com.tjrac.studentAffairs.service.user.impl.StudentServiceImpl</node>
+    <node>com.tjrac.studentAffairs.service.user.impl.TeacherServiceImpl</node>
+    <node>com.tjrac.studentAffairs.service.user.StudentService</node>
+    <node>com.tjrac.studentAffairs.service.user.ManagerService</node>
+    <node>com.tjrac.studentAffairs.service.user.TeacherService</node>
+    <node>com.tjrac.studentAffairs.service.UserService</node>
+    <node>com.tjrac.studentAffairs.service.impl.UserServiceImpl</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>方法</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

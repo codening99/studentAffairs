@@ -9,9 +9,16 @@ import java.util.List;
  * @author : xziying
  * @create : 2020-10-15 11:18
  */
-public class CompPara {
+public class Competence {
+    // 权限表
+    public final int COMP_MANAGER = 1;  // 管理员权限
+    public final int COMP_TEACHER = 2;  // 教师权限
+    public final int COMP_STUDENT = 4;  // 学生权限
+
+
+    // 权限
     private Integer comp;
-    public CompPara(Integer comp){
+    public Competence(Integer comp){
         this.comp = comp;
     }
 

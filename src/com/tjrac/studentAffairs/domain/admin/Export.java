@@ -1,4 +1,4 @@
-package com.tjrac.studentAffairs.domain.user;
+package com.tjrac.studentAffairs.domain.admin;
 
 /**
  * 导出excel模板类
