@@ -14,6 +14,7 @@ import java.lang.reflect.Method;
  * @create : 2020-09-21 20:36
  */
 public class BaseServlet extends HttpServlet {
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");

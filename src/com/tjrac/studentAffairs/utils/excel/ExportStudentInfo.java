@@ -13,6 +13,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 public class ExportStudentInfo {
 
-    public static void export() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static boolean export(OutputStream outputStream) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         //创建Excel工作簿
         XSSFWorkbook workbook = new XSSFWorkbook();
@@ -82,18 +83,16 @@ public class ExportStudentInfo {
 
         }
 
-        //创建一个文件 存放
-        File file = new File("temp/studentInfoExcel.xlsx");
 
         try {
-
-            FileOutputStream output = new FileOutputStream(file);
-            workbook.write(output);
-            output.flush();
-            output.close();
+            // 存放到浏览器文件流
+            workbook.write(outputStream);
+            outputStream.flush();
+            return true;
 
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
 
 
@@ -101,7 +100,6 @@ public class ExportStudentInfo {
 
     @Test
     public void test() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        export();
     }
 
 }

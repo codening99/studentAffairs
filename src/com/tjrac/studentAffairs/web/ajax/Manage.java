@@ -2,11 +2,14 @@ package com.tjrac.studentAffairs.web.ajax;
 
 import com.tjrac.studentAffairs.domain.user.Student;
 import com.tjrac.studentAffairs.domain.user.Teacher;
+import com.tjrac.studentAffairs.service.ExcelService;
 import com.tjrac.studentAffairs.service.UserService;
+import com.tjrac.studentAffairs.service.impl.ExcelServiceImpl;
 import com.tjrac.studentAffairs.service.impl.UserServiceImpl;
 import com.tjrac.studentAffairs.web.BaseServlet;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -14,16 +17,30 @@ import java.io.IOException;
 /**
  * 管理教师和学生信息
  */
+@WebServlet("/manage")
 public class Manage extends BaseServlet {
     /**
+     * 导出学生信息
+     * 地址：/manage?action=exportStudentInfo
+     */
+    public void exportStudentInfo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ExcelService excelService = new ExcelServiceImpl();
+        excelService.exportInfo(req.getSession(), resp);
+    }
+    /**
+     * 导出空模板
+     * 地址：/manage?action=exportModelExcel
+     */
+    public void exportModelExcel(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ExcelService excelService = new ExcelServiceImpl();
+        String path = req.getSession().getServletContext().getRealPath("/");
+        resp.getWriter().write(excelService.exportModel(path));
+    }
+
+    /**
      * 添加信息(老师和学生）
-     * 地址：/manag?action=addObject
+     * 地址：/manage?action=addObject
      * 参数：参考READEME.md
-     *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void addObject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService userService = new UserServiceImpl();
@@ -56,13 +73,8 @@ public class Manage extends BaseServlet {
 
     /**
      * 修改用户信息（老师和学生）
-     * 地址：/manag?action=modifyObject
+     * 地址：/manage?action=modifyObject
      * 参数：参考READEME.md
-     *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void modifyObject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService userService = new UserServiceImpl();
@@ -95,12 +107,7 @@ public class Manage extends BaseServlet {
 
     /**
      * 删除用户的信息（老师和学生）
-     * 地址：/manag?action=delObject
-     *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
+     * 地址：/manage?action=delObject
      */
     public void delObject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService userService = new UserServiceImpl();
@@ -111,12 +118,7 @@ public class Manage extends BaseServlet {
 
     /**
      * 查看用户的信息（老师和学生）
-     * 地址：/manag?action=selectObject
-     *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
+     * 地址：/manage?action=selectObject
      */
     public void selectObject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService userService = new UserServiceImpl();

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class ExportModelExcel {
 
-    public static void export() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static boolean export(String fileName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         //创建Excel工作簿
         XSSFWorkbook workbook = new XSSFWorkbook();
@@ -90,24 +90,24 @@ public class ExportModelExcel {
         }
 
         //创建一个文件 存放
-        File file = new File("temp/modelExcel.xlsx");
-
+        File file = new File(fileName);
         try {
 
             FileOutputStream output = new FileOutputStream(file);
             workbook.write(output);
             output.flush();
             output.close();
-
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
 
     }
 
     @Test
     public void test() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        export();
+        export("C:\\Users\\xziying\\Desktop\\新建文件夹\\modelExcel.xlsx");
     }
 
 
