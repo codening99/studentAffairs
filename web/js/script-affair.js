@@ -2,6 +2,7 @@
 const Boot = {
     /*注册点击事件*/
     register: function () {
+        /***界面按钮***/
         /*导航栏点击*/
         $(".sub-navigation .hotkey,.sub-navigation .common").click(function () {
             const name = $(this).data("name");
@@ -57,10 +58,13 @@ const Boot = {
                     break;
             }
         })
-        /***学生信息表***/
+        /***教师端***/
         /*导出导入事件*/
         $("#button-emptyTemplate").click(StudentInformationForm.exportEmptyTemplate)
         $("#button-export").click(StudentInformationForm.exportStudentInformation)
+
+        /***学生端***/
+        $("#content-modify-submit").click(Student.modify.submit)
     },
     /*检测登录状态*/
     onlineStatus: function () {
@@ -84,6 +88,9 @@ const Boot = {
         $("#sub-navigation-student").css("display", "block")
         $("#sub-navigation-teacher").css("display", "none")
         $("#info").css("display", "block")
+
+        // 更新学生数据
+        $.post("./student", {action: "getStudentInfo"}, Student.info.update)
     },
     teacher_init: function () {
         $("title").html("教师事务中心")
@@ -119,6 +126,81 @@ const StudentInformationForm = {
         $.download("./manage", {action: "exportStudentInfo"}, "post");
     }
 }
+const System = {
+    error: {
+        show:function (id, msg) {
+            const $error = $("#" + id + " div[name='input-error']");
+            const $error_msg = $("#" + id + " div[name='input-error'] div[name='msg']");
+            if(msg===undefined) {$error.css("display", "none");return ;}
+            $error_msg.html(msg);
+            $error.css("display", "block");
+        }
+    }
+}
+const Student = {
+
+    // 个人信息栏
+    info: {
+        data: undefined,
+        // 获取个人信息 ajax函数
+        update: function (data) {
+            const json = $.parseJSON(data)
+            if(json.event !== 0){
+                alert(json.msg)
+                return
+            }
+            Student.info.data = json.info
+            $("#content-info-box th[name='id']").html(json.info.sno)
+            $("#content-info-box th[name='name']").html(json.info.name)
+            $("#content-info-box th[name='sex']").html(json.info.student_sex)
+            $("#content-info-box th[name='grade']").html(json.info.grade_name)
+            $("#content-info-box th[name='department']").html(json.info.department_name)
+            $("#content-info-box th[name='specialty']").html(json.info.specialty_name)
+            $("#content-info-box th[name='direction']").html(json.info.direction_name)
+            $("#content-info-box th[name='class']").html(json.info.clazz_name)
+
+            $("#modify input[name='account']").val(json.info.name + "("+json.info.sno+")")
+
+            if (json.info.password === "E10ADC3949BA59ABBE56E057F20F883E"){
+                $("#sub-navigation-student div[data-name='modify']").click()
+                alert("当前密码为初始密码，请及时修改密码！")
+            }
+
+        }
+    },
+    // 修改密码栏
+    modify: {
+        // 点击修改密码
+        submit: function () {
+            const $oldPassword = $("#modify input[name='oldPassword']");
+            const $newPassword = $("#modify input[name='newPassword']");
+            const $confirmPassword = $("#modify input[name='confirmPassword']");
+            if ($oldPassword.val() === ""){
+                System.error.show("modify", "旧密码不能为空！")
+                return
+            }
+            if ($newPassword.val() === ""){
+                System.error.show("modify", "请输入新密码！")
+                alert("请输入新密码！")
+                return
+            }
+            if ($confirmPassword.val() === ""){
+                System.error.show("modify", "请再次输入新密码！")
+                return
+            }
+            if ($newPassword.val() !== $confirmPassword.val()) {
+                System.error.show("modify", "两次密码不一致！")
+                return
+            }
+            System.error.show("modify")
+            $.post("./")
+        },
+        // 提交事件 json函数
+        modifyPassword : function (data) {
+
+        }
+    }
+}
 
 jQuery.download = function (url, data, method) { // 获得url和data
     if (url && data) {
@@ -135,4 +217,5 @@ jQuery.download = function (url, data, method) { // 获得url和data
 $(function () {
     Boot.onlineStatus()
     Boot.register()
+
 })

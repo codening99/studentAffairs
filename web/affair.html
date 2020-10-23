@@ -40,39 +40,39 @@
         <!--个人信息-->
         <div class="content-body content-info" id="info" style="display: none" >
             <div class="content-info-title">个人信息</div>
-            <div>
+            <div id="content-info-box">
                 <table class="content-info-table" >
                     <tr class="row">
-                        <th class="row-title">学号</th>
-                        <th class="row-content">6018203029</th>
+                        <th class="row-title" >学号</th>
+                        <th class="row-content" name="id">获取中</th>
                     </tr>
                     <tr class="row">
                         <th class="row-title">姓名</th>
-                        <th class="row-content">王延周</th>
+                        <th class="row-content" name="name">获取中</th>
                     </tr>
                     <tr class="row">
                         <th class="row-title">性别</th>
-                        <th class="row-content">男</th>
+                        <th class="row-content" name="sex">获取中</th>
                     </tr>
                     <tr class="row">
                         <th class="row-title">年级</th>
-                        <th class="row-content">2018级</th>
+                        <th class="row-content" name="grade">获取中</th>
                     </tr>
                     <tr class="row">
                         <th class="row-title">系</th>
-                        <th class="row-content">计算机科学与技术系</th>
+                        <th class="row-content" name="department">获取中</th>
                     </tr>
                     <tr class="row">
                         <th class="row-title">专业</th>
-                        <th class="row-content">计算机科学与技术</th>
+                        <th class="row-content" name="specialty">获取中</th>
                     </tr>
                     <tr class="row">
                         <th class="row-title">方向</th>
-                        <th class="row-content">云计算平台</th>
+                        <th class="row-content" name="direction">获取中</th>
                     </tr>
                     <tr class="row">
                         <th class="row-title">班级</th>
-                        <th class="row-content">云计算平台1班</th>
+                        <th class="row-content" name="class">获取中</th>
                     </tr>
                 </table>
             </div>
@@ -82,22 +82,28 @@
             <div class="content-info-title">修改密码</div>
             <div class="input-box">
                 <span class="input-title">账户</span>
-                <input class="input-input" type="text" disabled="disabled">
+                <input class="input-input" name="account" type="text" disabled="disabled">
             </div>
             <div class="input-box">
                 <span class="input-title">旧密码</span>
-                <input class="input-input" type="text">
+                <input class="input-input" name="oldPassword" type="password">
             </div>
             <div class="input-box">
                 <span class="input-title">新密码</span>
-                <input class="input-input" type="text">
+                <input class="input-input" name="newPassword" type="password">
             </div>
             <div class="input-box">
                 <span class="input-title">再确认</span>
-                <input class="input-input" type="text">
+                <input class="input-input" name="confirmPassword" type="password">
+            </div>
+            <div class="input-box" name="input-error" style="display: none">
+                <div class="input-error">
+                    <div style="float: left;color: #ff7d0a"> ⚠ </div>
+                    <div style="padding-left: 24px" name="msg"></div>
+                </div>
             </div>
             <div class="button-box" style="margin-bottom: 10px">
-                <button>确认修改</button>
+                <button id="content-modify-submit">确认修改</button>
             </div>
         </div>
         <!--活动列表-->

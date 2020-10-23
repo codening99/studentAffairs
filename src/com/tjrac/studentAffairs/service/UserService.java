@@ -30,21 +30,12 @@ public interface UserService {
      */
     String getOnlineStatus(HttpSession session);
 
+
     /**
      * 注销登录
      * @param session   浏览器回话对象
      * @return  返回Json字符串，参考README.md的文件的ajax请求接口
      */
     String logout(HttpSession session);
-    /**
-     * 增删查改 先检测是否拥有1(管理员权限)权限的账号进行
-     * @param session 浏览器回话对象
-     * @param object   对象信息
-     * @return  返回Json字符串，参考README.md的文件的ajax请求接口
-     */
-    String addObject(HttpSession session, Object object);
-    String modifyObject(HttpSession session, Object object);
-    String delObject(HttpSession session, Object object);
-    String selectObject(HttpSession session, Class<?> c);
 
 }
