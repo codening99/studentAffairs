@@ -7,6 +7,7 @@ import com.tjrac.studentAffairs.utils.Competence;
 import com.tjrac.studentAffairs.utils.JsonPack;
 
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Method;
 
 /**
  * ManagerServiceProxy 管理员代理类实现类
@@ -20,7 +21,7 @@ public class ManagerServiceProxy extends UserServiceProxy<ManagerService>{
     }
 
     @Override
-    protected String checkpoint() {
+    protected String checkpoint(Method method) {
         Object user = session.getAttribute("user");
         // 检测登录状态
         if (user == null) {

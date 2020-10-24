@@ -6,6 +6,9 @@ import com.tjrac.studentAffairs.service.ExcelService;
 import com.tjrac.studentAffairs.service.UserService;
 import com.tjrac.studentAffairs.service.impl.ExcelServiceImpl;
 import com.tjrac.studentAffairs.service.impl.UserServiceImpl;
+import com.tjrac.studentAffairs.service.user.TeacherService;
+import com.tjrac.studentAffairs.service.user.impl.TeacherServiceImpl;
+import com.tjrac.studentAffairs.service.user.proxy.TeacherServiceProxy;
 import com.tjrac.studentAffairs.web.BaseServlet;
 
 import javax.servlet.ServletException;
@@ -35,6 +38,16 @@ public class Manage extends BaseServlet {
         ExcelService excelService = new ExcelServiceImpl();
         String path = req.getSession().getServletContext().getRealPath("/");
         resp.getWriter().write(excelService.exportModel(path));
+    }
+
+    /**
+     * 获取学生信息列表
+     * 地址：/manage?action=studentList
+     */
+    public void studentList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        TeacherService teacherService = (TeacherService) new TeacherServiceProxy(req.getSession(),
+                new TeacherServiceImpl()).getProxy();
+        resp.getWriter().write(teacherService.selectStudent());
     }
 
 }

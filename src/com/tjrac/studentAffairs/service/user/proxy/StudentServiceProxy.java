@@ -6,6 +6,7 @@ import com.tjrac.studentAffairs.service.user.StudentService;
 import com.tjrac.studentAffairs.utils.JsonPack;
 
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Method;
 
 /**
  * StudentServiceProxy 学生业务的代理类
@@ -22,7 +23,7 @@ public class StudentServiceProxy extends UserServiceProxy<StudentService>{
     }
 
     @Override
-    protected String checkpoint() {
+    protected String checkpoint(Method method) {
         Object user = session.getAttribute("user");
         // 检测登录状态
         if (user == null) {

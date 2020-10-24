@@ -27,7 +27,7 @@ public class TeacherServiceProxy extends UserServiceProxy<TeacherService> {
      * @return 通过返回null 失败返回json文本
      */
     @Override
-    protected String checkpoint() {
+    protected String checkpoint(Method method) {
         Object user = session.getAttribute("user");
         // 检测登录状态
         if (user == null) {

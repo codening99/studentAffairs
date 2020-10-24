@@ -99,6 +99,9 @@ const Boot = {
         $("#sub-navigation-teacher").css("display", "block")
         $("#list").css("display", "block")
 
+        // 更新学生列表数据 manage?action=studentList
+        $.post("./manage", {action: "studentList"}, Teacher.studentList.update)
+
     }
 
 }
@@ -215,7 +218,50 @@ const Student = {
         },
     }
 }
-
+const Teacher = {
+    studentList: {
+        // 数据
+        data : undefined,
+        count : 0,  // 目前网页列表数量
+        // 更新学生列表 AJAX请求
+        update: function (data) {
+            const json = $.parseJSON(data)
+            Teacher.studentList.data = data
+            Teacher.studentList.clear()
+            if (json.event === 0){
+                for (let i = 0; i < json.count; i++) {
+                    Teacher.studentList.insert(json.students[i])
+                }
+            }
+        },
+        getLineStyle : function () {return Teacher.studentList.count % 2 === 0 ? "singular" : "dual"}
+        ,
+        // 插入列表
+        insert: function (data) {
+            const $manage = $("#manage-body");
+            $manage.append('<tr class="'+Teacher.studentList.getLineStyle()+'">\n' +
+                '<th>'+data.sno+'</th>\n' +
+                '<th>'+data.name+'</th>\n' +
+                '<th>'+data.student_sex+'</th>\n' +
+                '<th>'+data.grade_name+'</th>\n' +
+                '<th>'+data.department_name+'</th>\n' +
+                '<th>'+data.specialty_name+'</th>\n' +
+                '<th>'+data.direction_name+'</th>\n' +
+                '<th>'+data.clazz_name+'</th>\n' +
+                '<th>\n' +
+                '<button class="button-modify">修改</button>\n' +
+                '<button class="button-del">删除</button>\n' +
+                '</th>\n' +
+                '</tr>')
+            Teacher.studentList.count++
+        },
+        clear: function () {
+            const $manage = $("#manage-body");
+            Teacher.studentList.count = 0
+            $manage.html("")
+        }
+    }
+}
 jQuery.download = function (url, data, method) { // 获得url和data
     if (url && data) {
         // data 是 string 或者 array/object

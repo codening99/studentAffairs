@@ -26,11 +26,11 @@ public abstract class UserServiceProxy<T> implements InvocationHandler {
      * 对浏览器回话对象的用户进行全面检查 即可通过
      * @return 通过返回null 失败返回json文本
      */
-    protected abstract String checkpoint();
+    protected abstract String checkpoint(Method method);
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        String checkpoint = checkpoint();
+        String checkpoint = checkpoint(method);
         if (checkpoint != null){
             return checkpoint;
         }
