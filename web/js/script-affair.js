@@ -265,7 +265,7 @@ const Teacher = {
                 '</th>\n' +
                 '</tr>')
             $(".button-modify").unbind("click").click(Teacher.studentList.modify)
-            $(".button-del").unbind("click").click(Teacher.studentList.del)
+            $(".button-del").unbind("click").click(Teacher.studentList.del).data("sno", data.sno)
             Teacher.studentList.count++
         },
         clear: function () {
@@ -301,8 +301,7 @@ const Teacher = {
 
                 $("#pop-up-box").css("display", "block")
                 $("#pop-up-box div[name='title']").html("修改学生信息")
-                $("#pop-up-submit").val("确认修改").unbind("click")
-                    .click(Teacher.pop_up.submit).data("id", student_id).data("sno", children[0].innerHTML)
+                $("#pop-up-submit").val("确认修改").unbind("click").click(Teacher.pop_up.submit).data("id", student_id)
             }
         },
         // 添加学生事件
@@ -310,14 +309,23 @@ const Teacher = {
             $("#pop-up-student-modify input[name='sno']").removeAttr("disabled")
             $("#pop-up-box").css("display", "block")
             $("#pop-up-box div[name='title']").html("添加学生信息")
-            $("#pop-up-submit").val("确认添加").unbind("click").click(Teacher.pop_up.submit).data("id", undefined)
+            const $pop = $("#pop-up-submit");
+            $pop.html("确认添加")
+            $pop.unbind("click")
+            $pop.click(Teacher.pop_up.submit)
+            $pop.removeData("id")
         },
         // 删除学生事件
         del : function () {
             const id = $(this).data("id")
             if (id!== undefined && confirm("是否删除学号为：" + $(this).data("sno") + "的信息？")) {
                 $.post("./manage", {action: "deleteStudentInfo", student_id: id}, function (data) {
-                    Teacher.studentList.update()
+                    const json = $.parseJSON(data)
+                    if (json.event === 0) {
+                        $.post("./manage", {action: "studentList"}, Teacher.studentList.update)
+                    } else {
+                        alert(json.msg)
+                    }
                 })
             }
         }
@@ -390,7 +398,7 @@ const Teacher = {
         /*关闭弹窗*/
         close : function (){
             $("#pop-up-box").css("display", "none")
-            $("#pop-up-submit").data("id", undefined)
+            $("#pop-up-submit").removeData("id")
         },
         /*更新班级和方向*/
         updateClazzAndDirection: function (){
@@ -485,14 +493,18 @@ const Teacher = {
                 System.error.show(error_id, "请选择专业！")
                 return
             }
-            const id = $(this).data("id");
-            if (id !== undefined) {
-                submitData.student_id = id;
-            }
+            submitData.student_id = $(this).data("id")
             System.error.show(error_id)
             submitData.action = "updateStudent"
             $.post("./manage", submitData, function (data) {
-                Teacher.studentList.update()
+                const json = $.parseJSON(data)
+                if (json.event === 0) {
+                    $.post("./manage", {action: "studentList"}, Teacher.studentList.update)
+                    Teacher.pop_up.close()
+                } else {
+                    System.error.show(error_id, json.msg)
+                }
+
             })
         }
 

@@ -23,6 +23,10 @@ public class Student implements User{
 
     }
 
+    public Student(Integer student_id) {
+        this.student_id = student_id;
+    }
+
     public Student(Integer student_id, String sno, String name, String password, String student_sex, Integer competence, String grade_name, String department_name, String specialty_name, String direction_name, String clazz_name) {
         this.student_id = student_id;
         this.sno = sno;
