@@ -11,7 +11,7 @@
 </head>
 <body>
     <!--标题-->
-    <div class="title">
+    <div class="info-title">
         <img src="img/logo3.png" alt="logo">
         <span><a href="#">[切换对象]</a></span>
         <span>当前数据对象：2018级 计算机系</span>
@@ -285,5 +285,85 @@
     </div>
     <!--底部信息栏-->
     <div class="copyright">版权所有 © 2020–2024 天津大学仁爱学院计算机科学技术系. 保留全部权利。</div>
+    <!--弹出框-->
+    <div class="pop-up-box">
+        <div class="title">标题</div>
+        <!--学生修改-->
+        <div class="content" id="pop-up-student-modify">
+            <div class="input-box">
+                <span class="input-title">学号</span>
+                <input class="input-input" name="sno" type="text" disabled="disabled">
+            </div>
+            <div class="input-box">
+                <span class="input-title">姓名</span>
+                <input class="input-input" name="name" type="text">
+            </div>
+            <div class="input-box">
+                <span class="input-title">密码</span>
+                <input class="input-input" name="name" type="password" placeholder="留空为不修改密码">
+            </div>
+            <div class="input-box">
+                <span class="input-title">性别</span>
+                <label>
+                    <select class="input-input">
+                        <option value="">--请选择性别--</option>
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </label>
+            </div>
+            <div class="input-box">
+                <span class="input-title">年级</span>
+                <label>
+                    <select class="input-input" name="grade">
+                        <option value="">--请选择年级--</option>
+                    </select>
+                </label>
+            </div>
+            <div class="input-box">
+                <span class="input-title">系</span>
+                <label>
+                    <select class="input-input">
+                        <option value="">--请选择系--</option>
+                        <option value="1">计算机技术</option>
+                        <option value="2">云计算平台</option>
+                    </select>
+                </label>
+            </div>
+            <div class="input-box">
+                <span class="input-title">专业</span>
+                <label>
+                    <select class="input-input">
+                        <option value="">--请选择专业--</option>
+                        <option value="1">计算机技术</option>
+                        <option value="2">云计算平台</option>
+                    </select>
+                </label>
+            </div>
+            <div class="input-box">
+                <span class="input-title">方向</span>
+                <label>
+                    <select class="input-input">
+                        <option value="">无</option>
+                        <option value="1">计算机技术</option>
+                        <option value="2">云计算平台</option>
+                    </select>
+                </label>
+            </div>
+            <div class="input-box">
+                <span class="input-title">班级</span>
+                <label>
+                    <select class="input-input">
+                        <option value="">--请选择班级--</option>
+                        <option value="1">计算机技术</option>
+                        <option value="2">云计算平台</option>
+                    </select>
+                </label>
+            </div>
+            <div class="button-box" style="margin-bottom: 10px">
+                <button>确认修改</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

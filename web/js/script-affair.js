@@ -92,6 +92,7 @@ const Boot = {
         // 更新学生数据
         $.post("./student", {action: "getStudentInfo"}, Student.info.update)
     },
+    /*教师事务中心初始化*/
     teacher_init: function () {
         $("title").html("教师事务中心")
         $(".title img").attr("src", "img/logo3.png")
@@ -101,6 +102,8 @@ const Boot = {
 
         // 更新学生列表数据 manage?action=studentList
         $.post("./manage", {action: "studentList"}, Teacher.studentList.update)
+
+        Teacher.pop_up.init()
 
     }
 
@@ -260,6 +263,33 @@ const Teacher = {
             Teacher.studentList.count = 0
             $manage.html("")
         }
+    },
+    pop_up: {
+        data : undefined,
+        init : function () {
+            $.post("./manage", { action:"typeInfoList"}, function (data) {
+                const json = $.parseJSON(data)
+                Teacher.pop_up.data = json
+                if (json.event === 0){
+                    Teacher.pop_up.updateSelect(
+                        $("#pop-up-student-modify select[name='grade']"),
+                        json.grades_count,
+                        json.grades,
+                        "--请选择年级--"
+                    )
+                }
+            })
+        },
+        /*更新下拉框*/
+        updateSelect: function ($select, count, json, defaultVal) {
+            $select.html('<option value="">'+defaultVal+'</option>')
+            for (let i = 0; i < count; i++) {
+                $select.append(
+                    '<option value="'+json[i].grade_id+'">'+json[i].grade_name+'</option>'
+                )
+            }
+        }
+
     }
 }
 jQuery.download = function (url, data, method) { // 获得url和data

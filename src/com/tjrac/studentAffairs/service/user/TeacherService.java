@@ -21,4 +21,6 @@ public interface TeacherService extends UserService {
     String modifyUser(Student user);
     String delUser(Student user);
     String selectStudent();
+
+    String selectTypeInfo();
 }

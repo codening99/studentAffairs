@@ -147,6 +147,7 @@ public class BaseDao<T>{
             sb.append(" WHERE ");
             selectToSql(sb, tableValues, paras);
         }
+        System.out.println(sb);
         try {
             Connection conn = DBUtils.getConnection();
             return DBUtils.queryList(aClass, conn, sb.toString(), tableValues);

@@ -1,5 +1,7 @@
 package com.tjrac.studentAffairs.service.user.impl;
 
+import com.tjrac.studentAffairs.dao.BaseDao;
+import com.tjrac.studentAffairs.domain.student.*;
 import com.tjrac.studentAffairs.domain.user.Student;
 import com.tjrac.studentAffairs.domain.user.Teacher;
 import com.tjrac.studentAffairs.service.impl.UserServiceImpl;
@@ -82,17 +84,40 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
         return json.toJson();
     }
 
+    @Override
+    public String selectTypeInfo() {
+        BaseDao<Grade> gradeBaseDao = new BaseDao<>(Grade.class);
+        BaseDao<Department>  departmentBaseDao= new BaseDao<>(Department.class);
+        BaseDao<Specialty> specialtyBaseDao = new BaseDao<>(Specialty.class);
+        BaseDao<Direction> directionBaseDao = new BaseDao<>(Direction.class);
+        BaseDao<Clazz> clazzBaseDao = new BaseDao<>(Clazz.class);
+
+
+        JsonPack json = new JsonPack();
+        List<Grade> grades = gradeBaseDao.queryList();
+        List<Department> departments = departmentBaseDao.queryList();
+        List<Specialty> specialties = specialtyBaseDao.queryList();
+        List<Direction> directions = directionBaseDao.queryList();
+        List<Clazz> clazzes = clazzBaseDao.queryList();
+
+        json.put("event", 0);
+        json.put("grades_count", grades.size());
+        json.put("grades", grades);
+        json.put("departments_count", departments.size());
+        json.put("departments", departments);
+        json.put("specialties_count", specialties.size());
+        json.put("specialties", specialties);
+        json.put("directions_count", directions.size());
+        json.put("directions", directions);
+        json.put("clazzes_count", clazzes.size());
+        json.put("clazzes", clazzes);
+        return json.toJson();
+    }
+
     @Test
     public void test(){
         TeacherService teacherService= new TeacherServiceImpl();
-        Teacher teacher = new Teacher(
-                2,
-                "test123",
-                "123",
-                "王老师",
-                "男",
-                1
-        );
+        System.out.println(teacherService.selectTypeInfo());
 
     }
 }

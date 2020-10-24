@@ -50,4 +50,13 @@ public class Manage extends BaseServlet {
         resp.getWriter().write(teacherService.selectStudent());
     }
 
+    /**
+     * 获取年级列表
+     * 地址：/manage?action=typeInfoList
+     */
+    public void typeInfoList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        TeacherService teacherService = (TeacherService) new TeacherServiceProxy(req.getSession(),
+                new TeacherServiceImpl()).getProxy();
+        resp.getWriter().write(teacherService.selectTypeInfo());
+    }
 }
