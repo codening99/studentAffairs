@@ -1,6 +1,6 @@
 package com.tjrac.studentAffairs.service.user;
 
-import com.tjrac.studentAffairs.domain.user.User;
+import com.tjrac.studentAffairs.domain.user.Student;
 import com.tjrac.studentAffairs.service.UserService;
 
 import javax.servlet.http.HttpSession;
@@ -18,8 +18,8 @@ public interface TeacherService extends UserService {
      * @param user   对象信息
      * @return  返回Json字符串，参考README.md的文件的ajax请求接口
      */
-    String addUser(HttpSession session, User user);
-    String modifyUser(HttpSession session, User user);
-    String delUser(HttpSession session, User user);
-    String selectUser(HttpSession session, Class<?> c);
+    String addUser(HttpSession session, Student user);
+    String modifyUser(HttpSession session, Student user);
+    String delUser(HttpSession session, Student user);
+    String selectStudent(HttpSession session);
 }

@@ -1,23 +1,21 @@
 package com.tjrac.studentAffairs.service.user.proxy;
 
-
 import com.tjrac.studentAffairs.domain.user.Student;
-import com.tjrac.studentAffairs.service.user.StudentService;
+import com.tjrac.studentAffairs.domain.user.Teacher;
+import com.tjrac.studentAffairs.service.user.ManagerService;
+import com.tjrac.studentAffairs.utils.Competence;
 import com.tjrac.studentAffairs.utils.JsonPack;
 
 import javax.servlet.http.HttpSession;
 
 /**
- * StudentServiceProxy 学生业务的代理类
- *
- * 对所有方法权限管理
+ * ManagerServiceProxy 管理员代理类实现类
  *
  * @author : xziying
- * @create : 2020-10-23 22:07
+ * @create : 2020-10-24 10:19
  */
-public class StudentServiceProxy extends UserServiceProxy<StudentService>{
-
-    public StudentServiceProxy(HttpSession session, StudentService userService) {
+public class ManagerServiceProxy extends UserServiceProxy<ManagerService>{
+    public ManagerServiceProxy(HttpSession session, ManagerService userService) {
         super(session, userService);
     }
 
@@ -31,10 +29,18 @@ public class StudentServiceProxy extends UserServiceProxy<StudentService>{
             jsonPack.put("msg", "未登录");
             return jsonPack.toJson();
         }
-        if (!(user instanceof Student)){
+        if (!(user instanceof Teacher)){
             JsonPack jsonPack = new JsonPack();
             jsonPack.put("event", 2);
             jsonPack.put("msg", "接口错误！");
+            return jsonPack.toJson();
+        }
+        Teacher teacher = (Teacher) user;
+        Competence competence = new Competence(teacher.getCompetence());
+        if (!competence.test(competence.COMP_MANAGER)){
+            JsonPack jsonPack = new JsonPack();
+            jsonPack.put("event", 2);
+            jsonPack.put("msg", "权限不足！");
             return jsonPack.toJson();
         }
         return null;

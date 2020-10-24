@@ -12,26 +12,26 @@ public class Teacher implements User{
     String password;        // 密码
     String name;            // 姓名
     String teacher_sex;     // 老师性别
-    Integer competence_id;     // 权限 参考权限表
+    Integer competence;     // 权限 参考权限表
 
     public Teacher() {
     }
 
-    public Teacher(Integer teacher_id, String account, String password, String name, String teacher_sex, Integer competence_id) {
+    public Teacher(Integer teacher_id, String account, String password, String name, String teacher_sex, Integer competence) {
         this.teacher_id = teacher_id;
         this.account = account;
         this.password = password;
         this.name = name;
         this.teacher_sex = teacher_sex;
-        this.competence_id = competence_id;
+        this.competence = competence;
     }
 
-    public Teacher(String account, String password, String name, String teacher_sex, Integer competence_id) {
+    public Teacher(String account, String password, String name, String teacher_sex, Integer competence) {
         this.account = account;
         this.password = password;
         this.name = name;
         this.teacher_sex = teacher_sex;
-        this.competence_id = competence_id;
+        this.competence = competence;
     }
 
     public Integer getTeacher_id() {
@@ -74,12 +74,12 @@ public class Teacher implements User{
         this.teacher_sex = teacher_sex;
     }
 
-    public Integer getCompetence_id() {
-        return competence_id;
+    public Integer getCompetence() {
+        return competence;
     }
 
-    public void setCompetence_id(Integer competence_id) {
-        this.competence_id = competence_id;
+    public void setCompetence(Integer competence) {
+        this.competence = competence;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class Teacher implements User{
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", teacher_sex='" + teacher_sex + '\'' +
-                ", competence_id=" + competence_id +
+                ", competence=" + competence +
                 '}';
     }
 }

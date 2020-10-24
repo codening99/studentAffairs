@@ -15,21 +15,6 @@ import java.lang.reflect.Method;
 public class TestMethod {
 
     @Test
-    public void test() {
-
-        Teacher teacher = new Teacher();
-        teacher.setCompetence_id(1);
-
-        try {
-            Method getCompetence_id = Teacher.class.getDeclaredMethod("getCompetence_id");
-            System.out.println(getCompetence_id.invoke(teacher));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Test
     public void test1() {
 
         Object o = selectObject(new Student().getClass());
