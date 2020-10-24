@@ -55,7 +55,7 @@ public class ImportExcel {
                 Student student = new Student(); //创建一个student对象
                 String password = MD5.MD5Encrypt("123456");
                 student.setPassword(password); //默认密码为123456
-                student.setCompetence_id(4); //默认权限为4
+                student.setCompetence(4); //默认权限为4
 
                 for (int j = 0; j < row.getPhysicalNumberOfCells(); j++) { //遍历每一个单元格
 

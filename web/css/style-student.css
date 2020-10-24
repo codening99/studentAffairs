@@ -225,6 +225,14 @@ table.manage-table td {
     padding: 2px;
     margin-bottom: 10px;
 }
+#button-insert{
+    width: 50px;
+    background-color: #ce3636;
+    color: #ffffff;
+    border: 1px solid #ce3636;
+    border-radius: 4px;
+    margin-left: 10px;
+}
 #button-emptyTemplate{
     width: 50px;
     background-color: #1d5fb3;
@@ -465,4 +473,13 @@ table.manage-table td {
 }
 .pop-up-box .content{
     padding: 10px;
+}
+.pop-up-box .close{
+    float: right;
+    padding-right: 20px;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    cursor:pointer;
 }
