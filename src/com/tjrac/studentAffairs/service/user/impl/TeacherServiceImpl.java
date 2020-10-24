@@ -85,13 +85,8 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
     }
 
     @Override
-    public Boolean selectStudentBySno(String sno) {
-        Student student = studentDao.query("sno", sno);
-        if (student == null) {
-            return true;
-        } else {
-            return false;
-        }
+    public Student selectStudentBySno(String sno) {
+        return studentDao.query("sno", sno);
     }
 
     @Override

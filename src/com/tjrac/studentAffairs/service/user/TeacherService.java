@@ -19,6 +19,6 @@ public interface TeacherService extends UserService {
     String modifyUser(Student user);
     String delUser(Student user);
     String selectStudent();
-    Boolean selectStudentBySno(String sno);
+    Student selectStudentBySno(String sno);
     String selectTypeInfo();
 }

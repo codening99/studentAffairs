@@ -62,13 +62,16 @@ public class Manage extends BaseServlet {
 
     /**
      * 判断调用的是哪个方法
+     * 地址：/manage?action=updateStudent
      *
      * @return 1:add 2:del 3:modify
      */
-    private void selectMethod(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void updateStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String student_id = req.getParameter("student_id"); //学生id
         if (student_id == null) { //增加
             addStudentInfo(req, resp);
+        } else { //修改
+            updateStudentInfo(req, resp);
         }
     }
 
@@ -79,7 +82,7 @@ public class Manage extends BaseServlet {
         TeacherService teacherService = (TeacherService) new TeacherServiceProxy(req.getSession(),
                 new TeacherServiceImpl()).getProxy();
         String sno = req.getParameter("sno"); //学号
-        if (teacherService.selectStudentBySno(sno)) { //没有该学生
+        if (teacherService.selectStudentBySno(sno) == null) { //没有该学生
             String name = req.getParameter("name");
             String password = req.getParameter("password");
             if ("".equals(password)) { //没有输入密码
@@ -92,9 +95,48 @@ public class Manage extends BaseServlet {
             String specialty_name = req.getParameter("specialty_name");
             String direction_name = req.getParameter("direction_name");
             String clazz_name = req.getParameter("clazz_name");
-            resp.getWriter().write(teacherService.addUser(new Student(sno, name, password, student_sex, Competence.COMP_STUDENT, grade_name, department_name, specialty_name, direction_name, clazz_name)));
+            resp.getWriter().write(teacherService.addUser(new Student(sno, name, md5Password, student_sex, Competence.COMP_STUDENT, grade_name, department_name, specialty_name, direction_name, clazz_name)));
         } else {
             resp.getWriter().write("学生已经存在，加入失败");
+        }
+    }
+
+    /**
+     * 修改学生信息
+     */
+    public void updateStudentInfo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        TeacherService teacherService = (TeacherService) new TeacherServiceProxy(req.getSession(),
+                new TeacherServiceImpl()).getProxy();
+        String sno = req.getParameter("sno"); //学号
+        if (teacherService.selectStudentBySno(sno) == null) { //没有该学生
+            resp.getWriter().write("学生不存在，修改失败");
+        } else {
+            String name = req.getParameter("name");
+            String password = req.getParameter("password");
+            String md5Password = MD5.MD5Encrypt(password); //加密
+            String student_sex = req.getParameter("student_sex");
+            String grade_name = req.getParameter("grade_name");
+            String department_name = req.getParameter("department_name");
+            String specialty_name = req.getParameter("specialty_name");
+            String direction_name = req.getParameter("direction_name");
+            String clazz_name = req.getParameter("clazz_name");
+            resp.getWriter().write(teacherService.modifyUser(new Student(sno, name, md5Password, student_sex, Competence.COMP_STUDENT, grade_name, department_name, specialty_name, direction_name, clazz_name)));
+        }
+    }
+
+    /**
+     * 删除学生信息
+     * 地址：/manage?action=deleteStudentInfo
+     */
+    public void deleteStudentInfo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        TeacherService teacherService = (TeacherService) new TeacherServiceProxy(req.getSession(),
+                new TeacherServiceImpl()).getProxy();
+        String sno = req.getParameter("sno"); //学号
+        Student student = teacherService.selectStudentBySno(sno);
+        if (student == null) { //没有该学生
+            resp.getWriter().write("学生不存在，删除失败");
+        } else {
+            resp.getWriter().write(teacherService.delUser(student));
         }
     }
 }
