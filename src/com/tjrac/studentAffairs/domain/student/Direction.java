@@ -9,22 +9,22 @@ package com.tjrac.studentAffairs.domain.student;
 public class Direction {
     private Integer direction_id;  //方向id 主键
     private String direction_name; //方向名 唯一
-    private Integer department_id; //系id
+    private Integer grade_id; //系id
     private Integer specialty_id;  //专业id
 
     public Direction() {
     }
 
-    public Direction(String direction_name, Integer department_id, Integer specialty_id) {
+    public Direction(String direction_name, Integer grade_id, Integer specialty_id) {
         this.direction_name = direction_name;
-        this.department_id = department_id;
+        this.grade_id = grade_id;
         this.specialty_id = specialty_id;
     }
 
-    public Direction(Integer direction_id, String direction_name, Integer department_id, Integer specialty_id) {
+    public Direction(Integer direction_id, String direction_name, Integer grade_id, Integer specialty_id) {
         this.direction_id = direction_id;
         this.direction_name = direction_name;
-        this.department_id = department_id;
+        this.grade_id = grade_id;
         this.specialty_id = specialty_id;
     }
 
@@ -44,12 +44,12 @@ public class Direction {
         this.direction_name = direction_name;
     }
 
-    public Integer getDepartment_id() {
-        return department_id;
+    public Integer getGrade_id() {
+        return grade_id;
     }
 
-    public void setDepartment_id(Integer department_id) {
-        this.department_id = department_id;
+    public void setGrade_id(Integer grade_id) {
+        this.grade_id = grade_id;
     }
 
     public Integer getSpecialty_id() {
@@ -65,7 +65,7 @@ public class Direction {
         return "Direction{" +
                 "direction_id=" + direction_id +
                 ", direction_name='" + direction_name + '\'' +
-                ", department_id=" + department_id +
+                ", grade_id=" + grade_id +
                 ", specialty_id=" + specialty_id +
                 '}';
     }

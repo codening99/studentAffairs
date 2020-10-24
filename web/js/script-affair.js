@@ -103,7 +103,15 @@ const Boot = {
         // 更新学生列表数据 manage?action=studentList
         $.post("./manage", {action: "studentList"}, Teacher.studentList.update)
 
+        // 初始化弹窗信息
+        $("#button-insert").click(Teacher.studentList.add)
         Teacher.pop_up.init()
+        $("#pop-up-box .close").click(Teacher.pop_up.close)
+        $("#pop-up-student-modify select[name='departments']").change(Teacher.pop_up.updateSpecialties)
+        $("#pop-up-student-modify select[name='specialties']").change(Teacher.pop_up.updateClazzAndDirection)
+        $("#pop-up-student-modify select[name='grade']").change(Teacher.pop_up.updateClazzAndDirection)
+
+
 
     }
 
@@ -242,7 +250,7 @@ const Teacher = {
         // 插入列表
         insert: function (data) {
             const $manage = $("#manage-body");
-            $manage.append('<tr class="'+Teacher.studentList.getLineStyle()+'">\n' +
+            $manage.append('<tr class="'+Teacher.studentList.getLineStyle()+'" data-id="'+data.student_id+'">\n' +
                 '<th>'+data.sno+'</th>\n' +
                 '<th>'+data.name+'</th>\n' +
                 '<th>'+data.student_sex+'</th>\n' +
@@ -252,20 +260,108 @@ const Teacher = {
                 '<th>'+data.direction_name+'</th>\n' +
                 '<th>'+data.clazz_name+'</th>\n' +
                 '<th>\n' +
-                '<button class="button-modify">修改</button>\n' +
-                '<button class="button-del">删除</button>\n' +
+                '<button class="button-modify" data-id="'+data.student_id+'">修改</button>\n' +
+                '<button class="button-del" data-id="'+data.student_id+'">删除</button>\n' +
                 '</th>\n' +
                 '</tr>')
+            $(".button-modify").unbind("click").click(Teacher.studentList.modify)
+            $(".button-del").unbind("click").click(Teacher.studentList.del)
             Teacher.studentList.count++
         },
         clear: function () {
             const $manage = $("#manage-body");
             Teacher.studentList.count = 0
             $manage.html("")
+        },
+        // 修改事件
+        modify: function () {
+            const student_id = $(this).data("id")
+            const $tr = $("#manage-body tr[data-id='"+student_id+"']")
+            const children = $tr.children("th");
+            if (children.length === 9) {
+                $("#pop-up-student-modify input[name='sno']").attr("disabled", "disabled").val(children[0].innerHTML)
+                $("#pop-up-student-modify input[name='name']").val(children[1].innerHTML)
+                $("#pop-up-student-modify select[name='sex']").val(children[2].innerHTML)
+
+                $("#pop-up-student-modify select[name='grade']").val(
+                    Teacher.pop_up.reverseAnalysisData.grade2Id(children[3].innerHTML)
+                )
+                $("#pop-up-student-modify select[name='departments']").val(
+                    Teacher.pop_up.reverseAnalysisData.department2Id(children[4].innerHTML)
+                ).change()
+                $("#pop-up-student-modify select[name='specialties']").val(
+                    Teacher.pop_up.reverseAnalysisData.specialty2Id(children[5].innerHTML)
+                ).change()
+                $("#pop-up-student-modify select[name='directions']").val(
+                    Teacher.pop_up.reverseAnalysisData.direction2Id(children[6].innerHTML)
+                )
+                $("#pop-up-student-modify select[name='clazz']").val(
+                    Teacher.pop_up.reverseAnalysisData.clazz2Id(children[7].innerHTML)
+                )
+
+                $("#pop-up-box").css("display", "block")
+                $("#pop-up-box div[name='title']").html("修改学生信息")
+                $("#pop-up-submit").val("确认修改").unbind("click")
+                    .click(Teacher.pop_up.submit).data("id", student_id).data("sno", children[0].innerHTML)
+            }
+        },
+        // 添加学生事件
+        add : function () {
+            $("#pop-up-student-modify input[name='sno']").removeAttr("disabled")
+            $("#pop-up-box").css("display", "block")
+            $("#pop-up-box div[name='title']").html("添加学生信息")
+            $("#pop-up-submit").val("确认添加").unbind("click").click(Teacher.pop_up.submit).data("id", undefined)
+        },
+        // 删除学生事件
+        del : function () {
+            const id = $(this).data("id")
+            if (id!== undefined && confirm("是否删除学号为：" + $(this).data("sno") + "的信息？")) {
+                $.post("./manage", {action: "deleteStudentInfo", student_id: id}, function (data) {
+                    Teacher.studentList.update()
+                })
+            }
         }
     },
     pop_up: {
         data : undefined,
+        /*反向解析数据*/
+        reverseAnalysisData: {
+            grade2Id : function (grade) {
+                const json = Teacher.pop_up.data
+                for (let i = 0; i < json.grades_count; i++) {
+                    if (json.grades[i].grade_name == grade) return json.grades[i].grade_id;
+                }
+                return ""
+            },
+            department2Id : function (department) {
+                const json = Teacher.pop_up.data
+                for (let i = 0; i < json.departments_count; i++) {
+                    if (json.departments[i].department_name == department) return json.departments[i].department_id;
+                }
+                return ""
+            },
+            specialty2Id : function (specialty) {
+                const json = Teacher.pop_up.data
+                for (let i = 0; i < json.specialties_count; i++) {
+                    if (json.specialties[i].specialty_name == specialty) return json.specialties[i].specialty_id;
+                }
+                return ""
+            },
+            direction2Id : function (direction) {
+                const json = Teacher.pop_up.data
+                for (let i = 0; i < json.directions_count; i++) {
+                    if (json.directions[i].direction_name == direction) return json.directions[i].direction_id;
+                }
+                return ""
+            },
+            clazz2Id : function (clazz) {
+                const json = Teacher.pop_up.data
+                for (let i = 0; i < json.clazzes_count; i++) {
+                    if (json.clazzes[i].clazz_name == clazz) return json.clazzes[i].clazz_id;
+                }
+                return ""
+            }
+        },
         init : function () {
             $.post("./manage", { action:"typeInfoList"}, function (data) {
                 const json = $.parseJSON(data)
@@ -275,19 +371,129 @@ const Teacher = {
                         $("#pop-up-student-modify select[name='grade']"),
                         json.grades_count,
                         json.grades,
-                        "--请选择年级--"
+                        "--请选择年级--",
+                        "grade_id",
+                        "grade_name"
+                    )
+                    Teacher.pop_up.updateSelect(
+                        $("#pop-up-student-modify select[name='departments']"),
+                        json.departments_count,
+                        json.departments,
+                        "--请选择系--",
+                        "department_id",
+                        "department_name"
                     )
                 }
+
             })
         },
+        /*关闭弹窗*/
+        close : function (){
+            $("#pop-up-box").css("display", "none")
+            $("#pop-up-submit").data("id", undefined)
+        },
+        /*更新班级和方向*/
+        updateClazzAndDirection: function (){
+            const grade_id = $("#pop-up-student-modify select[name='grade']").val()
+            const specialties_id = $("#pop-up-student-modify select[name='specialties']").val()
+            const $select = $("#pop-up-student-modify select[name='clazz']")
+            $select.html('<option value="">--请选择班级--</option>')
+            const json = Teacher.pop_up.data
+            for (let i = 0; i < json.clazzes_count; i++) {
+                if (json.clazzes[i].grade_id == grade_id && json.clazzes[i].specialty_id == specialties_id){
+                    $select.append(
+                        '<option value="'+json.clazzes[i].clazz_id+'">'+json.clazzes[i].clazz_name+'</option>'
+                    )
+                }
+            }
+            const $directions = $("#pop-up-student-modify select[name='directions']")
+            $directions.html('<option value="">--请选择方向--</option>')
+            for (let i = 0; i < json.directions_count; i++) {
+                if (json.directions[i].grade_id == grade_id && json.directions[i].specialty_id == specialties_id){
+                    $directions.append(
+                        '<option value="'+json.directions[i].direction_id+'">'+json.directions[i].direction_name+'</option>'
+                    )
+                }
+            }
+        },
+        /*更新专业下拉框*/
+        updateSpecialties: function (){
+            const department_id = $("#pop-up-student-modify select[name='departments']").val()
+            const $select = $("#pop-up-student-modify select[name='specialties']")
+            $select.html('<option value="">--请选择专业--</option>')
+            const json = Teacher.pop_up.data
+            for (let i = 0; i < json.specialties_count; i++) {
+                if (json.specialties[i].department_id == department_id){
+                    $select.append(
+                        '<option value="'+json.specialties[i].specialty_id+'">'+json.specialties[i].specialty_name+'</option>'
+                    )
+                }
+            }
+        },
         /*更新下拉框*/
-        updateSelect: function ($select, count, json, defaultVal) {
+        updateSelect: function ($select, count, json, defaultVal, id_name, name_name) {
             $select.html('<option value="">'+defaultVal+'</option>')
             for (let i = 0; i < count; i++) {
                 $select.append(
-                    '<option value="'+json[i].grade_id+'">'+json[i].grade_name+'</option>'
+                    '<option value="'+json[i][id_name]+'">'+json[i][name_name]+'</option>'
                 )
             }
+        },
+        /*确认提交按钮*/
+        submit : function () {
+            const error_id = "pop-up-student-modify"
+            let submitData = {}
+            submitData.sno = $("#pop-up-student-modify input[name='sno']").val()
+            if (submitData.sno === "") {
+                System.error.show(error_id, "学号不能为空")
+                return
+            }
+            submitData.name = $("#pop-up-student-modify input[name='name']").val()
+            if (submitData.name === "") {
+                System.error.show(error_id, "姓名不能为空")
+                return
+            }
+            submitData.password = $("#pop-up-student-modify input[name='password']").val()
+            if (submitData.password !== "" && (submitData.password.length < 8 || submitData.password.length > 20)){
+                System.error.show(error_id, "密码长度应该在8-20之间！")
+                return ;
+            }
+            submitData.student_sex = $("#pop-up-student-modify select[name='sex']").find("option:selected").text();
+            if (submitData.student_sex === "") {
+                System.error.show(error_id, "姓名不能为空！")
+                return
+            }
+            submitData.grade_name = $("#pop-up-student-modify select[name='grade']").find("option:selected").text();
+            if (submitData.grade_name === "") {
+                System.error.show(error_id, "请选择年级！")
+                return
+            }
+            submitData.department_name = $("#pop-up-student-modify select[name='departments']").find("option:selected").text();
+            if (submitData.department_name === "") {
+                System.error.show(error_id, "请选择系！")
+                return
+            }
+            submitData.specialty_name = $("#pop-up-student-modify select[name='specialties']").find("option:selected").text();
+            if (submitData.specialty_name === "") {
+                System.error.show(error_id, "请选择专业！")
+                return
+            }
+            submitData.direction_name = $("#pop-up-student-modify select[name='directions']").find("option:selected").text();
+
+            submitData.clazz_name = $("#pop-up-student-modify select[name='clazz']").find("option:selected").text();
+            if (submitData.clazz_name === "") {
+                System.error.show(error_id, "请选择专业！")
+                return
+            }
+            const id = $(this).data("id");
+            if (id !== undefined) {
+                submitData.student_id = id;
+            }
+            System.error.show(error_id)
+            submitData.action = "updateStudent"
+            $.post("./manage", submitData, function (data) {
+                Teacher.studentList.update()
+            })
         }
 
     }

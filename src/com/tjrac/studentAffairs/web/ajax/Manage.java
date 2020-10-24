@@ -59,4 +59,6 @@ public class Manage extends BaseServlet {
                 new TeacherServiceImpl()).getProxy();
         resp.getWriter().write(teacherService.selectTypeInfo());
     }
+
+
 }
