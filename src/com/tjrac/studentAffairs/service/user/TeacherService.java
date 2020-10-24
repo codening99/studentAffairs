@@ -3,8 +3,6 @@ package com.tjrac.studentAffairs.service.user;
 import com.tjrac.studentAffairs.domain.user.Student;
 import com.tjrac.studentAffairs.service.UserService;
 
-import javax.servlet.http.HttpSession;
-
 /**
  * TeacherService 老师业务层接口
  *
@@ -21,6 +19,6 @@ public interface TeacherService extends UserService {
     String modifyUser(Student user);
     String delUser(Student user);
     String selectStudent();
-
+    Boolean selectStudentBySno(String sno);
     String selectTypeInfo();
 }

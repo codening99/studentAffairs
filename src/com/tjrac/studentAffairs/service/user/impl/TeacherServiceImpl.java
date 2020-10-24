@@ -3,12 +3,12 @@ package com.tjrac.studentAffairs.service.user.impl;
 import com.tjrac.studentAffairs.dao.BaseDao;
 import com.tjrac.studentAffairs.domain.student.*;
 import com.tjrac.studentAffairs.domain.user.Student;
-import com.tjrac.studentAffairs.domain.user.Teacher;
 import com.tjrac.studentAffairs.service.impl.UserServiceImpl;
 import com.tjrac.studentAffairs.service.user.TeacherService;
 import com.tjrac.studentAffairs.utils.JsonPack;
-import java.util.List;
 import org.junit.Test;
+
+import java.util.List;
 
 /**
  * TeacherServiceImpl 老师业务层实现类
@@ -82,6 +82,16 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
         json.put("count", students.size());
         json.put("students", students);
         return json.toJson();
+    }
+
+    @Override
+    public Boolean selectStudentBySno(String sno) {
+        Student student = studentDao.query("sno", sno);
+        if (student == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
