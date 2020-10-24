@@ -14,15 +14,15 @@ public class Competence {
     /**
      * 管理员权限
      */
-    public final int COMP_MANAGER = 1;
+    public static final int COMP_MANAGER = 1;
     /**
      * 教师权限
      */
-    public final int COMP_TEACHER = 2;
+    public static final int COMP_TEACHER = 2;
     /**
      * 学生权限
      */
-    public final int COMP_STUDENT = 4;
+    public static final int COMP_STUDENT = 4;
 
 
     // 权限
