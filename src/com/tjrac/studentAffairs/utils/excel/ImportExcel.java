@@ -1,6 +1,7 @@
 package com.tjrac.studentAffairs.utils.excel;
 
 import com.tjrac.studentAffairs.dao.BaseDao;
+import com.tjrac.studentAffairs.domain.admin.Export;
 import com.tjrac.studentAffairs.domain.user.Student;
 import com.tjrac.studentAffairs.utils.MD5;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -10,8 +11,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -25,24 +27,28 @@ import java.util.List;
  */
 public class ImportExcel {
 
-    public static void importExcel(String fileName) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static boolean importExcel(String fileName, OutputStream outputStream) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException {
 
         //获取Excel工作簿
         XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(fileName));
         //获取sheet
         XSSFSheet sheet = workbook.getSheet("sheet0");
 
-        //Dao层
+
+        //获取表内信息
         BaseDao<Student> studentBaseDao = new BaseDao<>(Student.class);
+        BaseDao<Export> exportBaseDao = new BaseDao<>(Export.class);
+        List<Export> exports = exportBaseDao.queryList();
 
-        Field[] declaredFields = Student.class.getDeclaredFields(); //获取Student所有的属性
-        List<Field> fields = new ArrayList<>();
+        List<String> studentFieldName = new ArrayList<>(); //获取的属性名
+        List<Student> failureInfo = new ArrayList<>(); //存放失败信息
 
-        for (Field declaredField : declaredFields) {
-            if (declaredField.getName().equals("student_id") || declaredField.getName().equals("password") || declaredField.getName().equals("competence_id")) {
-                continue;
-            }
-            fields.add(declaredField);
+        //获取export的所有属性
+        Method getKeyName = Export.class.getMethod("getKeyName");
+
+        for (int i = 0; i < exports.size(); i++) {
+            Object invoke = getKeyName.invoke(exports.get(i));
+            studentFieldName.add(invoke + "");
         }
 
         for (int i = 1; i <= sheet.getLastRowNum(); i++) { //遍历每一行
@@ -53,6 +59,7 @@ public class ImportExcel {
             if (row != null) { //如果excel不是空表
 
                 Student student = new Student(); //创建一个student对象
+
                 String password = MD5.MD5Encrypt("123456");
                 student.setPassword(password); //默认密码为123456
                 student.setCompetence(4); //默认权限为4
@@ -61,7 +68,14 @@ public class ImportExcel {
 
                     XSSFCell cell = row.getCell(j); //获取每一个单元格
 
-                    String setMethodName = "set" + fields.get(j).getName().substring(0, 1).toUpperCase() + fields.get(j).getName().substring(1);
+                    String setMethodName = "set" + studentFieldName.get(j).substring(0, 1).toUpperCase() + studentFieldName.get(j).substring(1);
+                    System.out.println(setMethodName);
+
+                    if (setMethodName.equals("setPassword")) {
+                        Method method = Student.class.getMethod(setMethodName, String.class);
+                        method.invoke(student, MD5.MD5Encrypt(cell.toString()));
+                        continue;
+                    }
 
                     System.out.println(cell.toString());
 
@@ -70,25 +84,38 @@ public class ImportExcel {
 
                 }
 
-                int insert = studentBaseDao.insert(student);
-
-                List<Student> failureInfo = new ArrayList<>(); //存放失败信息
-
-                if (insert == -1) { //导出失败
-                    failureInfo.add(student); //将其存放起来
+                if (studentBaseDao.insert(student) == 0) { //导出成功
+                    if (i != sheet.getLastRowNum()) {
+                        sheet.shiftRows(i, sheet.getLastRowNum(), -1);
+                    } else {
+                        sheet.removeRow(row);
+                    }
                 }
 
             }
 
         }
 
+        workbook.write(new FileOutputStream(fileName));
+
+        try {
+            // 存放到浏览器文件流
+            workbook.write(outputStream);
+            outputStream.flush();
+            return true;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
 
     @Test
-    public void test() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
+    public void test() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException, NoSuchFieldException {
 
-        importExcel("temp\\excel.xlsx");
+        importExcel("temp\\model1.xlsx", null);
 
     }
 
