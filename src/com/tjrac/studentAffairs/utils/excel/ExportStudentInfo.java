@@ -1,6 +1,7 @@
 package com.tjrac.studentAffairs.utils.excel;
 
 import com.tjrac.studentAffairs.dao.BaseDao;
+import com.tjrac.studentAffairs.domain.admin.Export;
 import com.tjrac.studentAffairs.domain.user.Student;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormat;
@@ -10,6 +11,8 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,6 +30,12 @@ import java.util.List;
  * @create 2020-10-18 14:52
  */
 public class ExportStudentInfo {
+    // 首字母大写
+    private static String captureName(String name) {
+        char[] cs = name.toCharArray();
+        cs[0] -= 32;
+        return String.valueOf(cs);
+    }
 
     public static boolean export(OutputStream outputStream) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
@@ -35,6 +44,7 @@ public class ExportStudentInfo {
 
         //创建一个工作表sheet
         Sheet sheet = workbook.createSheet();
+        sheet.setVerticallyCenter(true);
 
         XSSFCellStyle css = workbook.createCellStyle(); //设置单元格格式
         DataFormat format = workbook.createDataFormat();
@@ -42,45 +52,39 @@ public class ExportStudentInfo {
 
         //获取表内信息
         BaseDao<Student> studentBaseDao = new BaseDao<>(Student.class);
+        BaseDao<Export> exportBaseDao = new BaseDao<>(Export.class);
+        List<Export> exports = exportBaseDao.queryList();
         List<Student> students = studentBaseDao.queryList();
 
-        //获取student的所有属性
-        Field[] declaredFields = Student.class.getDeclaredFields();
-        List<Method> getMethodNames = new ArrayList<>();
+        int iterator = 0;
 
-        for (Field declaredField : declaredFields) {
-            if (declaredField.getName().equals("student_id") || declaredField.getName().equals("password") || declaredField.getName().equals("competence_id")) {
-                continue;
-            }
-
-            //获取所有属性的属性名
-            String fieldName = declaredField.getName();
-
-            //获取每个属性的get方法
-            String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-            Method method = Student.class.getMethod(getMethodName);//获取方法
-            getMethodNames.add(method);
-        }
-
-        for (int i = 0; i < students.size(); i++) { //遍历每一行数据
-
-
-            //创建第i行
-            Row row = sheet.createRow(i);
-
+        // 写出标题
+        Row title = sheet.createRow(iterator++);
+        for (int i = 0; i < exports.size(); i++) {
+            sheet.setColumnWidth(i, 20 * 256);
             //行内单元格
             Cell cell;
-
-            for (int j = 0; j < getMethodNames.size(); j++) { //遍历每一列
-                sheet.setColumnWidth(j, 20 * 256);
-
-                String invoke = (String) getMethodNames.get(j).invoke(students.get(i));
-
-                cell = row.createCell(j); //创建第i个单元格
+            String invoke = exports.get(i).getColumnName();
+            cell = title.createCell(i); //创建第i个单元格
+            cell.setCellStyle(css); //设置格式
+            cell.setCellValue(invoke);
+        }
+        for (Student student : students){
+            Row row = sheet.createRow(iterator++);
+            for (int i = 0; i < exports.size(); i++) {
+                Cell cell;
+                Method method = Student.class.getDeclaredMethod(
+                        "get" + captureName(exports.get(i).getKeyName()));
+                String invoke = "";
+                try {
+                    invoke = String.valueOf(method.invoke(student));
+                } catch (Exception e){
+                    System.out.println("执行方法失败！");
+                }
+                cell = row.createCell(i); //创建第i个单元格
                 cell.setCellStyle(css); //设置格式
                 cell.setCellValue(invoke);
             }
-
         }
 
 
@@ -94,8 +98,6 @@ public class ExportStudentInfo {
             e.printStackTrace();
             return false;
         }
-
-
     }
 
     @Test
