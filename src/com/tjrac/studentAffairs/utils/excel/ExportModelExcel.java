@@ -110,5 +110,9 @@ public class ExportModelExcel {
         export("C:\\Users\\xziying\\Desktop\\新建文件夹\\modelExcel.xlsx");
     }
 
+    @Test
+    public void test1() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        export("temp/model1.xlsx");
+    }
 
 }

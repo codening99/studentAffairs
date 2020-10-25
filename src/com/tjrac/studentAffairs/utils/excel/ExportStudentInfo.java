@@ -10,8 +10,6 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
@@ -49,7 +47,7 @@ public class ExportStudentInfo {
         List<Method> getMethodNames = new ArrayList<>();
 
         for (Field declaredField : declaredFields) {
-            if (declaredField.getName().equals("student_id") || declaredField.getName().equals("password") || declaredField.getName().equals("competence_id")) {
+            if (declaredField.getName().equals("student_id") || declaredField.getName().equals("password") || declaredField.getName().equals("competence")) {
                 continue;
             }
 
@@ -58,6 +56,7 @@ public class ExportStudentInfo {
 
             //获取每个属性的get方法
             String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+            System.out.println(getMethodName);
             Method method = Student.class.getMethod(getMethodName);//获取方法
             getMethodNames.add(method);
         }
@@ -95,11 +94,11 @@ public class ExportStudentInfo {
             return false;
         }
 
-
     }
 
     @Test
     public void test() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        export(null);
     }
 
 }
