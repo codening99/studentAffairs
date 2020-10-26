@@ -15,7 +15,10 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * 管理教师和学生信息

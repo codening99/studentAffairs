@@ -62,6 +62,7 @@ const Boot = {
         /*导出导入事件*/
         $("#button-emptyTemplate").click(StudentInformationForm.exportEmptyTemplate)
         $("#button-export").click(StudentInformationForm.exportStudentInformation)
+        $("#button-upload-submit").click(Teacher.pop_up_upload.uploadFiles)
 
         /***学生端***/
         $("#content-modify-submit").click(Student.modify.submit)
@@ -105,6 +106,7 @@ const Boot = {
 
         // 初始化弹窗信息
         $("#button-insert").click(Teacher.studentList.add)
+        $("#button-import").click(Teacher.pop_up_upload.show)
         Teacher.pop_up.init()
         $("#pop-up-box .close").click(Teacher.pop_up.close)
         $("#pop-up-student-modify select[name='departments']").change(Teacher.pop_up.updateSpecialties)
@@ -298,16 +300,19 @@ const Teacher = {
                 $("#pop-up-student-modify select[name='clazz']").val(
                     Teacher.pop_up.reverseAnalysisData.clazz2Id(children[7].innerHTML)
                 )
-
+                Teacher.pop_up.close()
                 $("#pop-up-box").css("display", "block")
+                $("#pop-up-modify").css("display", "block")
                 $("#pop-up-box div[name='title']").html("修改学生信息")
                 $("#pop-up-submit").val("确认修改").unbind("click").click(Teacher.pop_up.submit).data("id", student_id)
             }
         },
         // 添加学生事件
         add : function () {
+            Teacher.pop_up.close()
             $("#pop-up-student-modify input[name='sno']").removeAttr("disabled")
             $("#pop-up-box").css("display", "block")
+            $("#pop-up-modify").css("display", "block")
             $("#pop-up-box div[name='title']").html("添加学生信息")
             const $pop = $("#pop-up-submit");
             $pop.html("确认添加")
@@ -330,6 +335,7 @@ const Teacher = {
             }
         }
     },
+    /*弹出窗口事件*/
     pop_up: {
         data : undefined,
         /*反向解析数据*/
@@ -398,6 +404,8 @@ const Teacher = {
         /*关闭弹窗*/
         close : function (){
             $("#pop-up-box").css("display", "none")
+            $("#pop-up-modify").css("display", "none")
+            $("#pop-up-upload").css("display", "none")
             $("#pop-up-submit").removeData("id")
         },
         /*更新班级和方向*/
@@ -508,6 +516,32 @@ const Teacher = {
             })
         }
 
+    },
+    /*弹出窗口上传事件*/
+    pop_up_upload : {
+        show : function () {
+            Teacher.pop_up.close()
+            $("#pop-up-box").css("display", "block")
+            $("#pop-up-upload").css("display", "block")
+        },
+        uploadFiles: function () {
+            const formData = new FormData();
+            const files = $("#upload-file").get(0).files;
+            if (files.length === 1){
+                formData.append("file",files[0]);
+                formData.append("action",'importStudentInfo');
+                $.ajax({
+                    url:'./UploadExcel', /*接口域名地址*/
+                    type:'post',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success : function(data){
+                        console.log(data);
+                    }
+                })
+            }
+        }
     }
 }
 jQuery.download = function (url, data, method) { // 获得url和data
@@ -522,6 +556,7 @@ jQuery.download = function (url, data, method) { // 获得url和data
         jQuery('<form action="' + url + '" method="' + (method || 'post') + '">' + inputs + '</form>').appendTo('body').submit().remove();
     }
 }
+
 $(function () {
     Boot.onlineStatus()
     Boot.register()

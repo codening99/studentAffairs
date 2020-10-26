@@ -288,88 +288,120 @@
     <div class="copyright">版权所有 © 2020–2024 天津大学仁爱学院计算机科学技术系. 保留全部权利。</div>
     <!--弹出框-->
     <div class="pop-up-box" id="pop-up-box" style="display: none">
-        <div class="title">
-            <div name="title" style="float: left">
-                修改学生信息
-            </div>
-            <div class="close">
-                ×
-            </div>
-        </div>
         <!--学生修改-->
-        <div class="content" id="pop-up-student-modify">
-            <div class="input-box">
-                <span class="input-title">学号</span>
-                <input class="input-input" name="sno" type="text" disabled="disabled">
-            </div>
-            <div class="input-box">
-                <span class="input-title">姓名</span>
-                <input class="input-input" name="name" type="text">
-            </div>
-            <div class="input-box">
-                <span class="input-title">密码</span>
-                <input class="input-input" name="password" type="password" placeholder="留空为不修改密码">
-            </div>
-            <div class="input-box">
-                <span class="input-title">性别</span>
-                <label>
-                    <select class="input-input" name="sex">
-                        <option value="" >--请选择性别--</option>
-                        <option value="男">男</option>
-                        <option value="女">女</option>
-                    </select>
-                </label>
-            </div>
-            <div class="input-box">
-                <span class="input-title">年级</span>
-                <label>
-                    <select class="input-input" name="grade">
-                        <option value="">--请选择年级--</option>
-                    </select>
-                </label>
-            </div>
-            <div class="input-box">
-                <span class="input-title">系</span>
-                <label>
-                    <select class="input-input" name="departments">
-                        <option value="">--请选择系--</option>
-                    </select>
-                </label>
-            </div>
-            <div class="input-box">
-                <span class="input-title">专业</span>
-                <label>
-                    <select class="input-input" name="specialties">
-                        <option value="">--请选择专业--</option>
-                    </select>
-                </label>
-            </div>
-            <div class="input-box">
-                <span class="input-title">方向</span>
-                <label>
-                    <select class="input-input" name="directions">
-                        <option value="">--请选择方向--</option>
-                    </select>
-                </label>
-            </div>
-            <div class="input-box">
-                <span class="input-title">班级</span>
-                <label>
-                    <select class="input-input" name="clazz">
-                        <option value="">--请选择班级--</option>
-                    </select>
-                </label>
-            </div>
-            <div class="input-box" name="input-error" style="display: none">
-                <div class="input-error">
-                    <div style="float: left;color: #ff7d0a"> ⚠ </div>
-                    <div style="padding-left: 24px" name="msg"></div>
+        <div id="pop-up-modify" style="display: none">
+            <div class="title">
+                <div name="title" style="float: left">
+                    修改学生信息
+                </div>
+                <div class="close">
+                    ×
                 </div>
             </div>
-            <div class="button-box" style="margin-bottom: 10px">
-                <button id="pop-up-submit">确认修改</button>
+            <div class="content" id="pop-up-student-modify">
+                <div class="input-box">
+                    <span class="input-title">学号</span>
+                    <input class="input-input" name="sno" type="text" disabled="disabled">
+                </div>
+                <div class="input-box">
+                    <span class="input-title">姓名</span>
+                    <input class="input-input" name="name" type="text">
+                </div>
+                <div class="input-box">
+                    <span class="input-title">密码</span>
+                    <input class="input-input" name="password" type="password" placeholder="留空为不修改密码">
+                </div>
+                <div class="input-box">
+                    <span class="input-title">性别</span>
+                    <label>
+                        <select class="input-input" name="sex">
+                            <option value="" >--请选择性别--</option>
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="input-box">
+                    <span class="input-title">年级</span>
+                    <label>
+                        <select class="input-input" name="grade">
+                            <option value="">--请选择年级--</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="input-box">
+                    <span class="input-title">系</span>
+                    <label>
+                        <select class="input-input" name="departments">
+                            <option value="">--请选择系--</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="input-box">
+                    <span class="input-title">专业</span>
+                    <label>
+                        <select class="input-input" name="specialties">
+                            <option value="">--请选择专业--</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="input-box">
+                    <span class="input-title">方向</span>
+                    <label>
+                        <select class="input-input" name="directions">
+                            <option value="">--请选择方向--</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="input-box">
+                    <span class="input-title">班级</span>
+                    <label>
+                        <select class="input-input" name="clazz">
+                            <option value="">--请选择班级--</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="input-box" name="input-error" style="display: none">
+                    <div class="input-error">
+                        <div style="float: left;color: #ff7d0a"> ⚠ </div>
+                        <div style="padding-left: 24px" name="msg"></div>
+                    </div>
+                </div>
+                <div class="button-box" style="margin-bottom: 10px">
+                    <button id="pop-up-submit">确认修改</button>
+                </div>
             </div>
         </div>
+        <div id="pop-up-upload" style="display: none">
+            <div class="title">
+                <div name="title" style="float: left">
+                    导入学生信息
+                </div>
+                <div class="close">
+                    ×
+                </div>
+            </div>
+            <div class="content">
+                <div class="input-box">
+                    <span class="input-title">文件</span>
+                    <input class="input-input input-file" id="upload-file" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                </div>
+                <div class="input-box">
+                    <span class="input-title">状态</span>
+                    <input class="input-input" type="text" disabled="disabled" value="等待上传">
+                </div>
+                <div class="input-box">
+                    <span class="input-title">返回</span>
+                    <div class="input-input">
+                        <button style="margin-top: 5px">导出错误</button>
+                    </div>
+                </div>
+                <div class="button-box" style="margin-bottom: 10px">
+                    <button id="button-upload-submit">开始上传</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

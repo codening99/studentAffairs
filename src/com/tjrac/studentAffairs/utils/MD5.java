@@ -27,4 +27,22 @@ public class MD5 {
         return sb.toString();
     }
 
+    public static String MD5file(byte[] file){
+        StringBuilder sb = new StringBuilder(32);
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] array = md.digest(file);
+
+            for (byte b : array) {
+                sb.append(Integer.toHexString((b & 0xFF) | 0x100).toUpperCase(), 1, 3);
+            }
+        } catch (Exception e) {
+            System.out.println("Can not encode the file to MD5!");
+            return null;
+        }
+
+        return sb.toString();
+    }
+
 }

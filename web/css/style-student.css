@@ -314,6 +314,11 @@ table.manage-table td {
     border: 1px solid #dcdcdc;
     border-radius: 4px;
     padding-left: 72px;
+    overflow: initial;
+}
+.input-box .input-file{
+    padding-top: 7px;
+    height: 30px;
 }
 .input-box .input-input:hover{
     border: 1px solid #ff934c;
@@ -323,6 +328,9 @@ table.manage-table td {
 }
 .input-box select{
     width: 268px;
+}
+.input-box div{
+    width: 194px;
 }
 .input-box input{
     width: 192px;
