@@ -11,16 +11,12 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -87,21 +83,35 @@ public class ExportStudentInfo {
             }
         }
 
-
+        //创建一个文件 存放
+        File file = new File("temp/model1.xlsx");
         try {
-            // 存放到浏览器文件流
-            workbook.write(outputStream);
-            outputStream.flush();
-            return true;
 
+            FileOutputStream output = new FileOutputStream(file);
+            workbook.write(output);
+            output.flush();
+            output.close();
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
+
+//        try {
+//            // 存放到浏览器文件流
+//            workbook.write(outputStream);
+//            outputStream.flush();
+//            return true;
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
     }
 
     @Test
     public void test() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        export(null);
     }
 
 }
