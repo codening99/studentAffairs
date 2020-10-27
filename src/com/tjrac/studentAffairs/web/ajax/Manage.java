@@ -15,10 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * 管理教师和学生信息
@@ -42,6 +39,16 @@ public class Manage extends BaseServlet {
         ExcelService excelService = new ExcelServiceImpl();
         String path = req.getSession().getServletContext().getRealPath("/");
         resp.getWriter().write(excelService.exportModel(path));
+    }
+
+    /**
+     * 导出错误模板
+     */
+    public void exportFailureFile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        ExcelServiceImpl excelService = new ExcelServiceImpl();
+        excelService.getFailureStream(req.getSession(), resp);
+
     }
 
     /**
@@ -150,4 +157,5 @@ public class Manage extends BaseServlet {
         }
         resp.getWriter().write(teacherService.delUser(new Student(id)));
     }
+
 }

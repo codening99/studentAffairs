@@ -14,6 +14,7 @@ import java.util.List;
  * @create : 2020-10-23 18:15
  */
 public class ManagerServiceImpl extends TeacherServiceImpl implements ManagerService {
+    public final TypeInfo typeInfo = null;
 
     @Override
     public String addUser(HttpSession session, Teacher user) {
@@ -29,6 +30,7 @@ public class ManagerServiceImpl extends TeacherServiceImpl implements ManagerSer
             json.put("event", 3);
             json.put("msg", "添加失败");
         }
+        System.out.println();
         return json.toJson();
     }
 

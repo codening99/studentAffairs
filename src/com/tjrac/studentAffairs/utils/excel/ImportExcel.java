@@ -10,10 +10,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import javax.servlet.http.HttpSession;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -27,10 +25,12 @@ import java.util.List;
  */
 public class ImportExcel {
 
-    public static boolean importExcel(String fileName, OutputStream outputStream) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException {
+    public static int importExcel(HttpSession session, InputStream is) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException {
+
+        int count = 0; //错误文件个数
 
         //获取Excel工作簿
-        XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(fileName));
+        XSSFWorkbook workbook = new XSSFWorkbook(is);
         //获取sheet
         XSSFSheet sheet = workbook.getSheet("sheet0");
 
@@ -41,7 +41,6 @@ public class ImportExcel {
         List<Export> exports = exportBaseDao.queryList();
 
         List<String> studentFieldName = new ArrayList<>(); //获取的属性名
-        List<Student> failureInfo = new ArrayList<>(); //存放失败信息
 
         //获取export的所有属性
         Method getKeyName = Export.class.getMethod("getKeyName");
@@ -77,8 +76,6 @@ public class ImportExcel {
                         continue;
                     }
 
-                    System.out.println(cell.toString());
-
                     Method method = Student.class.getMethod(setMethodName, String.class);
                     method.invoke(student, cell.toString());
 
@@ -90,32 +87,34 @@ public class ImportExcel {
                     } else {
                         sheet.removeRow(row);
                     }
+                } else {
+                    count++;
                 }
 
             }
 
         }
 
-        workbook.write(new FileOutputStream(fileName));
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-        try {
-            // 存放到浏览器文件流
-            workbook.write(outputStream);
-            outputStream.flush();
-            return true;
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+        workbook.write(byteArrayOutputStream);
+
+        if (count > 0) {
+            session.setAttribute("failureStream", byteArrayOutputStream);
+            return count;
         }
 
+        return 0;
     }
 
 
     @Test
     public void test() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException, NoSuchFieldException {
 
-        importExcel("temp\\model1.xlsx", null);
+        FileInputStream fileInputStream = new FileInputStream(new File("temp/model1.xlsx"));
+
+        importExcel(null, fileInputStream);
 
     }
 

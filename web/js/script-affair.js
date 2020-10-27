@@ -63,6 +63,7 @@ const Boot = {
         $("#button-emptyTemplate").click(StudentInformationForm.exportEmptyTemplate)
         $("#button-export").click(StudentInformationForm.exportStudentInformation)
         $("#button-upload-submit").click(Teacher.pop_up_upload.uploadFiles)
+        $("#exportMistake-file").click(Teacher.pop_up_upload.exportMistake)
 
         /***学生端***/
         $("#content-modify-submit").click(Student.modify.submit)
@@ -541,6 +542,10 @@ const Teacher = {
                     }
                 })
             }
+        },
+        // 下载错误学生信息
+        exportMistake: function () {
+            jQuery.download("./manage", {action: "exportFailureFile"}, "post")
         }
     }
 }

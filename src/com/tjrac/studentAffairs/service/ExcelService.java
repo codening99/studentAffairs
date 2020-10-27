@@ -2,7 +2,7 @@ package com.tjrac.studentAffairs.service;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.net.http.HttpResponse;
+import java.io.InputStream;
 
 /**
  * ExcelService
@@ -20,4 +20,18 @@ public interface ExcelService {
     String exportModel(String fileName);
 
     void exportInfo(HttpSession session, HttpServletResponse resp);
+
+    /**
+     * 导入学生数据
+     * @param session
+     * @param inputStream 导入文件流
+     */
+    String importInfo(HttpSession session, InputStream inputStream);
+
+    /**
+     * 导出 导入失败的学生
+     * @param session
+     * @param resp
+     */
+    void getFailureStream(HttpSession session, HttpServletResponse resp);
 }

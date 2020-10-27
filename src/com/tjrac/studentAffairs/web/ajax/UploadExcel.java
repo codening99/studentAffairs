@@ -1,20 +1,16 @@
 package com.tjrac.studentAffairs.web.ajax;
 
-import com.tjrac.studentAffairs.utils.MD5;
+import com.tjrac.studentAffairs.service.ExcelService;
+import com.tjrac.studentAffairs.service.impl.ExcelServiceImpl;
 import com.tjrac.studentAffairs.web.BaseUpload;
-import org.apache.poi.util.IOUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
 
 /**
  * UploadExcel
@@ -31,8 +27,8 @@ public class UploadExcel extends BaseUpload {
         String savePath = req.getServletContext().getRealPath("/temp/excel");
         System.out.println(savePath);
         if (file != null){
-            String md5 = MD5.MD5file(IOUtils.toByteArray(file.getInputStream()));
-            file.write(savePath + "/" + md5 + ".xlsx");
+            ExcelService excelService = new ExcelServiceImpl();
+            resp.getWriter().write(excelService.importInfo(req.getSession(), file.getInputStream()));
         }
     }
 }
