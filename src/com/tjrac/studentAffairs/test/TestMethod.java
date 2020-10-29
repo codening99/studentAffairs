@@ -38,45 +38,5 @@ public class TestMethod {
         }
         return o;
     }
-    @Test
-    public void tesst5() {
-
-        Student student = new Student(10,"6018203050","张飞", "123456" , "男",4,
-                "2018级","软件工程1班","计算机科学与技术","计算机科学与技术",
-                null);
-
-        System.out.println(student);
-        BaseDao<Student> studentBaseDao = new BaseDao<>(Student.class);
-
-        System.out.println(studentBaseDao.delete(student));
-
-    }
-
-
-    @Test
-    public void test4() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-
-        Student student = new Student();
-
-        Method setSno = Student.class.getMethod("setSno", String.class);
-
-        setSno.invoke(student, "6018203020");
-
-        System.out.println(student);
-
-
-    }
-
-    @Test
-    public void test5() {
-
-        Student student = new Student("6018203020","张飞", "123456" , "男",4,"计算机","计算机","计算机","计算机","计算机");
-
-        System.out.println(student);
-        BaseDao<Student> studentBaseDao = new BaseDao<>(Student.class);
-
-        System.out.println(studentBaseDao.insert(student));
-
-    }
 
 }

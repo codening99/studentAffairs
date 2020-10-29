@@ -102,13 +102,12 @@ const Boot = {
         $("#sub-navigation-teacher").css("display", "block")
         $("#list").css("display", "block")
 
-        // 更新学生列表数据 manage?action=studentList
-        $.post("./manage", {action: "studentList"}, Teacher.studentList.update)
 
         // 初始化弹窗信息
         $("#button-insert").click(Teacher.studentList.add)
         $("#button-import").click(Teacher.pop_up_upload.show)
-        Teacher.pop_up.init()
+        Teacher.typeInfo.init() // 初始化学生标签信息,初始化完更新学生信息
+
         $("#pop-up-box .close").click(Teacher.pop_up.close)
         $("#pop-up-student-modify select[name='departments']").change(Teacher.pop_up.updateSpecialties)
         $("#pop-up-student-modify select[name='specialties']").change(Teacher.pop_up.updateClazzAndDirection)
@@ -233,6 +232,82 @@ const Student = {
     }
 }
 const Teacher = {
+    /*学生信息标签对象，例如：年级，系，专业等*/
+    typeInfo : {
+        data : undefined,
+        init : function(){
+            $.post("./manage", { action:"typeInfoList"}, function (data) {
+                const json = $.parseJSON(data)
+                Teacher.pop_up.data = json
+                Teacher.typeInfo.data = json
+                Teacher.pop_up.init()
+
+                // 初始化对象
+                Teacher.typeInfo.grades.data = json.grades
+                Teacher.typeInfo.departments.data = json.departments
+                Teacher.typeInfo.specialties.data = json.specialties
+                Teacher.typeInfo.directions.data = json.directions
+                Teacher.typeInfo.clazzes.data = json.clazzes
+
+
+                // 更新学生列表数据 manage?action=studentList
+                $.post("./manage", {action: "studentList"}, Teacher.studentList.update)
+            })
+        },
+        /*年级*/
+        grades : {
+            data : undefined,
+            getById : function (id) {
+                for (let i = 0; i < this.data.length; i++) {
+                    if (this.data[i].grade_id === id){
+                        return this.data[i];
+                    }
+                }
+            }
+        },
+        /*系*/
+        departments : {
+            data : undefined,
+            getById : function (id) {
+                for (let i = 0; i < this.data.length; i++) {
+                    if (this.data[i].department_id === id){
+                        return this.data[i];
+                    }
+                }
+            }
+        },
+        /*专业*/
+        specialties : {
+            data : undefined,
+            getById : function (id) {
+                for (let i = 0; i < this.data.length; i++) {
+                    if (this.data[i].department_id === id){
+                        return this.data[i];
+                    }
+                }
+            }
+        },
+        directions : {
+            data : undefined,
+            getById : function (id) {
+                for (let i = 0; i < this.data.length; i++) {
+                    if (this.data[i].direction_id === id){
+                        return this.data[i];
+                    }
+                }
+            }
+        },
+        clazzes : {
+            data : undefined,
+            getById : function (id) {
+                for (let i = 0; i < this.data.length; i++) {
+                    if (this.data[i].clazz_id === id){
+                        return this.data[i];
+                    }
+                }
+            }
+        }
+    },
     studentList: {
         // 数据
         data : undefined,
@@ -257,11 +332,11 @@ const Teacher = {
                 '<th>'+data.sno+'</th>\n' +
                 '<th>'+data.name+'</th>\n' +
                 '<th>'+data.student_sex+'</th>\n' +
-                '<th>'+data.grade_name+'</th>\n' +
-                '<th>'+data.department_name+'</th>\n' +
-                '<th>'+data.specialty_name+'</th>\n' +
-                '<th>'+data.direction_name+'</th>\n' +
-                '<th>'+data.clazz_name+'</th>\n' +
+                '<th data-id="'+data.grade_id+'">'+Teacher.typeInfo.grades.getById(data.grade_id).grade_name+'</th>\n' +
+                '<th data-id="'+data.department_id+'">'+Teacher.typeInfo.departments.getById(data.department_id).department_name+'</th>\n' +
+                '<th data-id="'+data.specialty_id+'">'+Teacher.typeInfo.specialties.getById(data.specialty_id).specialty_name+'</th>\n' +
+                '<th data-id="'+data.direction_id+'">'+Teacher.typeInfo.directions.getById(data.direction_id).direction_name+'</th>\n' +
+                '<th data-id="'+data.clazz_id+'">'+Teacher.typeInfo.clazzes.getById(data.clazz_id).clazz_name+'</th>\n' +
                 '<th>\n' +
                 '<button class="button-modify" data-id="'+data.student_id+'">修改</button>\n' +
                 '<button class="button-del" data-id="'+data.student_id+'">删除</button>\n' +
@@ -287,20 +362,22 @@ const Teacher = {
                 $("#pop-up-student-modify select[name='sex']").val(children[2].innerHTML)
 
                 $("#pop-up-student-modify select[name='grade']").val(
-                    Teacher.pop_up.reverseAnalysisData.grade2Id(children[3].innerHTML)
+                    $(children[3]).data("id")
                 )
                 $("#pop-up-student-modify select[name='departments']").val(
-                    Teacher.pop_up.reverseAnalysisData.department2Id(children[4].innerHTML)
+                    $(children[4]).data("id")
                 ).change()
                 $("#pop-up-student-modify select[name='specialties']").val(
-                    Teacher.pop_up.reverseAnalysisData.specialty2Id(children[5].innerHTML)
+                    $(children[5]).data("id")
                 ).change()
                 $("#pop-up-student-modify select[name='directions']").val(
-                    Teacher.pop_up.reverseAnalysisData.direction2Id(children[6].innerHTML)
+                    $(children[6]).data("id")
                 )
                 $("#pop-up-student-modify select[name='clazz']").val(
-                    Teacher.pop_up.reverseAnalysisData.clazz2Id(children[7].innerHTML)
+                    $(children[7]).data("id")
                 )
+
+
                 Teacher.pop_up.close()
                 $("#pop-up-box").css("display", "block")
                 $("#pop-up-modify").css("display", "block")
@@ -378,29 +455,25 @@ const Teacher = {
             }
         },
         init : function () {
-            $.post("./manage", { action:"typeInfoList"}, function (data) {
-                const json = $.parseJSON(data)
-                Teacher.pop_up.data = json
-                if (json.event === 0){
-                    Teacher.pop_up.updateSelect(
-                        $("#pop-up-student-modify select[name='grade']"),
-                        json.grades_count,
-                        json.grades,
-                        "--请选择年级--",
-                        "grade_id",
-                        "grade_name"
-                    )
-                    Teacher.pop_up.updateSelect(
-                        $("#pop-up-student-modify select[name='departments']"),
-                        json.departments_count,
-                        json.departments,
-                        "--请选择系--",
-                        "department_id",
-                        "department_name"
-                    )
-                }
-
-            })
+            const json = Teacher.typeInfo.data
+            if (json.event === 0){
+                Teacher.pop_up.updateSelect(
+                    $("#pop-up-student-modify select[name='grade']"),
+                    json.grades_count,
+                    json.grades,
+                    "--请选择年级--",
+                    "grade_id",
+                    "grade_name"
+                )
+                Teacher.pop_up.updateSelect(
+                    $("#pop-up-student-modify select[name='departments']"),
+                    json.departments_count,
+                    json.departments,
+                    "--请选择系--",
+                    "department_id",
+                    "department_name"
+                )
+            }
         },
         /*关闭弹窗*/
         close : function (){
@@ -480,26 +553,26 @@ const Teacher = {
                 System.error.show(error_id, "姓名不能为空！")
                 return
             }
-            submitData.grade_name = $("#pop-up-student-modify select[name='grade']").find("option:selected").text();
-            if (submitData.grade_name === "") {
+            submitData.grade_id = $("#pop-up-student-modify select[name='grade']").find("option:selected").val();
+            if (submitData.grade_id === "") {
                 System.error.show(error_id, "请选择年级！")
                 return
             }
-            submitData.department_name = $("#pop-up-student-modify select[name='departments']").find("option:selected").text();
-            if (submitData.department_name === "") {
+            submitData.department_id = $("#pop-up-student-modify select[name='departments']").find("option:selected").val();
+            if (submitData.department_id === "") {
                 System.error.show(error_id, "请选择系！")
                 return
             }
-            submitData.specialty_name = $("#pop-up-student-modify select[name='specialties']").find("option:selected").text();
-            if (submitData.specialty_name === "") {
+            submitData.specialty_id = $("#pop-up-student-modify select[name='specialties']").find("option:selected").val();
+            if (submitData.specialty_id === "") {
                 System.error.show(error_id, "请选择专业！")
                 return
             }
-            submitData.direction_name = $("#pop-up-student-modify select[name='directions']").find("option:selected").text();
+            submitData.direction_id = $("#pop-up-student-modify select[name='directions']").find("option:selected").val();
 
-            submitData.clazz_name = $("#pop-up-student-modify select[name='clazz']").find("option:selected").text();
-            if (submitData.clazz_name === "") {
-                System.error.show(error_id, "请选择专业！")
+            submitData.clazz_id = $("#pop-up-student-modify select[name='clazz']").find("option:selected").val();
+            if (submitData.clazz_id === "") {
+                System.error.show(error_id, "请选择班级！")
                 return
             }
             submitData.student_id = $(this).data("id")

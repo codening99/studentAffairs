@@ -23,6 +23,8 @@ public class BaseUpload extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
+        resp.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html;charset=utf-8");
         //String savePath = req.getServletContext().getRealPath("/myFiles");
         Part action = req.getPart("action");
         if (action != null){

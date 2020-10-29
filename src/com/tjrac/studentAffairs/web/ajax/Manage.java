@@ -101,12 +101,12 @@ public class Manage extends BaseServlet {
             }
             String md5Password = MD5.MD5Encrypt(password); //加密
             String student_sex = req.getParameter("student_sex");
-            String grade_name = req.getParameter("grade_name");
-            String department_name = req.getParameter("department_name");
-            String specialty_name = req.getParameter("specialty_name");
-            String direction_name = req.getParameter("direction_name");
-            String clazz_name = req.getParameter("clazz_name");
-            resp.getWriter().write(teacherService.addUser(new Student(sno, name, md5Password, student_sex, Competence.COMP_STUDENT, grade_name, department_name, specialty_name, direction_name, clazz_name)));
+            Integer grade_id = Integer.valueOf(req.getParameter("grade_id"));
+            Integer department_id = Integer.valueOf(req.getParameter("department_id"));
+            Integer specialty_id = Integer.valueOf(req.getParameter("specialty_id"));
+            Integer direction_id = Integer.valueOf(req.getParameter("direction_id"));
+            Integer clazz_id = Integer.valueOf(req.getParameter("clazz_id"));
+            resp.getWriter().write(teacherService.addUser(new Student(sno, name, md5Password, student_sex, Competence.COMP_STUDENT, grade_id, department_id, specialty_id, direction_id, clazz_id)));
         } else {
             JsonPack jsonPack = new JsonPack();
             jsonPack.put("event", 3);
@@ -133,12 +133,12 @@ public class Manage extends BaseServlet {
         String password = req.getParameter("password");
         String md5Password = MD5.MD5Encrypt(password); //加密
         String student_sex = req.getParameter("student_sex");
-        String grade_name = req.getParameter("grade_name");
-        String department_name = req.getParameter("department_name");
-        String specialty_name = req.getParameter("specialty_name");
-        String direction_name = req.getParameter("direction_name");
-        String clazz_name = req.getParameter("clazz_name");
-        resp.getWriter().write(teacherService.modifyUser(new Student(id, sno, name, md5Password, student_sex, Competence.COMP_STUDENT, grade_name, department_name, specialty_name, direction_name, clazz_name)));
+        Integer grade_id = Integer.valueOf(req.getParameter("grade_id"));
+        Integer department_id = Integer.valueOf(req.getParameter("department_id"));
+        Integer specialty_id = Integer.valueOf(req.getParameter("specialty_id"));
+        Integer direction_id = Integer.valueOf(req.getParameter("direction_id"));
+        Integer clazz_id = Integer.valueOf(req.getParameter("clazz_id"));
+        resp.getWriter().write(teacherService.modifyUser(new Student(id, sno, name, md5Password, student_sex, Competence.COMP_STUDENT, grade_id, department_id, specialty_id, direction_id, clazz_id)));
     }
 
     /**
