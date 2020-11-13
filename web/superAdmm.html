@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>超级管理员登录界面</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.6, user-scalable=0" >
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/style-student.css">
+    <script src="./js/lib/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<!--标题-->
+<div class="info-title">
+    <img src="img/" alt="logo">
+</div>
+<!--导航栏-->
+<div class="navigationBar">
+    <div class="sub-navigation" id="sub-navigation-student" style="display: block">
+        <div data-name="info" class="hotkey">老师列表</div>
+        <div data-name="modify" class="common">年级列表</div>
+        <div data-name="activity" class="common">系管理</div>
+        <div data-name="elective" class="common">专业管理</div>
+        <div data-name="exit" class="common">注销退出</div>
+    </div>
+</div>
+<!--主体内容-->
+<div class="content-box">
+    <!--个人信息-->
+    <div class="content-body content-info" id="info" style="display: none" >
+        <div class="content-info-title">个人信息</div>
+        <div id="content-info-box">
+            <table class="content-info-table" >
+                <tr class="row">
+                    <th class="row-title" >学号</th>
+                    <th class="row-content" name="id">获取中</th>
+                </tr>
+                <tr class="row">
+                    <th class="row-title">姓名</th>
+                    <th class="row-content" name="name">获取中</th>
+                </tr>
+                <tr class="row">
+                    <th class="row-title">性别</th>
+                    <th class="row-content" name="sex">获取中</th>
+                </tr>
+                <tr class="row">
+                    <th class="row-title">年级</th>
+                    <th class="row-content" name="grade">获取中</th>
+                </tr>
+                <tr class="row">
+                    <th class="row-title">系</th>
+                    <th class="row-content" name="department">获取中</th>
+                </tr>
+                <tr class="row">
+                    <th class="row-title">专业</th>
+                    <th class="row-content" name="specialty">获取中</th>
+                </tr>
+                <tr class="row">
+                    <th class="row-title">方向</th>
+                    <th class="row-content" name="direction">获取中</th>
+                </tr>
+                <tr class="row">
+                    <th class="row-title">班级</th>
+                    <th class="row-content" name="class">获取中</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--修改密码-->
+    <div class="content-body content-info" id="modify" style="display: none">
+        <div class="content-info-title">修改密码</div>
+        <div class="input-box">
+            <span class="input-title">账户</span>
+            <input class="input-input" name="account" type="text" disabled="disabled">
+        </div>
+        <div class="input-box">
+            <span class="input-title">旧密码</span>
+            <input class="input-input" name="oldPassword" type="password">
+        </div>
+        <div class="input-box">
+            <span class="input-title">新密码</span>
+            <input class="input-input" name="newPassword" type="password">
+        </div>
+        <div class="input-box">
+            <span class="input-title">再确认</span>
+            <input class="input-input" name="confirmPassword" type="password">
+        </div>
+        <div class="input-box" name="input-error" style="display: none">
+            <div class="input-error">
+                <div style="float: left;color: #ff7d0a"> ⚠ </div>
+                <div style="padding-left: 24px" name="msg"></div>
+            </div>
+        </div>
+        <div class="button-box" style="margin-bottom: 10px">
+            <button id="content-modify-submit">确认修改</button>
+        </div>
+    </div>
+    <!--老师列表(账号管理)-->
+    <div class="content-body content-list" id="list" style="display: none">
+
+        <div class="content-list-title">老师账号</div>
+        <div class="content-list-operating">
+            <div class="content-list-row">
+                <label>
+                    每页显示数量:
+                    <select name="pagination">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="content-list-search">
+                <button id="button-emptyTemplate_tea">空模板</button>
+                <button id="button-export_tea">导出</button>
+                <button id="button-import_tea">导入</button>
+                <label>
+                    搜索
+                    <input type="text">
+                </label>
+                <button>搜索</button>
+            </div>
+        </div>
+        <div class="content-list-box">
+            <table class="manage-table">
+                <thead>
+                <tr class="head">
+                    <th>姓名</th>
+                    <th>账号</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="teacher-body"><!--列表内容--></tbody>
+            </table>
+        </div>
+        <div class="content-list-page">
+            <ul class="pagination">
+                <li><a class="page-link">首页</a></li>
+                <li><a class="page-link page-link-in">1</a></li>
+                <li><a class="page-link">末页</a></li>
+            </ul>
+        </div>
+    </div>
+<!--年级表信息-->
+    <div class="content-body content-list" id="grade_list" style="display: none">
+
+        <div class="content-list-title">展示所有系</div>
+        <div class="content-list-operating">
+            <div class="content-list-row">
+                <label>
+                    每页显示数量:
+                    <select name="pagination">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="content-list-search">
+                <label>
+                    搜索
+                    <input type="text">
+                </label>
+                <button>搜索</button>
+            </div>
+        </div>
+        <div class="content-list-box">
+            <table class="manage-table">
+                <thead>
+                <tr class="head">
+                    <th>年级</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="grade-body"><!--列表内容--></tbody>
+            </table>
+        </div>
+        <div class="content-list-page">
+            <ul class="pagination">
+                <li><a class="page-link">首页</a></li>
+                <li><a class="page-link page-link-in">1</a></li>
+                <li><a class="page-link">末页</a></li>
+            </ul>
+        </div>
+    </div>
+<!--系表-->
+    <div class="content-body content-list" id="xi_list" style="display: none">
+
+        <div class="content-list-title">展示所有系</div>
+        <div class="content-list-operating">
+            <div class="content-list-row">
+                <label>
+                    每页显示数量:
+                    <select name="pagination">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="content-list-search">
+                <label>
+                    搜索
+                    <input type="text">
+                </label>
+                <button>搜索</button>
+            </div>
+        </div>
+        <div class="content-list-box">
+            <table class="manage-table">
+                <thead>
+                <tr class="head">
+                    <th>系展示</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="xi-body"><!--列表内容--></tbody>
+            </table>
+        </div>
+        <div class="content-list-page">
+            <ul class="pagination">
+                <li><a class="page-link">首页</a></li>
+                <li><a class="page-link page-link-in">1</a></li>
+                <li><a class="page-link">末页</a></li>
+            </ul>
+        </div>
+    </div>
+<!--专业表-->
+    <div class="content-body content-list" id="special_list" style="display: none">
+
+        <div class="content-list-title">展示所有专业</div>
+        <div class="content-list-operating">
+            <div class="content-list-row">
+                <label>
+                    每页显示数量:
+                    <select name="pagination">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="content-list-search">
+                <label>
+                    搜索
+                    <input type="text">
+                </label>
+                <button>搜索</button>
+            </div>
+        </div>
+        <div class="content-list-box">
+            <table class="manage-table">
+                <thead>
+                <tr class="head">
+                    <th>专业展示</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="spec-body"><!--列表内容--></tbody>
+            </table>
+        </div>
+        <div class="content-list-page">
+            <ul class="pagination">
+                <li><a class="page-link">首页</a></li>
+                <li><a class="page-link page-link-in">1</a></li>
+                <li><a class="page-link">末页</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--底部信息栏-->
+<div class="copyright">版权所有 © 2020–2024 天津大学仁爱学院计算机科学技术系. 保留全部权利。</div>
+</body>
+</html>
