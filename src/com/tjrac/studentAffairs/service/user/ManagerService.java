@@ -1,7 +1,7 @@
 package com.tjrac.studentAffairs.service.user;
 
+import com.tjrac.studentAffairs.domain.student.Grade;
 import com.tjrac.studentAffairs.domain.user.Teacher;
-import com.tjrac.studentAffairs.domain.user.User;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,4 +22,15 @@ public interface ManagerService extends TeacherService{
     String modifyUser(HttpSession session, Teacher user);
     String delUser(HttpSession session, Teacher user);
     String selectTeacher(HttpSession session);
+
+    /**
+     * 增删查改年级信息 先检测是否拥有1(管理员权限)权限的账号进行
+     * @param session 浏览器回话对象
+     * @param grade   年级信息
+     * @return  返回Json字符串，参考README.md的文件的ajax请求接口
+     */
+    String addGrade(HttpSession session, Grade grade);
+    String modifyGrade(HttpSession session, Grade grade);
+    String delGrade(HttpSession session, Grade grade);
+    String selectGrade(HttpSession session, Grade grade);
 }

@@ -1,8 +1,11 @@
 package com.tjrac.studentAffairs.service.user.impl;
 
+import com.tjrac.studentAffairs.dao.BaseDao;
+import com.tjrac.studentAffairs.domain.student.Grade;
 import com.tjrac.studentAffairs.domain.user.Teacher;
 import com.tjrac.studentAffairs.service.user.ManagerService;
 import com.tjrac.studentAffairs.utils.JsonPack;
+import org.junit.Test;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.List;
  */
 public class ManagerServiceImpl extends TeacherServiceImpl implements ManagerService {
     public final TypeInfo typeInfo = null;
+    private final BaseDao<Grade> gradeDao = new BaseDao<>(Grade.class);
 
     @Override
     public String addUser(HttpSession session, Teacher user) {
@@ -78,4 +82,44 @@ public class ManagerServiceImpl extends TeacherServiceImpl implements ManagerSer
         json.put("teachers", teachers);
         return json.toJson();
     }
+
+    @Override
+    public String addGrade(HttpSession session, Grade grade) {
+        JsonPack json = new JsonPack();
+        int insert = gradeDao.insert(grade);
+        if (insert == 1062) {
+            json.put("event", 2);
+            json.put("msg", "年级已存在");
+        } else if (insert == 0) {
+            json.put("event", 0);
+            json.put("msg", "添加成功");
+        } else {
+            json.put("event", 3);
+            json.put("msg", "添加失败");
+        }
+        return json.toJson();
+    }
+
+    @Override
+    public String modifyGrade(HttpSession session, Grade grade) {
+        return null;
+    }
+
+    @Override
+    public String delGrade(HttpSession session, Grade grade) {
+        return null;
+    }
+
+    @Override
+    public String selectGrade(HttpSession session, Grade grade) {
+        return null;
+    }
+
+    @Test
+    public void test() {
+//        System.out.println(addGrade(null, ));
+        Grade grade = new Grade("grade");
+        System.out.println(gradeDao.insert(grade));
+    }
+
 }
