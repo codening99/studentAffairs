@@ -38,7 +38,7 @@ public class ManagerServiceProxy extends UserServiceProxy<ManagerService>{
         }
         Teacher teacher = (Teacher) user;
         Competence competence = new Competence(teacher.getCompetence());
-        if (!competence.test(competence.COMP_MANAGER)){
+        if (!competence.test(Competence.COMP_MANAGER)){
             JsonPack jsonPack = new JsonPack();
             jsonPack.put("event", 2);
             jsonPack.put("msg", "权限不足！");
