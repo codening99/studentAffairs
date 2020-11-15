@@ -73,13 +73,12 @@ public class BaseDao<T>{
                 if (i == 0) {
                     sb.append("(`");
                     sb.append(tableNames.get(i));
-                } else if (i == tableNames.size() - 1) {
-                    sb.append("`,`");
-                    sb.append(tableNames.get(i));
-                    sb.append("`)");
                 } else {
                     sb.append("`,`");
                     sb.append(tableNames.get(i));
+                }
+                if (i == tableNames.size() - 1) {
+                    sb.append("`)");
                 }
             }
             sb.append(" values(");
@@ -108,7 +107,6 @@ public class BaseDao<T>{
             sb.append(" where ").append(condition);
             tableValues.clear();
         }
-
         // 已经完成sql语句的形成，下边创建处理对象
         try {
             Connection conn = DBUtils.getConnection();
