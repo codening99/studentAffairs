@@ -63,9 +63,15 @@ const Login = {
             account: account,
             password: password
         }, function (data) {
+            console.log(data)
             const json = $.parseJSON(data)
             if (json.event === 0){
-                window.location.href = "./affair.html"
+                if (json.teacher != null && json.teacher.competence === 7){
+                    window.location.href = "../superAdmin.html"
+                } else {
+                    window.location.href = "./affair.html"
+                }
+                //window.location.href = "./affair.html"
                 return
             }
             Boot.errorShow(json.msg)
