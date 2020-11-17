@@ -1,10 +1,8 @@
-const Boot = {
-
-}
+const Boot = {}
 /*菜单*/
 const Menu = {
-    id : "sub-navigation",
-    clickOn : function () {
+    id: "sub-navigation",
+    clickOn: function () {
         const name = $(this).data("name");
         if (name === "exit") {
             if (confirm("是否退出当前用户？")) {
@@ -20,6 +18,7 @@ const Menu = {
         switch (name) {
             case "tea_list":
                 Content.common.visible(Content.Teacher, true)
+                Content.Teacher.list.showAll();
                 break;
             case "grade_list":
                 Content.common.visible(Content.Grade, true)
@@ -35,10 +34,10 @@ const Menu = {
 }
 const Content = {
     /*共有方法*/
-    common : {
+    common: {
         /*显示隐藏窗口*/
-        visible : function (object, powerSwitch) {
-            if (powerSwitch === true){
+        visible: function (object, powerSwitch) {
+            if (powerSwitch === true) {
                 $("#" + object.id).css("display", "block")
             } else {
                 $("#" + object.id).css("display", "none")
@@ -46,45 +45,58 @@ const Content = {
         }
     },
     /*老师显示内容*/
-    Teacher : {
-        id : "tea_list",
+    Teacher: {
+        id: "tea_list",
         /*列表*/
-        list : {
-            count : 0,
-            insert : null,
-            showAll : function () {
-                $.post("superAdmin",
+        list: {
+            insert: null,
+            showAll: function () {
+                let count = 0
+                $.post("./superAdmin",
                     {
-                        action : "teacherList"
+                        action: "teacherList"
                     }, function (data) {
+                        $("#teacher-body").html("")
                         let json = $.parseJSON(data);
                         let teachers = json.teachers;
-                        if (count % 2 === 0) {
-                            $("#teacher-body").append(
-                                "<tr class='dual'>\n" +
-                                "<th>" + teachers[] +"</th>\n" +
-                                "<th>账号</th>\n" +
-                                "<th>操作</th>\n" +
-                                "</tr>"
-                            )
-                        } else {
-
+                        for (let i = 0; i < json.teachers.length; i++) {
+                            if (count % 2 === 0) {
+                                $("#teacher-body").append(
+                                    "<tr class='dual'>\n" +
+                                    "<th>" + teachers[i].name + "</th>\n" +
+                                    "<th>" + teachers[i].account + "</th>\n" +
+                                    "<th>" + teachers[i].teacher_sex + "</th>\n" +
+                                    "<th>操作</th>\n" +
+                                    "</tr>"
+                                )
+                            } else {
+                                $("#teacher-body").append(
+                                    "<tr class='singular'>\n" +
+                                    "<th>" + teachers[i].name + "</th>\n" +
+                                    "<th>" + teachers[i].account + "</th>\n" +
+                                    "<th>" + teachers[i].teacher_sex + "</th>\n" +
+                                    "<th>操作</th>\n" +
+                                    "</tr>"
+                                )
+                            }
+                            count++
                         }
                     })
             }
         }
     },
     /*年级*/
-    Grade : {
-        id : "grade_list"
+    Grade: {
+        id: "grade_list"
+        /*列表*/
     },
     /*系*/
-    Department : {
-        id : "xi_list"
+    Department: {
+        id: "xi_list"
     },
     /*专业*/
-    Specialty : {
-        id : "special_list"
+    Specialty: {
+        id: "special_list"
     }
 }
 

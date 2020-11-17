@@ -83,6 +83,7 @@ public class ManagerServiceImpl extends TeacherServiceImpl implements ManagerSer
     public String selectTeacher(HttpSession session) {
         JsonPack json = new JsonPack();
         List<Teacher> teachers = teacherDao.queryList();
+        System.out.println(teachers);
 
         json.put("event", 0);
         json.put("count", teachers.size());

@@ -1,12 +1,9 @@
 package com.tjrac.studentAffairs.test;
 
-import com.tjrac.studentAffairs.dao.BaseDao;
 import com.tjrac.studentAffairs.domain.user.Student;
-import com.tjrac.studentAffairs.domain.user.Teacher;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * @author ZeNing
@@ -37,6 +34,11 @@ public class TestMethod {
             e.printStackTrace();
         }
         return o;
+    }
+
+    @Test
+    public void test() {
+        System.out.println(4%2);
     }
 
 }

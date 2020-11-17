@@ -67,7 +67,7 @@ const Login = {
             const json = $.parseJSON(data)
             if (json.event === 0){
                 if (json.teacher != null && json.teacher.competence === 7){
-                    window.location.href = "../superAdmin.html"
+                    window.location.href = "./superAdmin.html"
                 } else {
                     window.location.href = "./affair.html"
                 }
