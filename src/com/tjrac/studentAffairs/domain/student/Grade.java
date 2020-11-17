@@ -13,6 +13,10 @@ public class Grade {
     public Grade() {
     }
 
+    public Grade(Integer grade_id) {
+        this.grade_id = grade_id;
+    }
+
     public Grade(String grade_name) {
         this.grade_name = grade_name;
     }

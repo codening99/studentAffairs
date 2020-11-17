@@ -13,6 +13,10 @@ public class Department {
     public Department() {
     }
 
+    public Department(Integer department_id) {
+        this.department_id = department_id;
+    }
+
     public Department(String department_name) {
         this.department_name = department_name;
     }

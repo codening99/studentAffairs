@@ -29,6 +29,8 @@ public interface ManagerService extends TeacherService {
 
     String selectTeacher(HttpSession session);
 
+    Teacher selectTeacherByAccount(String account);
+
     /**
      * 增删查改年级信息 先检测是否拥有1(管理员权限)权限的账号进行
      *
@@ -43,6 +45,8 @@ public interface ManagerService extends TeacherService {
     String delGrade(HttpSession session, Grade grade);
 
     String selectGrade(HttpSession session);
+
+    Grade selectGradeByGradeName(String gradeName);
 
     /**
      * 增删查改系信息 先检测是否拥有1(管理员权限)权限的账号进行
@@ -59,6 +63,8 @@ public interface ManagerService extends TeacherService {
 
     String selectDepartment(HttpSession session);
 
+    Department selectDepartmentByDepartmentName(String departmentName);
+
     /**
      * 增删查改专业信息 先检测是否拥有1(管理员权限)权限的账号进行
      *
@@ -73,4 +79,6 @@ public interface ManagerService extends TeacherService {
     String delSpecialty(HttpSession session, Specialty specialty);
 
     String selectSpecialty(HttpSession session);
+
+    Specialty selectSpecialtyBySpecialtyName(String specialtyName);
 }

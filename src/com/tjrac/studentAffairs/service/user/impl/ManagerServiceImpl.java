@@ -91,6 +91,11 @@ public class ManagerServiceImpl extends TeacherServiceImpl implements ManagerSer
         return json.toJson();
     }
 
+    @Override
+    public Teacher selectTeacherByAccount(String account) {
+        return teacherDao.query("account", account);
+    }
+
     /**
      * 年级
      */
@@ -154,6 +159,11 @@ public class ManagerServiceImpl extends TeacherServiceImpl implements ManagerSer
         json.put("count", grades.size());
         json.put("grades", grades);
         return json.toJson();
+    }
+
+    @Override
+    public Grade selectGradeByGradeName(String gradeName) {
+        return gradeDao.query("grade_name", gradeName);
     }
 
     /**
@@ -221,6 +231,11 @@ public class ManagerServiceImpl extends TeacherServiceImpl implements ManagerSer
         return json.toJson();
     }
 
+    @Override
+    public Department selectDepartmentByDepartmentName(String departmentName) {
+        return departmentBaseDao.query("department_name", departmentName);
+    }
+
     /**
      * 专业
      */
@@ -286,11 +301,15 @@ public class ManagerServiceImpl extends TeacherServiceImpl implements ManagerSer
         return json.toJson();
     }
 
+    @Override
+    public Specialty selectSpecialtyBySpecialtyName(String specialtyName) {
+        return specialtyBaseDao.query("specialty_name", specialtyName);
+    }
+
     @Test
     public void test() {
-//        System.out.println(addGrade(null, ));
-        Grade grade = new Grade("grade");
-        System.out.println(selectGrade(null));
+        Teacher teacher1 = selectTeacherByAccount("teacher1");
+        System.out.println(teacher1);
     }
 
 }

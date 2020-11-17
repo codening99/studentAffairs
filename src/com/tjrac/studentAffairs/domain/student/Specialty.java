@@ -14,6 +14,10 @@ public class Specialty {
     public Specialty() {
     }
 
+    public Specialty(Integer specialty_id) {
+        this.specialty_id = specialty_id;
+    }
+
     public Specialty(Integer department_id, String specialty_name) {
         this.department_id = department_id;
         this.specialty_name = specialty_name;
