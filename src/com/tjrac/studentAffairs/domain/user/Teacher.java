@@ -17,6 +17,10 @@ public class Teacher implements User{
     public Teacher() {
     }
 
+    public Teacher(Integer teacher_id) {
+        this.teacher_id = teacher_id;
+    }
+
     public Teacher(Integer teacher_id, String account, String password, String name, String teacher_sex, Integer competence) {
         this.teacher_id = teacher_id;
         this.account = account;
