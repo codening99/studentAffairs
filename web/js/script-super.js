@@ -50,9 +50,19 @@ const Content = {
         /*列表*/
         list: {
             //插入老师信息(姓名，账号，性别)
-            insert: function () {
+            insert: $("button-insert").click(function () {
+                var name=$("#").val();
+                var account=$("#").val();
+                var teacher_sex=$("#").val();
                 $.post("./superAdmin",{action:"insertTea"},function (data) {
                     //返回给服务器的数据(data)
+                    const json=$.parseJSON(data);
+                    if(json.event==3){
+                        alert(json.msg);
+                    }
+                    json.name=name;
+                    json.account=account;
+                    json.teacher_sex=teacher_sex;
                     const $teacher = $("#teacher-body").html("");
                     $teacher.append('<tr class="' + Teacher.teacherList.getLineStyle() + '" data-id="' + data.teacher_id + '">\n' +
                         '<th>' + data.name + '</th>\n' +
@@ -66,8 +76,8 @@ const Content = {
                     $(".button-modify").unbind("click").click(Teacher.teacherList.modify).data("account", data.account)
                     $(".button-del").unbind("click").click(Teacher.teacherList.del).data("account", data.account)
                     Teacher.teacherList.count++
-                },"JSON")
-            },
+                })
+            }),
             //显示老师列表信息
             showAll: function () {
                 let count = 0
@@ -152,19 +162,28 @@ const Content = {
         /*列表*/
         list:{
             //插入新的年级(名称)
-            insert: function (data) {
-                const $grade = $("#grade-body");
-                $grade.append('<tr class="'+Teacher.typeInfoList.getLineStyle()+'" data-id="'+data.grade_id+'">\n' +
-                    '<th>'+data.grade_name+'</th>\n' +
-                    '<th>\n' +
-                    '<button class="button-modify" data-id="'+data.grade_id+'">修改</button>\n' +
-                    '<button class="button-del" data-id="'+data.grade_id+'">删除</button>\n' +
-                    '</th>\n' +
-                    '</tr>')
-                $(".button-modify").unbind("click").click(Teacher.typeInfoList.modify).data("grade_id", data.grade_id)
-                $(".button-del").unbind("click").click(Teacher.typeInfoList.del).data("grade_id", data.grade_id)
-                Teacher.typeInfoList.count++
-            },
+            insert: $("button-insert").click(function () {
+                var grade_name = $("#").val();
+                $.post("./manage", {action: "insertGrade"}, function (data) {
+                    //返回给服务器的数据(data)
+                    const json = $.parseJSON(data);
+                    if (json.event == 3) {
+                        alert(json.msg);
+                    }
+                    json.grade_name = grade_name;
+                    const $grade = $("#grade-body");
+                    $grade.append('<tr data-id="' + data.grade_id + '">\n' +
+                        '<th>' + data.grade_name + '</th>\n' +
+                        '<th>\n' +
+                        '<button class="button-modify" data-id="' + data.grade_id + '">修改</button>\n' +
+                        '<button class="button-del" data-id="' + data.grade_id + '">删除</button>\n' +
+                        '</th>\n' +
+                        '</tr>')
+                    $(".button-modify").unbind("click").click(Teacher.typeInfoList.modify).data("grade_id", data.grade_id)
+                    $(".button-del").unbind("click").click(Teacher.typeInfoList.del).data("grade_id", data.grade_id)
+                    Teacher.typeInfoList.count++
+                })
+            }),
             //显示所有的年级(名称)
             showAll: function () {
                 let count = 0
@@ -194,7 +213,43 @@ const Content = {
                             count++
                         }
                     })
-            }
+            },
+            // 删除年级信息信息(名称)
+            del : function () {
+                const id = $(this).data("id")
+                if (id!== undefined && confirm("是否删除该年级账号为：" + $(this).data("grade_id") + "的信息？")) {
+                    $.post(".//manage", {action: "delGrade", grade_id: id}, function (data) {
+                        const json = $.parseJSON(data)
+                        if (json.event === 0) {
+                            $.post("./manage", {action: "typeInfoList"}, Teacher.typeInfoList.modifyGade)
+                        } else {
+                            alert(json.msg)
+                        }
+                    })
+                }
+            },
+            //更新年级信息(名称)
+            modify: function () {
+                const id=$(this).data("id")
+                $.post(".//manage",{action:"mydifyGrade",grade_id: id},function (data){
+                    const json = $.parseJSON(data)
+                    $("#data-id").html("").append('<tr" data-id="' + data.grade_id + '">\n' +
+                        '<th>' + json.grade_name + '</th>\n' +
+                        '<th>\n' +
+                        '<button class="button-modify" data-id="' + json.grade_id + '">更新</button>\n' +
+                        '<button class="button-del" data-id="' + json.grade_id + '">删除</button>\n' +
+                        '</th>\n' +
+                        '</tr>')
+                    $(".button-modify").unbind("click").click(Teacher.typeInfoList.modify).data("grade_id", data.grade_id)
+                    $(".button-del").unbind("click").click(Teacher.typeInfoList.del).data("grade_id", data.grade_id)
+                    Teacher.typeInfoList.count++
+                    if(json.event===0){
+                        $.post("./manage",{action:"typeInfoList"},Teacher.typeInfoList.modifyUser)
+                    }else{
+                        alert(json.msg)
+                    }
+                })
+            },
         }
     },
     /*系*/
