@@ -162,9 +162,9 @@ const Content = {
         /*列表*/
         list:{
             //插入新的年级(名称)
-            insert: $("button-insert").click(function () {
+            insert: $("button-insert_grade").click(function () {
                 var grade_name = $("#").val();
-                $.post("./manage", {action: "insertGrade"}, function (data) {
+                $.post("./superAdmin", {action: "insertGrade"}, function (data) {
                     //返回给服务器的数据(data)
                     const json = $.parseJSON(data);
                     if (json.event == 3) {
@@ -218,7 +218,7 @@ const Content = {
             del : function () {
                 const id = $(this).data("id")
                 if (id!== undefined && confirm("是否删除该年级账号为：" + $(this).data("grade_id") + "的信息？")) {
-                    $.post(".//manage", {action: "delGrade", grade_id: id}, function (data) {
+                    $.post(".//superAdmin", {action: "delGrade", grade_id: id}, function (data) {
                         const json = $.parseJSON(data)
                         if (json.event === 0) {
                             $.post("./manage", {action: "typeInfoList"}, Teacher.typeInfoList.modifyGade)
@@ -231,7 +231,7 @@ const Content = {
             //更新年级信息(名称)
             modify: function () {
                 const id=$(this).data("id")
-                $.post(".//manage",{action:"mydifyGrade",grade_id: id},function (data){
+                $.post(".//superAdmin",{action:"mydifyGrade",grade_id: id},function (data){
                     const json = $.parseJSON(data)
                     $("#data-id").html("").append('<tr" data-id="' + data.grade_id + '">\n' +
                         '<th>' + json.grade_name + '</th>\n' +
@@ -244,7 +244,7 @@ const Content = {
                     $(".button-del").unbind("click").click(Teacher.typeInfoList.del).data("grade_id", data.grade_id)
                     Teacher.typeInfoList.count++
                     if(json.event===0){
-                        $.post("./manage",{action:"typeInfoList"},Teacher.typeInfoList.modifyUser)
+                        $.post("./manage",{action:"typeInfoList"},Teacher.typeInfoList.modifyGrade)
                     }else{
                         alert(json.msg)
                     }
@@ -257,7 +257,30 @@ const Content = {
         id: "xi_list",
         /* 列表*/
         list:{
-            insert: null,
+            //插入新的系(名称)
+            insert: $("button-insert_xi").click(function () {
+                var department_name = $("#").val();
+                $.post("./superAdmin", {action: "insertDep"}, function (data) {
+                    //返回给服务器的数据(data)
+                    const json = $.parseJSON(data);
+                    if (json.event == 3) {
+                        alert(json.msg);
+                    }
+                    json.department_name = department_name;
+                    const $department = $("#xi-body");
+                    $department.append('<tr data-id="' + data.department_id + '">\n' +
+                        '<th>' + data.grade_name + '</th>\n' +
+                        '<th>\n' +
+                        '<button class="button-modify" data-id="' + data.department_id + '">修改</button>\n' +
+                        '<button class="button-del" data-id="' + data.department_id + '">删除</button>\n' +
+                        '</th>\n' +
+                        '</tr>')
+                    $(".button-modify").unbind("click").click(Teacher.departmentList.modify).data("department_id", data.department_id)
+                    $(".button-del").unbind("click").click(Teacher.departmentList.del).data("department_id", data.department_id)
+                    Teacher.departmentList.count++
+                })
+            }),
+            //展示系信息
             showAll: function () {
                 let count = 0
                 $.post("./manage",
@@ -286,7 +309,43 @@ const Content = {
                             count++
                         }
                     })
-            }
+            },
+            // 删除系信息(名称)
+            del : function () {
+                const id = $(this).data("id")
+                if (id!== undefined && confirm("是否删除该系账号为：" + $(this).data("department_id") + "的信息？")) {
+                    $.post(".//superAdmin", {action: "delDep", department_id: id}, function (data) {
+                        const json = $.parseJSON(data)
+                        if (json.event === 0) {
+                            $.post("./manage", {action: "departmentList"}, Teacher.departmentList.modifyDep)
+                        } else {
+                            alert(json.msg)
+                        }
+                    })
+                }
+            },
+            //更新系信息(名称)
+            modify: function () {
+                const id=$(this).data("id")
+                $.post(".//superAdmin",{action:"mydifyDep",department_id: id},function (data){
+                    const json = $.parseJSON(data)
+                    $("#data-id").html("").append('<tr" data-id="' + data.department_id + '">\n' +
+                        '<th>' + json.department_name + '</th>\n' +
+                        '<th>\n' +
+                        '<button class="button-modify" data-id="' + json.department_id + '">更新</button>\n' +
+                        '<button class="button-del" data-id="' + json.department_id + '">删除</button>\n' +
+                        '</th>\n' +
+                        '</tr>')
+                    $(".button-modify").unbind("click").click(Teacher.departmentList.modify).data("grade_id", data.grade_id)
+                    $(".button-del").unbind("click").click(Teacher.departmentList.del).data("grade_id", data.grade_id)
+                    Teacher.departmentList.count++
+                    if(json.event===0){
+                        $.post("./manage",{action:"departmentList"},Teacher.departmentList.modifyDep)
+                    }else{
+                        alert(json.msg)
+                    }
+                })
+            },
         }
     },
     /*专业*/
@@ -294,7 +353,31 @@ const Content = {
         id: "special_list",
         /* 列表*/
         list:{
-            insert: null,
+            //插入新的专业(专业名称，系名称)
+            insert: $("button-insert_spec").click(function () {
+                var department_name=$("#").val();
+                var specialty_name = $("#").val();
+                $.post("./superAdmin", {action: "insertSpec"}, function (data) {
+                    //返回给服务器的数据(data)
+                    const json = $.parseJSON(data);
+                    if (json.event == 3) {
+                        alert(json.msg);
+                    }
+                    const $specialty = $("#spec-body");
+                    $specialty.append('<tr data-id="' + data.specialty_id + '">\n' +
+                        '<th>' + data.department_id.department_name + '</th>\n' +
+                        '<th>' + data.specialty_name + '</th>\n' +
+                        '<th>\n' +
+                        '<button class="button-modify" data-id="' + data.specialty_id + '">修改</button>\n' +
+                        '<button class="button-del" data-id="' + data.specialty_id + '">删除</button>\n' +
+                        '</th>\n' +
+                        '</tr>')
+                    $(".button-modify").unbind("click").click(Teacher.specialtyList.modify).data("specialty_id", data.specialty_id)
+                    $(".button-del").unbind("click").click(Teacher.specialtyList.del).data("specialty_id", data.specialty_id)
+                    Teacher.specialtyList.count++
+                })
+            }),
+            //展示所有专业信息（专业名称，系名称）
             showAll: function () {
                 let count = 0
                 $.post("./manage",
@@ -304,10 +387,12 @@ const Content = {
                         $("#spec-body").html("")
                         let json = $.parseJSON(data);
                         let specialtys = json.specialtys;
+                        let departments=json.departments;
                         for (let i = 0; i < json.specialtys.length; i++) {
                             if (count % 2 === 0) {
                                 $("#spec-body").append(
                                     "<tr class='dual'>\n" +
+                                    "<th>" + departments[specialtys[i].department_id].department_name + "</th>\n" +
                                     "<th>" + specialtys[i].specialty_name + "</th>\n" +
                                     "<th>操作</th>\n" +
                                     "</tr>"
@@ -323,7 +408,45 @@ const Content = {
                             count++
                         }
                     })
-            }
+            },
+            // 删除专业信息(名称)
+            del : function () {
+                const id = $(this).data("id")
+                if (id!== undefined && confirm("是否删除该专业账号为：" + $(this).data("specialty_id") + "的信息？")) {
+                    $.post(".//superAdmin", {action: "delSpec", specialty_id: id}, function (data) {
+                        const json = $.parseJSON(data)
+                        if (json.event === 0) {
+                            $.post("./manage", {action: "specialtyList"}, Teacher.specialtyList.modifySpec)
+                        } else {
+                            alert(json.msg)
+                        }
+                    })
+                }
+            },
+            //更新专业信息(专业名称，系名称)
+            modify: function () {
+                const id=$(this).data("id")
+                $.post(".//superAdmin",{action:"mydifySpec",specialty_id: id},function (data){
+                    const json = $.parseJSON(data)
+                    $("#data-id").html("").append('<tr" data-id="' + data.specialty_id + '">\n' +
+                        '<th>' + json.department_id.department_name + '</th>\n' +
+                        '<th>' + json.specialty_name + '</th>\n' +
+                        '<th>\n' +
+                        '<button class="button-modify" data-id="' + json.specialty_id + '">更新</button>\n' +
+                        '<button class="button-del" data-id="' + json.specialty_id + '">删除</button>\n' +
+                        '</th>\n' +
+                        '</tr>')
+                    $(".button-modify").unbind("click").click(Teacher.specialtyList.modify).data("specialty_id", data.specialty_id)
+                    $(".button-del").unbind("click").click(Teacher.specialtyList.del).data("specialty_id", data.specialty_id)
+                    Teacher.specialtyList.count++
+                    if(json.event===0){
+                        $.post("./manage",{action:"specialtyList"},Teacher.specialtyList.modifySpec)
+                    }else{
+                        alert(json.msg)
+                    }
+                })
+            },
+
         }
 
     }
