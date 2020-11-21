@@ -1,6 +1,7 @@
 package com.tjrac.studentAffairs.web.ajax;
 
 import com.tjrac.studentAffairs.domain.config.Choose;
+import com.tjrac.studentAffairs.domain.student.Clazz;
 import com.tjrac.studentAffairs.domain.student.Direction;
 import com.tjrac.studentAffairs.domain.user.Student;
 import com.tjrac.studentAffairs.service.ExcelService;
@@ -301,6 +302,86 @@ public class Manage extends BaseServlet {
             resp.getWriter().write(teacherService.modifyChoose(session, chooseByGid));
         }
 
+    }
+
+    /**
+     * 新增班级
+     * 地址：/manage?action=addClass
+     */
+    public void addClass(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        TeacherService teacherService = (TeacherService) new TeacherServiceProxy(req.getSession(),
+                new TeacherServiceImpl()).getProxy();
+
+        String clazz_name = req.getParameter("clazz_name");
+        if (teacherService.selectClassByClassName(clazz_name) == null) {
+            Integer grade_id = Integer.getInteger(req.getParameter("grade_id"));
+            Integer specialty_id = Integer.getInteger(req.getParameter("specialty_id"));
+            Clazz clazz = new Clazz(clazz_name, specialty_id, grade_id);
+            resp.getWriter().write(teacherService.addClass(req.getSession(), clazz));
+        } else {
+            JsonPack jsonPack = new JsonPack();
+            jsonPack.put("event", 3);
+            jsonPack.put("msg", "班级已存在，加入失败");
+            resp.getWriter().write(jsonPack.toJson());
+        }
+    }
+
+    /**
+     * 修改班级信息
+     * 地址：/manage?action=updateClass
+     */
+    public void updateClass(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        TeacherService teacherService = (TeacherService) new TeacherServiceProxy(req.getSession(),
+                new TeacherServiceImpl()).getProxy();
+
+        Integer clazz_id = null;
+        Integer grade_id = null;
+        Integer specialty_id = null;
+        try {
+            clazz_id = Integer.parseInt(req.getParameter("clazz_id"));
+            specialty_id = Integer.parseInt(req.getParameter("specialty_id"));
+            grade_id = Integer.parseInt(req.getParameter("grade_id"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        String clazz_name = req.getParameter("clazz_name");
+
+        Clazz clazz = new Clazz(clazz_id, clazz_name, specialty_id, grade_id);
+
+        resp.getWriter().write(teacherService.modifyClass(req.getSession(), clazz));
+    }
+
+    /**
+     * 删除班级信息
+     * 地址：/manage?action=delClass
+     */
+    public void delClass(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        TeacherService teacherService = (TeacherService) new TeacherServiceProxy(req.getSession(),
+                new TeacherServiceImpl()).getProxy();
+
+        Integer clazz_id = null;
+        try {
+            clazz_id = Integer.parseInt(req.getParameter("clazz_id"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        Clazz clazz = new Clazz(clazz_id);
+
+        resp.getWriter().write(teacherService.delClass(req.getSession(), clazz));
+    }
+
+    /**
+     * 获取班级信息列表
+     * 地址：/manage?action=clazzList
+     */
+    public void clazzList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        TeacherService teacherService = (TeacherService) new TeacherServiceProxy(req.getSession(),
+                new TeacherServiceImpl()).getProxy();
+        resp.getWriter().write(teacherService.selectClass(req.getSession()));
     }
 
 }

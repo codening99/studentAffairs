@@ -25,6 +25,7 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
     ChooseDao chooseDao = new ChooseDaoImpl();
 
     BaseDao<Direction> directionDao = new BaseDao<>(Direction.class);
+    BaseDao<Clazz> clazzDao = new BaseDao<>(Clazz.class);
 
     /**
      * 增删查改 先检测是否拥有1(管理员权限)权限的账号进行
@@ -129,7 +130,7 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
     }
 
     /**
-     * 方向信息
+     * 方向
      */
     @Override
     public String addDirection(HttpSession session, Direction direction) {
@@ -196,6 +197,76 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
     @Override
     public Direction selectDirectionByDirectionName(String directionName) {
         return directionDao.query("direction_name", directionName);
+    }
+
+    /**
+     * 班级
+     */
+    @Override
+    public String addClass(HttpSession session, Clazz clazz) {
+        JsonPack json = new JsonPack();
+        int insert = clazzDao.insert(clazz);
+        if (insert == 1062) {
+            json.put("event", 2);
+            json.put("msg", "该班级已存在");
+        } else if (insert == 0) {
+            json.put("event", 0);
+            json.put("msg", "添加成功");
+        } else {
+            json.put("event", 3);
+            json.put("msg", "添加失败");
+        }
+        return json.toJson();
+    }
+
+    @Override
+    public String modifyClass(HttpSession session, Clazz clazz) {
+        JsonPack json = new JsonPack();
+        int modify = clazzDao.modify(clazz); //修改
+        if (modify == 404) {
+            json.put("event", 2);
+            json.put("msg", "没有该班级,无法修改");
+        } else if (modify == 0) {
+            json.put("event", 0);
+            json.put("msg", "修改成功");
+        } else {
+            json.put("event", 3);
+            json.put("msg", "修改失败");
+        }
+        return json.toJson();
+    }
+
+    @Override
+    public String delClass(HttpSession session, Clazz clazz) {
+        JsonPack json = new JsonPack();
+        int delete = clazzDao.delete(clazz);//删除该账户信息
+        if (delete == 0) {
+            json.put("event", 0);
+            json.put("msg", "删除成功");
+        } else if (delete == 404) {
+            json.put("event", 2);
+            json.put("msg", "没有找到班级信息，删除失败");
+        } else {
+            json.put("event", 3);
+            json.put("msg", "删除失败");
+        }
+        return json.toJson();
+    }
+
+    @Override
+    public String selectClass(HttpSession session) {
+        JsonPack json = new JsonPack();
+        List<Clazz> clazzs = clazzDao.queryList();
+
+        json.put("event", 0);
+        json.put("count", clazzs.size());
+        json.put("clazzs", clazzs);
+        return json.toJson();
+    }
+
+    @Override
+    public Clazz selectClassByClassName(String clazzName) {
+        return clazzDao.query("clazz_name", clazzName);
     }
 
     @Override

@@ -15,6 +15,10 @@ public class Clazz {
     public Clazz() {
     }
 
+    public Clazz(Integer clazz_id) {
+        this.clazz_id = clazz_id;
+    }
+
     public Clazz(String clazz_name, Integer specialty_id, Integer grade_id) {
         this.clazz_name = clazz_name;
         this.specialty_id = specialty_id;
