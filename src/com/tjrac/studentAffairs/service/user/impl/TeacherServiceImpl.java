@@ -1,6 +1,8 @@
 package com.tjrac.studentAffairs.service.user.impl;
 
 import com.tjrac.studentAffairs.dao.BaseDao;
+import com.tjrac.studentAffairs.dao.ChooseDao;
+import com.tjrac.studentAffairs.dao.impl.ChooseDaoImpl;
 import com.tjrac.studentAffairs.domain.student.*;
 import com.tjrac.studentAffairs.domain.user.Student;
 import com.tjrac.studentAffairs.service.impl.UserServiceImpl;
@@ -17,6 +19,9 @@ import java.util.List;
  * @create : 2020-10-23 17:40
  */
 public class TeacherServiceImpl extends UserServiceImpl implements TeacherService {
+
+    ChooseDao chooseDao = new ChooseDaoImpl();
+
     /**
      * 增删查改 先检测是否拥有1(管理员权限)权限的账号进行
      *
