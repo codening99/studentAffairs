@@ -298,14 +298,14 @@ public class SuperAdmin extends BaseServlet {
     }
 
     /**
-     * 删除老师信息
-     * 地址：/superAdmin?action=delTeacher
+     * 删除专业信息
+     * 地址：/superAdmin?action=delSpecialty
      */
-    public void delTeacher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void delSpecialty(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ManagerService managerService = (ManagerService) new ManagerServiceProxy(req.getSession(), new ManagerServiceImpl()).getProxy();
         Integer specialty_id = null;
         try {
-            specialty_id = Integer.valueOf(req.getParameter("specialty_id"));
+            specialty_id = Integer.parseInt(req.getParameter("specialty_id"));
         } catch (Exception e) {
             e.printStackTrace();
             return;

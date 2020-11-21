@@ -1,8 +1,5 @@
 package com.tjrac.studentAffairs.test;
 
-import com.tjrac.studentAffairs.dao.BaseDao;
-import com.tjrac.studentAffairs.domain.user.Student;
-
 /**
  * Mytest 测试类
  *

@@ -15,6 +15,10 @@ public class Direction {
     public Direction() {
     }
 
+    public Direction(Integer direction_id) {
+        this.direction_id = direction_id;
+    }
+
     public Direction(String direction_name, Integer grade_id, Integer specialty_id) {
         this.direction_name = direction_name;
         this.grade_id = grade_id;

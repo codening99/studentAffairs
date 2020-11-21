@@ -1,6 +1,6 @@
 package com.tjrac.studentAffairs.service.impl;
 
-import com.tjrac.studentAffairs.dao.BaseDao;
+import com.tjrac.studentAffairs.dao.basedao.BaseDao;
 import com.tjrac.studentAffairs.domain.user.Student;
 import com.tjrac.studentAffairs.domain.user.Teacher;
 import com.tjrac.studentAffairs.service.UserService;

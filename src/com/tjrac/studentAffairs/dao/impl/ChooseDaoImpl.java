@@ -1,6 +1,6 @@
 package com.tjrac.studentAffairs.dao.impl;
 
-import com.tjrac.studentAffairs.dao.BaseDao;
+import com.tjrac.studentAffairs.dao.basedao.BaseDao;
 import com.tjrac.studentAffairs.dao.ChooseDao;
 import com.tjrac.studentAffairs.domain.config.Choose;
 

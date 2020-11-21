@@ -1,6 +1,6 @@
 package com.tjrac.studentAffairs.utils.excel;
 
-import com.tjrac.studentAffairs.dao.BaseDao;
+import com.tjrac.studentAffairs.dao.basedao.BaseDao;
 import com.tjrac.studentAffairs.domain.admin.Export;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormat;

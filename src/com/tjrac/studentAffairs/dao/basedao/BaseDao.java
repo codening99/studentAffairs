@@ -1,4 +1,4 @@
-package com.tjrac.studentAffairs.dao;
+package com.tjrac.studentAffairs.dao.basedao;
 import com.tjrac.studentAffairs.utils.DBUtils;
 
 import java.lang.reflect.InvocationTargetException;
