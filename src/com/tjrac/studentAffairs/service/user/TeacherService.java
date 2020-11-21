@@ -1,5 +1,6 @@
 package com.tjrac.studentAffairs.service.user;
 
+import com.tjrac.studentAffairs.domain.config.Choose;
 import com.tjrac.studentAffairs.domain.student.Direction;
 import com.tjrac.studentAffairs.domain.user.Student;
 import com.tjrac.studentAffairs.service.UserService;
@@ -47,4 +48,11 @@ public interface TeacherService extends UserService {
     String selectDirection(HttpSession session);
 
     Direction selectDirectionByDirectionName(String directionName);
+
+    /**
+     * 查询选方向
+     */
+    Choose selectChooseByGid(HttpSession session, Integer gid);
+    String addChoose(HttpSession session, Choose choose);
+    String modifyChoose(HttpSession session, Choose choose);
 }

@@ -1,8 +1,9 @@
 package com.tjrac.studentAffairs.service.user.impl;
 
-import com.tjrac.studentAffairs.dao.basedao.BaseDao;
 import com.tjrac.studentAffairs.dao.ChooseDao;
+import com.tjrac.studentAffairs.dao.basedao.BaseDao;
 import com.tjrac.studentAffairs.dao.impl.ChooseDaoImpl;
+import com.tjrac.studentAffairs.domain.config.Choose;
 import com.tjrac.studentAffairs.domain.student.*;
 import com.tjrac.studentAffairs.domain.user.Student;
 import com.tjrac.studentAffairs.service.impl.UserServiceImpl;
@@ -171,7 +172,7 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
         if (delete == 0) {
             json.put("event", 0);
             json.put("msg", "删除成功");
-        } else if (delete == 404){
+        } else if (delete == 404) {
             json.put("event", 2);
             json.put("msg", "没有找到方向信息，删除失败");
         } else {
@@ -195,6 +196,41 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
     @Override
     public Direction selectDirectionByDirectionName(String directionName) {
         return directionDao.query("direction_name", directionName);
+    }
+
+    @Override
+    public Choose selectChooseByGid(HttpSession session, Integer gid) {
+        return chooseDao.queryChooseByGrade(gid);
+    }
+
+    @Override
+    public String addChoose(HttpSession session, Choose choose) {
+        JsonPack json = new JsonPack();
+        int insert = chooseDao.addChoose(choose);
+
+        if (insert == 0) {
+            json.put("event", 0);
+            json.put("msg", "开启成功");
+        } else {
+            json.put("event", 3);
+            json.put("msg", "开启失败");
+        }
+
+        return json.toJson();
+    }
+
+    @Override
+    public String modifyChoose(HttpSession session, Choose choose) {
+        JsonPack json = new JsonPack();
+        int modify = chooseDao.modifyChoose(choose);
+        if (modify == 0) {
+            json.put("event", 0);
+            json.put("msg", "修改成功");
+        } else {
+            json.put("event", 3);
+            json.put("msg", "修改失败");
+        }
+        return json.toJson();
     }
 
     @Test

@@ -9,5 +9,10 @@ import com.tjrac.studentAffairs.domain.config.Choose;
  * @create : 2020-11-21 15:52
  */
 public interface ChooseDao {
-    Choose queryByGrade(int gid);
+    Choose queryChooseByGrade(int gid);
+
+    int addChoose(Choose choose);
+
+    int modifyChoose(Choose choose);
+
 }

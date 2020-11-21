@@ -1,5 +1,6 @@
 package com.tjrac.studentAffairs.web.ajax;
 
+import com.tjrac.studentAffairs.domain.config.Choose;
 import com.tjrac.studentAffairs.domain.student.Direction;
 import com.tjrac.studentAffairs.domain.user.Student;
 import com.tjrac.studentAffairs.service.ExcelService;
@@ -16,10 +17,14 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
  * 管理教师和学生信息
+ *
+ * @author ZeNing
+ * @create 2020-10-23 20:15
  */
 @WebServlet("/manage")
 public class Manage extends BaseServlet {
@@ -238,6 +243,64 @@ public class Manage extends BaseServlet {
         Direction direction = new Direction(direction_id);
 
         resp.getWriter().write(teacherService.delDirection(req.getSession(), direction));
+    }
+
+    /**
+     * 查询选方向情况
+     * 地址：/manage?action=inquiryDirectionSelection
+     */
+    public void inquiryDirectionSelection(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        TeacherService teacherService = (TeacherService) new TeacherServiceProxy(req.getSession(),
+                new TeacherServiceImpl()).getProxy();
+        HttpSession session = req.getSession();
+        JsonPack json = new JsonPack();
+
+        int gid = Integer.parseInt(req.getParameter("gid"));
+        Choose chooseByGid = teacherService.selectChooseByGid(session, gid);
+
+        if (chooseByGid == null) { //没有开启选方向
+
+            json.put("event", 0);
+            json.put("msg", "未开启选方向");
+        } else {
+            Integer status = chooseByGid.getStatus();
+            if (status == 1) { //未过期
+                json.put("event", 1);
+                json.put("msg", "选方向开启中");
+            } else { //已过期
+                json.put("event", 0);
+                json.put("msg", "方向已过期");
+            }
+        }
+
+        resp.getWriter().write(json.toJson());
+    }
+
+    /**
+     * 开启选方向
+     * 地址：/manage?action=openDirectionSelection
+     */
+    public void openDirectionSelection(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        TeacherService teacherService = (TeacherService) new TeacherServiceProxy(req.getSession(),
+                new TeacherServiceImpl()).getProxy();
+        HttpSession session = req.getSession();
+
+        int gid = Integer.parseInt(req.getParameter("gid"));
+        Choose chooseByGid = teacherService.selectChooseByGid(session, gid); //查询该年级的选方向情况
+        String endtime = req.getParameter("endtime"); //获取结束时间戳
+        int grade_id = Integer.parseInt(req.getParameter("grade_id")); //获取开启选方向的年级
+
+        Choose createChoose = new Choose(endtime, 1, grade_id);
+
+        if (chooseByGid == null) { //没有开启过选方向
+            resp.getWriter().write(teacherService.addChoose(session, createChoose));
+        } else {
+            chooseByGid.setEndtime(endtime);
+            chooseByGid.setStatus(1);
+            resp.getWriter().write(teacherService.modifyChoose(session, chooseByGid));
+        }
+
     }
 
 }

@@ -38,7 +38,11 @@ public class TestMethod {
 
     @Test
     public void test() {
-        System.out.println(4%2);
+//        System.out.println(4%2);
+        long currentTimeMillis = System.currentTimeMillis();
+        int length = String.valueOf(currentTimeMillis).length();
+        System.out.print(length);
     }
+
 
 }
